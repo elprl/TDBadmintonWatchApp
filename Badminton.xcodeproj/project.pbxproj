@@ -1,0 +1,827 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DA079CD91BE15D74001D9B52 /* Badminton.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = DA079CD81BE15D74001D9B52 /* Badminton.entitlements */; };
+		DA24E7C51BDC60B400DEC986 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA24E7C41BDC60B400DEC986 /* AppDelegate.swift */; };
+		DA24E7C71BDC60B400DEC986 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA24E7C61BDC60B400DEC986 /* ViewController.swift */; };
+		DA24E7CA1BDC60B400DEC986 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA24E7C81BDC60B400DEC986 /* Main.storyboard */; };
+		DA24E7CC1BDC60B400DEC986 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA24E7CB1BDC60B400DEC986 /* Assets.xcassets */; };
+		DA24E7CF1BDC60B400DEC986 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA24E7CD1BDC60B400DEC986 /* LaunchScreen.storyboard */; };
+		DA24E7DA1BDC60B400DEC986 /* BadmintonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA24E7D91BDC60B400DEC986 /* BadmintonTests.swift */; };
+		DA24E7E51BDC60B400DEC986 /* BadmintonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA24E7E41BDC60B400DEC986 /* BadmintonUITests.swift */; };
+		DA24E7EA1BDC60B400DEC986 /* Badminton WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = DA24E7E91BDC60B400DEC986 /* Badminton WatchKit App.app */; };
+		DA24E7F01BDC60B400DEC986 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA24E7EE1BDC60B400DEC986 /* Interface.storyboard */; };
+		DA24E7F21BDC60B400DEC986 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA24E7F11BDC60B400DEC986 /* Assets.xcassets */; };
+		DA24E7F91BDC60B400DEC986 /* Badminton WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DA24E7F81BDC60B400DEC986 /* Badminton WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DA24E8001BDC60B400DEC986 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA24E7FF1BDC60B400DEC986 /* InterfaceController.swift */; };
+		DA24E8021BDC60B400DEC986 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA24E8011BDC60B400DEC986 /* ExtensionDelegate.swift */; };
+		DA24E8041BDC60B400DEC986 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA24E8031BDC60B400DEC986 /* NotificationController.swift */; };
+		DA24E8061BDC60B400DEC986 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA24E8051BDC60B400DEC986 /* Assets.xcassets */; };
+		DA7224F51BDD922400FE23AF /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA7224F41BDD922400FE23AF /* HealthKit.framework */; };
+		DAD4EA9A1BE6776300816B67 /* Settings-Watch.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DAD4EA991BE6776300816B67 /* Settings-Watch.bundle */; };
+		DAD4EA9C1BE6886B00816B67 /* TDWorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD4EA9B1BE6886B00816B67 /* TDWorkoutManager.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DA24E7D61BDC60B400DEC986 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA24E7B91BDC60B400DEC986 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA24E7C01BDC60B400DEC986;
+			remoteInfo = Badminton;
+		};
+		DA24E7E11BDC60B400DEC986 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA24E7B91BDC60B400DEC986 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA24E7C01BDC60B400DEC986;
+			remoteInfo = Badminton;
+		};
+		DA24E7EB1BDC60B400DEC986 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA24E7B91BDC60B400DEC986 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA24E7E81BDC60B400DEC986;
+			remoteInfo = "Badminton WatchKit App";
+		};
+		DA24E7FA1BDC60B400DEC986 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA24E7B91BDC60B400DEC986 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA24E7F71BDC60B400DEC986;
+			remoteInfo = "Badminton WatchKit Extension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DA24E80D1BDC60B400DEC986 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				DA24E7F91BDC60B400DEC986 /* Badminton WatchKit Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA24E8111BDC60B400DEC986 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				DA24E7EA1BDC60B400DEC986 /* Badminton WatchKit App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		DA079CD81BE15D74001D9B52 /* Badminton.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Badminton.entitlements; sourceTree = "<group>"; };
+		DA24E7C11BDC60B400DEC986 /* Badminton.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Badminton.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA24E7C41BDC60B400DEC986 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DA24E7C61BDC60B400DEC986 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DA24E7C91BDC60B400DEC986 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DA24E7CB1BDC60B400DEC986 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DA24E7CE1BDC60B400DEC986 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DA24E7D01BDC60B400DEC986 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA24E7D51BDC60B400DEC986 /* BadmintonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BadmintonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA24E7D91BDC60B400DEC986 /* BadmintonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadmintonTests.swift; sourceTree = "<group>"; };
+		DA24E7DB1BDC60B400DEC986 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA24E7E01BDC60B400DEC986 /* BadmintonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BadmintonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA24E7E41BDC60B400DEC986 /* BadmintonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadmintonUITests.swift; sourceTree = "<group>"; };
+		DA24E7E61BDC60B400DEC986 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA24E7E91BDC60B400DEC986 /* Badminton WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Badminton WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA24E7EF1BDC60B400DEC986 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		DA24E7F11BDC60B400DEC986 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DA24E7F31BDC60B400DEC986 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA24E7F81BDC60B400DEC986 /* Badminton WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Badminton WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA24E7FE1BDC60B400DEC986 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		DA24E7FF1BDC60B400DEC986 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		DA24E8011BDC60B400DEC986 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		DA24E8031BDC60B400DEC986 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		DA24E8051BDC60B400DEC986 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DA24E8071BDC60B400DEC986 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA7224F41BDD922400FE23AF /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		DA7224F61BDD939200FE23AF /* Badminton.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Badminton.entitlements; sourceTree = "<group>"; };
+		DAD4EA991BE6776300816B67 /* Settings-Watch.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "Settings-Watch.bundle"; sourceTree = "<group>"; };
+		DAD4EA9B1BE6886B00816B67 /* TDWorkoutManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDWorkoutManager.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DA24E7BE1BDC60B400DEC986 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA7224F51BDD922400FE23AF /* HealthKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA24E7D21BDC60B400DEC986 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA24E7DD1BDC60B400DEC986 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA24E7F51BDC60B400DEC986 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DA24E7B81BDC60B400DEC986 = {
+			isa = PBXGroup;
+			children = (
+				DA7224F41BDD922400FE23AF /* HealthKit.framework */,
+				DA24E7C31BDC60B400DEC986 /* Badminton */,
+				DA24E7D81BDC60B400DEC986 /* BadmintonTests */,
+				DA24E7E31BDC60B400DEC986 /* BadmintonUITests */,
+				DA24E7ED1BDC60B400DEC986 /* Badminton WatchKit App */,
+				DA24E7FC1BDC60B400DEC986 /* Badminton WatchKit Extension */,
+				DA24E7C21BDC60B400DEC986 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DA24E7C21BDC60B400DEC986 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DA24E7C11BDC60B400DEC986 /* Badminton.app */,
+				DA24E7D51BDC60B400DEC986 /* BadmintonTests.xctest */,
+				DA24E7E01BDC60B400DEC986 /* BadmintonUITests.xctest */,
+				DA24E7E91BDC60B400DEC986 /* Badminton WatchKit App.app */,
+				DA24E7F81BDC60B400DEC986 /* Badminton WatchKit Extension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DA24E7C31BDC60B400DEC986 /* Badminton */ = {
+			isa = PBXGroup;
+			children = (
+				DA7224F61BDD939200FE23AF /* Badminton.entitlements */,
+				DA24E7C41BDC60B400DEC986 /* AppDelegate.swift */,
+				DA24E7C61BDC60B400DEC986 /* ViewController.swift */,
+				DA24E7C81BDC60B400DEC986 /* Main.storyboard */,
+				DA24E7CB1BDC60B400DEC986 /* Assets.xcassets */,
+				DA24E7CD1BDC60B400DEC986 /* LaunchScreen.storyboard */,
+				DA24E7D01BDC60B400DEC986 /* Info.plist */,
+				DAD4EA991BE6776300816B67 /* Settings-Watch.bundle */,
+			);
+			path = Badminton;
+			sourceTree = "<group>";
+		};
+		DA24E7D81BDC60B400DEC986 /* BadmintonTests */ = {
+			isa = PBXGroup;
+			children = (
+				DA24E7D91BDC60B400DEC986 /* BadmintonTests.swift */,
+				DA24E7DB1BDC60B400DEC986 /* Info.plist */,
+			);
+			path = BadmintonTests;
+			sourceTree = "<group>";
+		};
+		DA24E7E31BDC60B400DEC986 /* BadmintonUITests */ = {
+			isa = PBXGroup;
+			children = (
+				DA24E7E41BDC60B400DEC986 /* BadmintonUITests.swift */,
+				DA24E7E61BDC60B400DEC986 /* Info.plist */,
+			);
+			path = BadmintonUITests;
+			sourceTree = "<group>";
+		};
+		DA24E7ED1BDC60B400DEC986 /* Badminton WatchKit App */ = {
+			isa = PBXGroup;
+			children = (
+				DA079CD81BE15D74001D9B52 /* Badminton.entitlements */,
+				DA24E7EE1BDC60B400DEC986 /* Interface.storyboard */,
+				DA24E7F11BDC60B400DEC986 /* Assets.xcassets */,
+				DA24E7F31BDC60B400DEC986 /* Info.plist */,
+			);
+			path = "Badminton WatchKit App";
+			sourceTree = "<group>";
+		};
+		DA24E7FC1BDC60B400DEC986 /* Badminton WatchKit Extension */ = {
+			isa = PBXGroup;
+			children = (
+				DAD4EA9B1BE6886B00816B67 /* TDWorkoutManager.swift */,
+				DA24E7FF1BDC60B400DEC986 /* InterfaceController.swift */,
+				DA24E8011BDC60B400DEC986 /* ExtensionDelegate.swift */,
+				DA24E8031BDC60B400DEC986 /* NotificationController.swift */,
+				DA24E8051BDC60B400DEC986 /* Assets.xcassets */,
+				DA24E8071BDC60B400DEC986 /* Info.plist */,
+				DA24E7FD1BDC60B400DEC986 /* Supporting Files */,
+			);
+			path = "Badminton WatchKit Extension";
+			sourceTree = "<group>";
+		};
+		DA24E7FD1BDC60B400DEC986 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DA24E7FE1BDC60B400DEC986 /* PushNotificationPayload.apns */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DA24E7C01BDC60B400DEC986 /* Badminton */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA24E8121BDC60B400DEC986 /* Build configuration list for PBXNativeTarget "Badminton" */;
+			buildPhases = (
+				DA24E7BD1BDC60B400DEC986 /* Sources */,
+				DA24E7BE1BDC60B400DEC986 /* Frameworks */,
+				DA24E7BF1BDC60B400DEC986 /* Resources */,
+				DA24E8111BDC60B400DEC986 /* Embed Watch Content */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DA24E7EC1BDC60B400DEC986 /* PBXTargetDependency */,
+			);
+			name = Badminton;
+			productName = Badminton;
+			productReference = DA24E7C11BDC60B400DEC986 /* Badminton.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DA24E7D41BDC60B400DEC986 /* BadmintonTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA24E8151BDC60B400DEC986 /* Build configuration list for PBXNativeTarget "BadmintonTests" */;
+			buildPhases = (
+				DA24E7D11BDC60B400DEC986 /* Sources */,
+				DA24E7D21BDC60B400DEC986 /* Frameworks */,
+				DA24E7D31BDC60B400DEC986 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DA24E7D71BDC60B400DEC986 /* PBXTargetDependency */,
+			);
+			name = BadmintonTests;
+			productName = BadmintonTests;
+			productReference = DA24E7D51BDC60B400DEC986 /* BadmintonTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		DA24E7DF1BDC60B400DEC986 /* BadmintonUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA24E8181BDC60B400DEC986 /* Build configuration list for PBXNativeTarget "BadmintonUITests" */;
+			buildPhases = (
+				DA24E7DC1BDC60B400DEC986 /* Sources */,
+				DA24E7DD1BDC60B400DEC986 /* Frameworks */,
+				DA24E7DE1BDC60B400DEC986 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DA24E7E21BDC60B400DEC986 /* PBXTargetDependency */,
+			);
+			name = BadmintonUITests;
+			productName = BadmintonUITests;
+			productReference = DA24E7E01BDC60B400DEC986 /* BadmintonUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		DA24E7E81BDC60B400DEC986 /* Badminton WatchKit App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA24E80E1BDC60B400DEC986 /* Build configuration list for PBXNativeTarget "Badminton WatchKit App" */;
+			buildPhases = (
+				DA24E7E71BDC60B400DEC986 /* Resources */,
+				DA24E80D1BDC60B400DEC986 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DA24E7FB1BDC60B400DEC986 /* PBXTargetDependency */,
+			);
+			name = "Badminton WatchKit App";
+			productName = "Badminton WatchKit App";
+			productReference = DA24E7E91BDC60B400DEC986 /* Badminton WatchKit App.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		DA24E7F71BDC60B400DEC986 /* Badminton WatchKit Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA24E80A1BDC60B400DEC986 /* Build configuration list for PBXNativeTarget "Badminton WatchKit Extension" */;
+			buildPhases = (
+				DA24E7F41BDC60B400DEC986 /* Sources */,
+				DA24E7F51BDC60B400DEC986 /* Frameworks */,
+				DA24E7F61BDC60B400DEC986 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Badminton WatchKit Extension";
+			productName = "Badminton WatchKit Extension";
+			productReference = DA24E7F81BDC60B400DEC986 /* Badminton WatchKit Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DA24E7B91BDC60B400DEC986 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0710;
+				LastUpgradeCheck = 0710;
+				ORGANIZATIONNAME = "TapDigital Ltd";
+				TargetAttributes = {
+					DA24E7C01BDC60B400DEC986 = {
+						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = WY258SLJLV;
+						SystemCapabilities = {
+							com.apple.HealthKit = {
+								enabled = 1;
+							};
+						};
+					};
+					DA24E7D41BDC60B400DEC986 = {
+						CreatedOnToolsVersion = 7.1;
+						TestTargetID = DA24E7C01BDC60B400DEC986;
+					};
+					DA24E7DF1BDC60B400DEC986 = {
+						CreatedOnToolsVersion = 7.1;
+						TestTargetID = DA24E7C01BDC60B400DEC986;
+					};
+					DA24E7E81BDC60B400DEC986 = {
+						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = WY258SLJLV;
+					};
+					DA24E7F71BDC60B400DEC986 = {
+						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = WY258SLJLV;
+					};
+				};
+			};
+			buildConfigurationList = DA24E7BC1BDC60B400DEC986 /* Build configuration list for PBXProject "Badminton" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DA24E7B81BDC60B400DEC986;
+			productRefGroup = DA24E7C21BDC60B400DEC986 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DA24E7C01BDC60B400DEC986 /* Badminton */,
+				DA24E7D41BDC60B400DEC986 /* BadmintonTests */,
+				DA24E7DF1BDC60B400DEC986 /* BadmintonUITests */,
+				DA24E7E81BDC60B400DEC986 /* Badminton WatchKit App */,
+				DA24E7F71BDC60B400DEC986 /* Badminton WatchKit Extension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DA24E7BF1BDC60B400DEC986 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA24E7CF1BDC60B400DEC986 /* LaunchScreen.storyboard in Resources */,
+				DA24E7CC1BDC60B400DEC986 /* Assets.xcassets in Resources */,
+				DAD4EA9A1BE6776300816B67 /* Settings-Watch.bundle in Resources */,
+				DA24E7CA1BDC60B400DEC986 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA24E7D31BDC60B400DEC986 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA24E7DE1BDC60B400DEC986 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA24E7E71BDC60B400DEC986 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA24E7F21BDC60B400DEC986 /* Assets.xcassets in Resources */,
+				DA24E7F01BDC60B400DEC986 /* Interface.storyboard in Resources */,
+				DA079CD91BE15D74001D9B52 /* Badminton.entitlements in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA24E7F61BDC60B400DEC986 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA24E8061BDC60B400DEC986 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DA24E7BD1BDC60B400DEC986 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA24E7C71BDC60B400DEC986 /* ViewController.swift in Sources */,
+				DA24E7C51BDC60B400DEC986 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA24E7D11BDC60B400DEC986 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA24E7DA1BDC60B400DEC986 /* BadmintonTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA24E7DC1BDC60B400DEC986 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA24E7E51BDC60B400DEC986 /* BadmintonUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA24E7F41BDC60B400DEC986 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAD4EA9C1BE6886B00816B67 /* TDWorkoutManager.swift in Sources */,
+				DA24E8041BDC60B400DEC986 /* NotificationController.swift in Sources */,
+				DA24E8021BDC60B400DEC986 /* ExtensionDelegate.swift in Sources */,
+				DA24E8001BDC60B400DEC986 /* InterfaceController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DA24E7D71BDC60B400DEC986 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA24E7C01BDC60B400DEC986 /* Badminton */;
+			targetProxy = DA24E7D61BDC60B400DEC986 /* PBXContainerItemProxy */;
+		};
+		DA24E7E21BDC60B400DEC986 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA24E7C01BDC60B400DEC986 /* Badminton */;
+			targetProxy = DA24E7E11BDC60B400DEC986 /* PBXContainerItemProxy */;
+		};
+		DA24E7EC1BDC60B400DEC986 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA24E7E81BDC60B400DEC986 /* Badminton WatchKit App */;
+			targetProxy = DA24E7EB1BDC60B400DEC986 /* PBXContainerItemProxy */;
+		};
+		DA24E7FB1BDC60B400DEC986 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA24E7F71BDC60B400DEC986 /* Badminton WatchKit Extension */;
+			targetProxy = DA24E7FA1BDC60B400DEC986 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DA24E7C81BDC60B400DEC986 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DA24E7C91BDC60B400DEC986 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		DA24E7CD1BDC60B400DEC986 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DA24E7CE1BDC60B400DEC986 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		DA24E7EE1BDC60B400DEC986 /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DA24E7EF1BDC60B400DEC986 /* Base */,
+			);
+			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DA24E8081BDC60B400DEC986 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DA24E8091BDC60B400DEC986 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DA24E80B1BDC60B400DEC986 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				INFOPLIST_FILE = "Badminton WatchKit Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.TapDigital.Badminton.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
+		DA24E80C1BDC60B400DEC986 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				INFOPLIST_FILE = "Badminton WatchKit Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.TapDigital.Badminton.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
+		DA24E80F1BDC60B400DEC986 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Badminton/Badminton.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				IBSC_MODULE = Badminton_WatchKit_Extension;
+				INFOPLIST_FILE = "Badminton WatchKit App/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.TapDigital.Badminton.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "f9551513-5176-4d79-9531-fa82a3a437e1";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
+		DA24E8101BDC60B400DEC986 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Badminton/Badminton.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				IBSC_MODULE = Badminton_WatchKit_Extension;
+				INFOPLIST_FILE = "Badminton WatchKit App/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.TapDigital.Badminton.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "f9551513-5176-4d79-9531-fa82a3a437e1";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
+		DA24E8131BDC60B400DEC986 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Badminton/Badminton.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer: Paul Leo (75HQRE3TM6)";
+				INFOPLIST_FILE = Badminton/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.TapDigital.Badminton;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Debug;
+		};
+		DA24E8141BDC60B400DEC986 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Badminton/Badminton.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer: Paul Leo (75HQRE3TM6)";
+				INFOPLIST_FILE = Badminton/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.TapDigital.Badminton;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Release;
+		};
+		DA24E8161BDC60B400DEC986 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = BadmintonTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.TapDigital.BadmintonTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Badminton.app/Badminton";
+			};
+			name = Debug;
+		};
+		DA24E8171BDC60B400DEC986 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = BadmintonTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.TapDigital.BadmintonTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Badminton.app/Badminton";
+			};
+			name = Release;
+		};
+		DA24E8191BDC60B400DEC986 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = BadmintonUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.TapDigital.BadmintonUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Badminton;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		DA24E81A1BDC60B400DEC986 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = BadmintonUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.TapDigital.BadmintonUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Badminton;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DA24E7BC1BDC60B400DEC986 /* Build configuration list for PBXProject "Badminton" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA24E8081BDC60B400DEC986 /* Debug */,
+				DA24E8091BDC60B400DEC986 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA24E80A1BDC60B400DEC986 /* Build configuration list for PBXNativeTarget "Badminton WatchKit Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA24E80B1BDC60B400DEC986 /* Debug */,
+				DA24E80C1BDC60B400DEC986 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA24E80E1BDC60B400DEC986 /* Build configuration list for PBXNativeTarget "Badminton WatchKit App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA24E80F1BDC60B400DEC986 /* Debug */,
+				DA24E8101BDC60B400DEC986 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA24E8121BDC60B400DEC986 /* Build configuration list for PBXNativeTarget "Badminton" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA24E8131BDC60B400DEC986 /* Debug */,
+				DA24E8141BDC60B400DEC986 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA24E8151BDC60B400DEC986 /* Build configuration list for PBXNativeTarget "BadmintonTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA24E8161BDC60B400DEC986 /* Debug */,
+				DA24E8171BDC60B400DEC986 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA24E8181BDC60B400DEC986 /* Build configuration list for PBXNativeTarget "BadmintonUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA24E8191BDC60B400DEC986 /* Debug */,
+				DA24E81A1BDC60B400DEC986 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DA24E7B91BDC60B400DEC986 /* Project object */;
+}
