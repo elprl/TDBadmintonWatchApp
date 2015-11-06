@@ -39,9 +39,11 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
     var currentState = TDState.ReadyToBegin
     
     let healthStore = HKHealthStore()
+    private let _userDefaults = NSUserDefaults.standardUserDefaults()
     
     var sessionContext: TDWorkoutSessionContext?
     var workoutManager : TDWorkoutSessionManager?
+    var isAuthorized = false
     
     private var _timer: NSTimer?
 //    private var _ticks: Double = 0.0
@@ -70,7 +72,7 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
             return
         }
         
-        guard let eneryType = HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierActiveEnergyBurned) else {
+        guard let energyType = HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierActiveEnergyBurned) else {
             displayNotAllowed()
             return
         }
@@ -80,21 +82,26 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
             return
         }
         
-        let typesToShare = Set([HKObjectType.workoutType()])        
-        let dataTypes = Set([heartRateType,stepType,eneryType,distanceType])
+        let typesToShare = Set([HKObjectType.workoutType(),heartRateType,stepType,energyType,distanceType])
+        let dataTypes = Set([heartRateType,stepType,energyType,distanceType])
         healthStore.requestAuthorizationToShareTypes(typesToShare, readTypes: dataTypes) { (success, error) -> Void in
             if success {
-
+                self.isAuthorized = true
             } else {
+                self.isAuthorized = false
                 self.displayNotAllowed()
             }
+            
+            self.resetMenuItems()
             
             if error != nil {
                 print(error?.localizedDescription)
             }
         }
 
-        resetMenuItems()
+        if self._timer == nil && self.currentState == .Started {
+            self._timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("timerTick"), userInfo: nil, repeats: true)
+        }
     }
 
     override func didDeactivate() {
@@ -108,17 +115,19 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
     func resetMenuItems() {
         self.clearAllMenuItems()
         self.addMenuItemWithItemIcon(WKMenuItemIcon.Repeat, title: "Reset Score", action: Selector("resetMenuPressed"))
-        switch currentState {
-        case .ReadyToBegin:
-            self.addMenuItemWithItemIcon(WKMenuItemIcon.Play, title: "Start", action: Selector("startBtnPressed"))
-            break
-        case .Started:
-            self.addMenuItemWithItemIcon(WKMenuItemIcon.Decline, title: "End", action: Selector("endBtnPressed"))
-            break
-        case .Ended:
-            self.addMenuItemWithItemIcon(WKMenuItemIcon.Play, title: "Start", action: Selector("startBtnPressed"))
-            break
-            
+        if isAuthorized {
+            switch currentState {
+            case .ReadyToBegin:
+                self.addMenuItemWithItemIcon(WKMenuItemIcon.Play, title: "Start", action: Selector("startBtnPressed"))
+                break
+            case .Started:
+                self.addMenuItemWithItemIcon(WKMenuItemIcon.Decline, title: "End", action: Selector("endBtnPressed"))
+                break
+            case .Ended:
+                self.addMenuItemWithItemIcon(WKMenuItemIcon.Play, title: "Start", action: Selector("startBtnPressed"))
+                break
+                
+            }
         }
     }
     
@@ -143,6 +152,7 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
         workoutManager?.stopWorkoutAndSave()
         currentState = .ReadyToBegin
         stateLbl.setText("Ready")
+        heartRateLbl.setText("---")
 
         resetMenuItems()
         
@@ -299,8 +309,8 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
     }
     
     func hideSaveSet() {
-        myPlusBtn.setBackgroundImageNamed("cockUpBtn")
-        themPlusBtn.setBackgroundImageNamed("cockUpBtn")
+        myPlusBtn.setBackgroundImageNamed("plusBtn")
+        themPlusBtn.setBackgroundImageNamed("plusBtn")
         
         isMySaveActive = false
         isThemSaveActive = false
@@ -348,6 +358,7 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
     
     func displayNotAllowed() {
         heartRateLbl.setText("n/a")
+        stateLbl.setText("Not authorised")
     }
     
     
@@ -388,11 +399,17 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
     func workoutSessionManager(workoutSessionManager: TDWorkoutSessionManager, didStartWorkoutWithDate startDate: NSDate) {
         currentState = .Started
         resetMenuItems()
+        _userDefaults.setDouble(startDate.timeIntervalSince1970, forKey: "workoutStartDate")
     }
     
     func workoutSessionManager(workoutSessionManager: TDWorkoutSessionManager, didStopWorkoutWithDate endDate: NSDate) {
         currentState = .ReadyToBegin
         resetMenuItems()
+        _userDefaults.setDouble(endDate.timeIntervalSince1970, forKey: "workoutEndDate")
+        
+        let userInfo : [String: AnyObject] = ["workoutStartDate": workoutSessionManager.workoutStartDate!, "workoutEndDate": endDate, "score": overallScore]
+        let myDelegate = WKExtension.sharedExtension().delegate as! ExtensionDelegate
+        myDelegate.session.transferUserInfo(userInfo)
     }
     
     func workoutSessionManager(workoutSessionManager: TDWorkoutSessionManager, didUpdateEnergyQuantity energyQuantity: HKQuantity) {
@@ -411,11 +428,7 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
         let value = heartRateSample.quantity.doubleValueForUnit(self.workoutManager!.countPerMinuteUnit)
         self.heartRateLbl.setText(String(UInt16(value)))
         self.animateHeart()
-        
-        timerTick()
-        
-        if _timer == nil {
-            _timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("timerTick"), userInfo: nil, repeats: true)
-        }
     }
+    
+    // MARK: 
 }

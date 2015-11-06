@@ -8,16 +8,24 @@
 
 import UIKit
 import HealthKit
+import WatchConnectivity
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
 
     var window: UIWindow?
     let healthStore = HKHealthStore()
+    var session: WCSession!
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        session = WCSession.defaultSession()
+        session.delegate = self
+        
+        if WCSession.isSupported() {
+            session.activateSession()
+        }
+        
         return true
     }
 
@@ -50,7 +58,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
         }
     }
+    
+    // MARK: WCSessionDelegate
+    
+    func session(session: WCSession, didReceiveUserInfo userInfo: [String : AnyObject]) {
+        NSLog("didReceiveUserInfo in AppDelegate")
+        NSNotificationCenter.defaultCenter().postNotificationName("didReceiveUserInfo", object:nil, userInfo: userInfo)
+    }
 
+    func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
+        NSLog("didReceiveApplicationContext in AppDelegate")
+    }
 
 }
 

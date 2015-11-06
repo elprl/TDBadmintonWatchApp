@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		378203F3FCE15BF63FC4E3B0 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACC7C36D8AA194BEC20B8882 /* Pods.framework */; };
 		DA079CD91BE15D74001D9B52 /* Badminton.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = DA079CD81BE15D74001D9B52 /* Badminton.entitlements */; };
 		DA24E7C51BDC60B400DEC986 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA24E7C41BDC60B400DEC986 /* AppDelegate.swift */; };
-		DA24E7C71BDC60B400DEC986 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA24E7C61BDC60B400DEC986 /* ViewController.swift */; };
+		DA24E7C71BDC60B400DEC986 /* TDWorkoutListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA24E7C61BDC60B400DEC986 /* TDWorkoutListVC.swift */; };
 		DA24E7CA1BDC60B400DEC986 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA24E7C81BDC60B400DEC986 /* Main.storyboard */; };
 		DA24E7CC1BDC60B400DEC986 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA24E7CB1BDC60B400DEC986 /* Assets.xcassets */; };
 		DA24E7CF1BDC60B400DEC986 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA24E7CD1BDC60B400DEC986 /* LaunchScreen.storyboard */; };
@@ -24,6 +25,8 @@
 		DA24E8041BDC60B400DEC986 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA24E8031BDC60B400DEC986 /* NotificationController.swift */; };
 		DA24E8061BDC60B400DEC986 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA24E8051BDC60B400DEC986 /* Assets.xcassets */; };
 		DA7224F51BDD922400FE23AF /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA7224F41BDD922400FE23AF /* HealthKit.framework */; };
+		DAC5E8B41BEBFD00003126CC /* TDGraphVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC5E8B31BEBFD00003126CC /* TDGraphVC.swift */; };
+		DAC85EB71BEBF48B00E0326D /* TDWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC85EB61BEBF48B00E0326D /* TDWorkout.swift */; };
 		DAD4EA9A1BE6776300816B67 /* Settings-Watch.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DAD4EA991BE6776300816B67 /* Settings-Watch.bundle */; };
 		DAD4EA9C1BE6886B00816B67 /* TDWorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD4EA9B1BE6886B00816B67 /* TDWorkoutManager.swift */; };
 /* End PBXBuildFile section */
@@ -85,10 +88,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1F595A648CD1129B4C13C5D6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		9535C74F6BB88E454AF220BB /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		ACC7C36D8AA194BEC20B8882 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA079CD81BE15D74001D9B52 /* Badminton.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Badminton.entitlements; sourceTree = "<group>"; };
 		DA24E7C11BDC60B400DEC986 /* Badminton.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Badminton.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA24E7C41BDC60B400DEC986 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DA24E7C61BDC60B400DEC986 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DA24E7C61BDC60B400DEC986 /* TDWorkoutListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TDWorkoutListVC.swift; sourceTree = "<group>"; };
 		DA24E7C91BDC60B400DEC986 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DA24E7CB1BDC60B400DEC986 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA24E7CE1BDC60B400DEC986 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -112,6 +118,9 @@
 		DA24E8071BDC60B400DEC986 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DA7224F41BDD922400FE23AF /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		DA7224F61BDD939200FE23AF /* Badminton.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Badminton.entitlements; sourceTree = "<group>"; };
+		DAC5E8B21BEBFB8B003126CC /* Badminton-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Badminton-Bridging-Header.h"; path = "Badminton/Badminton-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
+		DAC5E8B31BEBFD00003126CC /* TDGraphVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDGraphVC.swift; sourceTree = "<group>"; };
+		DAC85EB61BEBF48B00E0326D /* TDWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDWorkout.swift; sourceTree = "<group>"; };
 		DAD4EA991BE6776300816B67 /* Settings-Watch.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "Settings-Watch.bundle"; sourceTree = "<group>"; };
 		DAD4EA9B1BE6886B00816B67 /* TDWorkoutManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDWorkoutManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -122,6 +131,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA7224F51BDD922400FE23AF /* HealthKit.framework in Frameworks */,
+				378203F3FCE15BF63FC4E3B0 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,6 +159,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		826CA836C6347B781AD36341 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9535C74F6BB88E454AF220BB /* Pods.debug.xcconfig */,
+				1F595A648CD1129B4C13C5D6 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		C5AC6114CB3A1A2A4BDBC5B0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				ACC7C36D8AA194BEC20B8882 /* Pods.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		DA24E7B81BDC60B400DEC986 = {
 			isa = PBXGroup;
 			children = (
@@ -159,6 +186,8 @@
 				DA24E7ED1BDC60B400DEC986 /* Badminton WatchKit App */,
 				DA24E7FC1BDC60B400DEC986 /* Badminton WatchKit Extension */,
 				DA24E7C21BDC60B400DEC986 /* Products */,
+				826CA836C6347B781AD36341 /* Pods */,
+				C5AC6114CB3A1A2A4BDBC5B0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -177,14 +206,11 @@
 		DA24E7C31BDC60B400DEC986 /* Badminton */ = {
 			isa = PBXGroup;
 			children = (
-				DA7224F61BDD939200FE23AF /* Badminton.entitlements */,
 				DA24E7C41BDC60B400DEC986 /* AppDelegate.swift */,
-				DA24E7C61BDC60B400DEC986 /* ViewController.swift */,
-				DA24E7C81BDC60B400DEC986 /* Main.storyboard */,
-				DA24E7CB1BDC60B400DEC986 /* Assets.xcassets */,
-				DA24E7CD1BDC60B400DEC986 /* LaunchScreen.storyboard */,
-				DA24E7D01BDC60B400DEC986 /* Info.plist */,
-				DAD4EA991BE6776300816B67 /* Settings-Watch.bundle */,
+				DAC5E8BB1BEBFD56003126CC /* View */,
+				DAC5E8BA1BEBFD4D003126CC /* Controller */,
+				DAC5E8B91BEBFD45003126CC /* Model */,
+				DAC5E8B81BEBFD12003126CC /* Support Files */,
 			);
 			path = Badminton;
 			sourceTree = "<group>";
@@ -240,6 +266,44 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		DAC5E8B81BEBFD12003126CC /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				DA7224F61BDD939200FE23AF /* Badminton.entitlements */,
+				DAC5E8B21BEBFB8B003126CC /* Badminton-Bridging-Header.h */,
+				DA24E7CB1BDC60B400DEC986 /* Assets.xcassets */,
+				DA24E7CD1BDC60B400DEC986 /* LaunchScreen.storyboard */,
+				DA24E7D01BDC60B400DEC986 /* Info.plist */,
+				DAD4EA991BE6776300816B67 /* Settings-Watch.bundle */,
+			);
+			name = "Support Files";
+			sourceTree = "<group>";
+		};
+		DAC5E8B91BEBFD45003126CC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DAC85EB61BEBF48B00E0326D /* TDWorkout.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		DAC5E8BA1BEBFD4D003126CC /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				DA24E7C61BDC60B400DEC986 /* TDWorkoutListVC.swift */,
+				DAC5E8B31BEBFD00003126CC /* TDGraphVC.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		DAC5E8BB1BEBFD56003126CC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DA24E7C81BDC60B400DEC986 /* Main.storyboard */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -247,10 +311,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DA24E8121BDC60B400DEC986 /* Build configuration list for PBXNativeTarget "Badminton" */;
 			buildPhases = (
+				2EB71F53CB823967AA908598 /* Check Pods Manifest.lock */,
 				DA24E7BD1BDC60B400DEC986 /* Sources */,
 				DA24E7BE1BDC60B400DEC986 /* Frameworks */,
 				DA24E7BF1BDC60B400DEC986 /* Resources */,
 				DA24E8111BDC60B400DEC986 /* Embed Watch Content */,
+				3231B419492A9FB3B028080B /* Embed Pods Frameworks */,
+				FD570459DC2B8B209CFD588B /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -437,13 +504,63 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2EB71F53CB823967AA908598 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		3231B419492A9FB3B028080B /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FD570459DC2B8B209CFD588B /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		DA24E7BD1BDC60B400DEC986 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA24E7C71BDC60B400DEC986 /* ViewController.swift in Sources */,
+				DA24E7C71BDC60B400DEC986 /* TDWorkoutListVC.swift in Sources */,
+				DAC5E8B41BEBFD00003126CC /* TDGraphVC.swift in Sources */,
 				DA24E7C51BDC60B400DEC986 /* AppDelegate.swift in Sources */,
+				DAC85EB71BEBF48B00E0326D /* TDWorkout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -686,33 +803,40 @@
 		};
 		DA24E8131BDC60B400DEC986 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9535C74F6BB88E454AF220BB /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Badminton/Badminton.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Paul Leo (75HQRE3TM6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Paul Leo (75HQRE3TM6)";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer: Paul Leo (75HQRE3TM6)";
 				INFOPLIST_FILE = Badminton/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.TapDigital.Badminton;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "6f5fca70-d48b-4fde-8d6f-418893e66fe4";
+				SWIFT_OBJC_BRIDGING_HEADER = "Badminton/Badminton-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		DA24E8141BDC60B400DEC986 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1F595A648CD1129B4C13C5D6 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Badminton/Badminton.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Paul Leo (75HQRE3TM6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Paul Leo (75HQRE3TM6)";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer: Paul Leo (75HQRE3TM6)";
 				INFOPLIST_FILE = Badminton/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.TapDigital.Badminton;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "6f5fca70-d48b-4fde-8d6f-418893e66fe4";
+				SWIFT_OBJC_BRIDGING_HEADER = "Badminton/Badminton-Bridging-Header.h";
 			};
 			name = Release;
 		};

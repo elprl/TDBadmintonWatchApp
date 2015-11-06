@@ -8,6 +8,7 @@
 
 import Foundation
 import HealthKit
+import WatchKit
 
 class TDWorkoutSessionContext {
     let healthStore : HKHealthStore
@@ -33,7 +34,7 @@ protocol TDWorkoutSessionManagerDelegate: class {
 
 class TDWorkoutSessionManager: NSObject, HKWorkoutSessionDelegate {
     let healthStore : HKHealthStore
-    let workoutSession: HKWorkoutSession
+    var workoutSession: HKWorkoutSession
     
     var workoutStartDate: NSDate?
     var workoutEndDate: NSDate?
@@ -85,19 +86,22 @@ class TDWorkoutSessionManager: NSObject, HKWorkoutSessionDelegate {
     }
     
     var currentHeartRateSample: HKQuantitySample?
+    let sessionContext : TDWorkoutSessionContext
     
     weak var delegate: TDWorkoutSessionManagerDelegate?
     
     init(context: TDWorkoutSessionContext) {
+        self.sessionContext = context
         self.healthStore = context.healthStore
-        self.workoutSession = HKWorkoutSession(activityType: context.activityType, locationType: context.locationType)
-        
+        self.workoutSession = HKWorkoutSession(activityType: sessionContext.activityType, locationType: sessionContext.locationType)
+
         super.init()
-        
-        self.workoutSession.delegate = self
     }
     
     func startWorkout() {
+        self.workoutSession = HKWorkoutSession(activityType: sessionContext.activityType, locationType: sessionContext.locationType)
+        self.workoutSession.delegate = self
+
         self.healthStore.startWorkoutSession(self.workoutSession)
     }
     
@@ -138,7 +142,7 @@ class TDWorkoutSessionManager: NSObject, HKWorkoutSessionDelegate {
         
         queries.append(self.createStreamingDistanceQuery(date))
         queries.append(self.createStreamingEnergyQuery(date))
-//        queries.append(self.createStreamingStepQuery(date))
+        queries.append(self.createStreamingStepQuery(date))
         queries.append(self.createStreamingHeartRateQuery(date))
         
         for query in queries {
@@ -171,13 +175,15 @@ class TDWorkoutSessionManager: NSObject, HKWorkoutSessionDelegate {
         allSamples += self.energySamples
         allSamples += self.distanceSamples
         allSamples += self.heartRateSamples
-//        allSamples += self.stepSamples
+        allSamples += self.stepSamples
         
         self.healthStore.saveObject(workout) { (success, error) -> Void in
             if success && allSamples.count > 0 {
                 self.healthStore.addSamples(allSamples, toWorkout: workout, completion: { (success, error) -> Void in
                     if success {
                         self.resetSamples()
+                    } else if error != nil {
+                        NSLog("addSamples error : " + error!.localizedDescription)
                     }
                 })
             }
@@ -205,7 +211,6 @@ class TDWorkoutSessionManager: NSObject, HKWorkoutSessionDelegate {
         guard let distanceSamples = samples as? [HKQuantitySample] else { return }
         
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-//            self.currentDistanceQuantity = self.currentDistanceQuantity.addQuantitiesFromSamples(distanceSamples, unit: self.distanceUnit)
             self.distanceSamples += distanceSamples
             
             self.delegate?.workoutSessionManager(self, didUpdateDistanceQuantity: self.currentDistanceQuantity)
@@ -231,7 +236,6 @@ class TDWorkoutSessionManager: NSObject, HKWorkoutSessionDelegate {
         guard let stepSamples = samples as? [HKQuantitySample] else { return }
         
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-//            self.currentStepQuantity = self.currentStepQuantity.addQuantitiesFromSamples(stepSamples, unit: self.stepUnit)
             self.stepSamples += stepSamples
             
             self.delegate?.workoutSessionManager(self, didUpdateStepQuantity: self.currentStepQuantity)
@@ -241,26 +245,25 @@ class TDWorkoutSessionManager: NSObject, HKWorkoutSessionDelegate {
     func createStreamingEnergyQuery(workoutStartDate: NSDate) -> HKQuery {
         let predicate = self.predicateFromWorkoutSamples(workoutStartDate)
         
-        // sum the new quantities with the current active energy quantity
-        let sampleHandler = { (samples: [HKQuantitySample]) -> Void in
-//            self.currentEnergyQuantity = self.currentEnergyQuantity.addQuantitiesFromSamples(samples, unit: self.distanceUnit)
-            
-            self.delegate?.workoutSessionManager(self, didUpdateEnergyQuantity: self.currentEnergyQuantity)
-        }
-        
         let energyQuery = HKAnchoredObjectQuery(type: self.energyType, predicate: predicate, anchor: nil, limit: Int(HKObjectQueryNoLimit)) { (query, samples, deletedObjects, anchor, error) -> Void in
-            if let quantitySamples = samples as? [HKQuantitySample] {
-                sampleHandler(quantitySamples)
-            }
+            self.addEnergySamples(samples)
         }
         
         energyQuery.updateHandler = { query, samples, deletedObjects, anchor, error in
-            if let quantitySamples = samples as? [HKQuantitySample] {
-                sampleHandler(quantitySamples)
-            }
+            self.addEnergySamples(samples)
         }
         
         return energyQuery
+    }
+    
+    func addEnergySamples(samples: [HKSample]?) {
+        guard let energySamples = samples as? [HKQuantitySample] else { return }
+        
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            self.energySamples += energySamples
+            
+            self.delegate?.workoutSessionManager(self, didUpdateEnergyQuantity: self.currentEnergyQuantity)
+        }
     }
     
     func createStreamingHeartRateQuery(workoutStartDate: NSDate) -> HKQuery {
@@ -279,6 +282,8 @@ class TDWorkoutSessionManager: NSObject, HKWorkoutSessionDelegate {
             }
             
             self.currentHeartRateSample = mostRecentSample
+            
+            self.heartRateSamples += samples
             
             if let sample = mostRecentSample {
                 self.delegate?.workoutSessionManager(self, didUpdateHeartRateSample: sample)

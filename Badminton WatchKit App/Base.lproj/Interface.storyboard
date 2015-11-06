@@ -14,7 +14,7 @@
                             <items>
                                 <group width="1" alignment="left" id="2ML-ih-Cga">
                                     <items>
-                                        <button width="44" height="44" alignment="left" verticalAlignment="center" backgroundImage="cockDownBtn" id="jEo-p5-zZM">
+                                        <button width="44" height="44" alignment="left" verticalAlignment="center" backgroundImage="minusBtn" id="jEo-p5-zZM">
                                             <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="font" type="system" pointSize="30"/>
                                             <connections>
@@ -24,7 +24,7 @@
                                         <label alignment="center" verticalAlignment="center" text="0" id="UK9-7C-Moa">
                                             <fontDescription key="font" type="boldSystem" pointSize="22"/>
                                         </label>
-                                        <button width="44" height="44" alignment="right" verticalAlignment="center" backgroundImage="cockUpBtn" id="6zx-vm-Kss">
+                                        <button width="44" height="44" alignment="right" verticalAlignment="center" backgroundImage="plusBtn" id="6zx-vm-Kss">
                                             <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="font" type="system" pointSize="30"/>
                                             <connections>
@@ -36,7 +36,7 @@
                                 </group>
                                 <group width="1" alignment="left" id="ZaU-B0-ol6">
                                     <items>
-                                        <button width="44" height="44" alignment="left" verticalAlignment="center" backgroundImage="cockDownBtn" id="zX4-vL-Uam">
+                                        <button width="44" height="44" alignment="left" verticalAlignment="center" backgroundImage="minusBtn" id="zX4-vL-Uam">
                                             <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="font" type="system" pointSize="30"/>
                                             <connections>
@@ -46,7 +46,7 @@
                                         <label alignment="center" verticalAlignment="center" text="0" id="WS4-ba-Fy6">
                                             <fontDescription key="font" type="boldSystem" pointSize="22"/>
                                         </label>
-                                        <button width="44" height="44" alignment="right" verticalAlignment="center" backgroundImage="cockUpBtn" id="mZe-IQ-bGe">
+                                        <button width="44" height="44" alignment="right" verticalAlignment="center" backgroundImage="plusBtn" id="mZe-IQ-bGe">
                                             <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="font" type="system" pointSize="30"/>
                                             <connections>
@@ -90,23 +90,6 @@
                 </controller>
             </objects>
             <point key="canvasLocation" x="176" y="321"/>
-        </scene>
-        <!--Interface Controller-->
-        <scene sceneID="fWc-CS-8JO">
-            <objects>
-                <controller id="bP2-Nh-5Pd">
-                    <items>
-                        <table alignment="left" id="tfh-lG-d1N">
-                            <items>
-                                <tableRow id="UDx-cs-SLD">
-                                    <group key="rootItem" width="1" alignment="left" id="GGX-4m-kXW"/>
-                                </tableRow>
-                            </items>
-                        </table>
-                    </items>
-                </controller>
-            </objects>
-            <point key="canvasLocation" x="468" y="321"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">
