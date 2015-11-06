@@ -8,10 +8,12 @@
 
 import UIKit
 import HealthKit
+import JGProgressHUD
 
 class TDWorkoutListVC: UITableViewController {
     
     var workouts : [HKSample] = [HKSample]()
+    var HUD : JGProgressHUD?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +23,10 @@ class TDWorkoutListVC: UITableViewController {
         
         createWorkoutsQuery()
 
+        HUD = JGProgressHUD(style: JGProgressHUDStyle.Dark)
+        HUD?.textLabel.text = "Loading workouts...";
+        HUD?.showInView(self.view)
+        HUD?.dismissAfterDelay(15.0)
     }
 
     override func didReceiveMemoryWarning() {
@@ -44,43 +50,42 @@ class TDWorkoutListVC: UITableViewController {
     // MARK: WCSessionDelegate
     
     func didReceiveUserInfo(notification: NSNotification) {
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-
-            if let userInfo = notification.userInfo {
-                if let startDate = userInfo["workoutStartDate"] as? NSDate {
-                    NSLog("\(startDate)")
-                    let workout = TDWorkout()
-                    workout.startDate = startDate
-                    if let endDate = userInfo["workoutEndDate"] as? NSDate {
-                        NSLog("\(endDate)")
-                        workout.endDate = endDate
-                    }
-                    
-                    if let score = userInfo["score"] as? [[Int]] {
-                        NSLog("\(score)")
-                        workout.score = score
-                    }
-                    
-//                    self.workouts.append(workout)
-                    
-                    self.tableView.reloadData()
-
-                }
-                
-            }
-        }
+        createWorkoutsQuery()
+        
+//        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+//
+//            if let userInfo = notification.userInfo {
+//                if let startDate = userInfo["workoutStartDate"] as? NSDate {
+//                    NSLog("\(startDate)")
+//                    let workout = TDWorkout()
+//                    workout.startDate = startDate
+//                    if let endDate = userInfo["workoutEndDate"] as? NSDate {
+//                        NSLog("\(endDate)")
+//                        workout.endDate = endDate
+//                    }
+//                    
+//                    if let score = userInfo["score"] as? [[Int]] {
+//                        NSLog("\(score)")
+//                        workout.score = score
+//                    }
+//                    
+////                    self.workouts.append(workout)
+//                    
+//                    self.tableView.reloadData()
+//
+//                }
+//                
+//            }
+//        }
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return workouts.count
-//        return 1
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cellId", forIndexPath: indexPath)
-        
-//        cell.textLabel?.text = "hello"
-        cell.textLabel?.text = "\(workouts[indexPath.row].startDate) \n \(workouts[indexPath.row].endDate)"
+        cell.textLabel?.text = "\(workouts[indexPath.row].startDate)"
         return cell
     }
     
@@ -96,7 +101,10 @@ class TDWorkoutListVC: UITableViewController {
             if error == nil {
                 if let workoutSamples = samples {
                     self.workouts = workoutSamples
-                    self.tableView.reloadData()
+                    dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                        self.HUD?.dismissAnimated(true)
+                        self.tableView.reloadData()
+                    }
                 }
             }
         }

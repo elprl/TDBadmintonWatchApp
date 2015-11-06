@@ -3,6 +3,9 @@ use_frameworks!
 
 xcodeproj 'Badminton'
 
-#pod 'CorePlot', :git => 'https://github.com/core-plot/core-plot.git', :branch => 'release-2.1'
+pod 'CorePlot', :git => 'https://github.com/core-plot/core-plot.git', :branch => 'release-2.1'
+#pod 'CorePlot', :git => 'https://github.com/core-plot/core-plot.git', :commit => '24f219e'
 
-pod 'CorePlot', :git => 'https://github.com/core-plot/core-plot.git', :commit => '24f219e'
+pod 'JGProgressHUD'
+pod 'MHPrettyDate', '~> 1.1'
+pod 'DateTools'
