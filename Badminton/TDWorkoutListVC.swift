@@ -9,6 +9,7 @@
 import UIKit
 import HealthKit
 import JGProgressHUD
+import MHPrettyDate
 
 class TDWorkoutListVC: UITableViewController {
     
@@ -20,13 +21,20 @@ class TDWorkoutListVC: UITableViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveUserInfo:", name:"didReceiveUserInfo", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didHandledAuthorization:", name:"handledAuthorization", object: nil)
         
-        createWorkoutsQuery()
-
         HUD = JGProgressHUD(style: JGProgressHUDStyle.Dark)
-        HUD?.textLabel.text = "Loading workouts...";
         HUD?.showInView(self.view)
         HUD?.dismissAfterDelay(15.0)
+        
+        if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
+            if appDelegate.isAuthorized() {
+                createWorkoutsQuery()
+                HUD?.textLabel.text = "Loading workouts...";
+            } else {
+                HUD?.textLabel.text = "Awaiting Authorisation...";
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,34 +57,26 @@ class TDWorkoutListVC: UITableViewController {
 
     // MARK: WCSessionDelegate
     
+    func didHandledAuthorization(notification: NSNotification) {
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            self.createWorkoutsQuery()
+            
+            self.HUD = JGProgressHUD(style: JGProgressHUDStyle.Dark)
+            self.HUD?.textLabel.text = "Loading workouts...";
+            self.HUD?.showInView(self.view)
+            self.HUD?.dismissAfterDelay(15.0)
+        }
+    }
+    
     func didReceiveUserInfo(notification: NSNotification) {
-        createWorkoutsQuery()
+        guard let startDate = notification.userInfo?["workoutStartDate"] as? NSDate,
+            endDate = notification.userInfo?["workoutEndDate"] as? NSDate else { return }
+        let workout = HKWorkout(activityType: .Badminton, startDate: startDate, endDate: endDate)
+        self.workouts.insert(workout, atIndex: 0)
         
-//        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-//
-//            if let userInfo = notification.userInfo {
-//                if let startDate = userInfo["workoutStartDate"] as? NSDate {
-//                    NSLog("\(startDate)")
-//                    let workout = TDWorkout()
-//                    workout.startDate = startDate
-//                    if let endDate = userInfo["workoutEndDate"] as? NSDate {
-//                        NSLog("\(endDate)")
-//                        workout.endDate = endDate
-//                    }
-//                    
-//                    if let score = userInfo["score"] as? [[Int]] {
-//                        NSLog("\(score)")
-//                        workout.score = score
-//                    }
-//                    
-////                    self.workouts.append(workout)
-//                    
-//                    self.tableView.reloadData()
-//
-//                }
-//                
-//            }
-//        }
+        dispatch_async(dispatch_get_main_queue()) {
+            self.tableView.reloadData()
+        }
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -85,7 +85,8 @@ class TDWorkoutListVC: UITableViewController {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cellId", forIndexPath: indexPath)
-        cell.textLabel?.text = "\(workouts[indexPath.row].startDate)"
+        let startDate = workouts[indexPath.row].startDate
+        cell.textLabel?.text = MHPrettyDate.prettyDateFromDate(startDate, withFormat: MHPrettyDateFormatWithTime)
         return cell
     }
     
@@ -96,8 +97,9 @@ class TDWorkoutListVC: UITableViewController {
     
     func createWorkoutsQuery() {
         let predicate = HKQuery.predicateForSamplesWithStartDate(nil, endDate: nil, options: .None)
-        
-        let workoutsQuery = HKAnchoredObjectQuery(type: HKObjectType.workoutType(), predicate: predicate, anchor: nil, limit: Int(HKObjectQueryNoLimit)) { (query, samples, deletedObjects, anchor, error) -> Void in
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
+        let workoutsQuery = HKSampleQuery(sampleType: HKObjectType.workoutType(), predicate: predicate, limit: 30, sortDescriptors: [sortDescriptor]) { _, samples, error in
+
             if error == nil {
                 if let workoutSamples = samples {
                     self.workouts = workoutSamples
@@ -106,6 +108,8 @@ class TDWorkoutListVC: UITableViewController {
                         self.tableView.reloadData()
                     }
                 }
+            } else {
+                NSLog(error!.localizedDescription)
             }
         }
 

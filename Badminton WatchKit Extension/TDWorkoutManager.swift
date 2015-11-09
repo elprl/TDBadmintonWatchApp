@@ -25,10 +25,13 @@ class TDWorkoutSessionContext {
 protocol TDWorkoutSessionManagerDelegate: class {
     func workoutSessionManager(workoutSessionManager: TDWorkoutSessionManager, didStartWorkoutWithDate startDate: NSDate)
     func workoutSessionManager(workoutSessionManager: TDWorkoutSessionManager, didStopWorkoutWithDate endDate: NSDate)
+    func workoutSessionManager(workoutSessionManager: TDWorkoutSessionManager, didSaveWorkout workout: HKWorkout)
+    
     func workoutSessionManager(workoutSessionManager: TDWorkoutSessionManager, didUpdateEnergyQuantity energyQuantity: HKQuantity)
     func workoutSessionManager(workoutSessionManager: TDWorkoutSessionManager, didUpdateDistanceQuantity distanceQuantity: HKQuantity)
     func workoutSessionManager(workoutSessionManager: TDWorkoutSessionManager, didUpdateStepQuantity stepQuantity: HKQuantity)
     func workoutSessionManager(workoutSessionManager: TDWorkoutSessionManager, didUpdateHeartRateSample heartRateSample: HKQuantitySample)
+
 }
 
 
@@ -169,7 +172,9 @@ class TDWorkoutSessionManager: NSObject, HKWorkoutSessionDelegate {
     func saveWorkout() {
         guard let startDate = self.workoutStartDate, endDate = self.workoutEndDate else { return }
         
-        let workout = HKWorkout(activityType: self.workoutSession.activityType, startDate: startDate, endDate: endDate, duration: endDate.timeIntervalSinceDate(startDate), totalEnergyBurned: self.currentEnergyQuantity, totalDistance: self.currentDistanceQuantity, metadata: nil)
+        let metadata = [ HKMetadataKeyExternalUUID: "BadmintonId \(startDate)",  HKMetadataKeyWorkoutBrandName: "Badminton"]
+
+        let workout = HKWorkout(activityType: self.workoutSession.activityType, startDate: startDate, endDate: endDate, duration: endDate.timeIntervalSinceDate(startDate), totalEnergyBurned: self.currentEnergyQuantity, totalDistance: self.currentDistanceQuantity, metadata: metadata)
         
         var allSamples: [HKQuantitySample] = []
         allSamples += self.energySamples
@@ -181,6 +186,8 @@ class TDWorkoutSessionManager: NSObject, HKWorkoutSessionDelegate {
             if success && allSamples.count > 0 {
                 self.healthStore.addSamples(allSamples, toWorkout: workout, completion: { (success, error) -> Void in
                     if success {
+                        self.delegate?.workoutSessionManager(self, didSaveWorkout: workout)
+
                         self.resetSamples()
                     } else if error != nil {
                         NSLog("addSamples error : " + error!.localizedDescription)
@@ -269,7 +276,7 @@ class TDWorkoutSessionManager: NSObject, HKWorkoutSessionDelegate {
     func createStreamingHeartRateQuery(workoutStartDate: NSDate) -> HKQuery {
         let predicate = self.predicateFromWorkoutSamples(workoutStartDate)
         
-        // sum the new quantities with the current active energy quantity
+        // sum the new quantities with the current heartrate quantity
         let sampleHandler = { (samples: [HKQuantitySample]) -> Void in
             var mostRecentSample = self.currentHeartRateSample
             var mostRecentStartDate = mostRecentSample?.startDate ?? NSDate.distantPast()

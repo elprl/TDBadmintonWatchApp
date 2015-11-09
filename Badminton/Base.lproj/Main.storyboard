@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Workouts-->
@@ -15,11 +16,11 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellId" id="TSw-h3-BPI">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cellId" id="TSw-h3-BPI">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TSw-h3-BPI" id="7g6-pC-1l1">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <animations/>
                                 </tableViewCellContentView>
@@ -48,15 +49,56 @@
                         <viewControllerLayoutGuide type="top" id="1V1-qV-EyJ"/>
                         <viewControllerLayoutGuide type="bottom" id="EJ3-kP-TKW"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="zph-OB-oGm" customClass="CPTGraphHostingView">
+                    <view key="view" contentMode="scaleToFill" id="zph-OB-oGm">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cK2-MO-0pi">
+                                <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                                <animations/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="C5I-t2-7GL"/>
+                                    <barButtonItem style="plain" id="JFe-re-mza">
+                                        <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="3Lb-lg-ctk">
+                                            <rect key="frame" x="150" y="7" width="300" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <animations/>
+                                            <segments>
+                                                <segment title="Heartrate"/>
+                                                <segment title="Calories"/>
+                                                <segment title="Steps"/>
+                                                <segment title="Distance"/>
+                                            </segments>
+                                            <connections>
+                                                <action selector="segmentCtrlChanged:" destination="O1c-Pq-AyR" eventType="valueChanged" id="Cg8-Qi-Zlu"/>
+                                            </connections>
+                                        </segmentedControl>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="RMa-hy-ZFB"/>
+                                </items>
+                            </toolbar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tKC-lE-HeM" customClass="CPTGraphHostingView">
+                                <rect key="frame" x="0.0" y="108" width="600" height="492"/>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="cK2-MO-0pi" secondAttribute="trailing" constant="-20" id="MJL-pu-7rS"/>
+                            <constraint firstItem="tKC-lE-HeM" firstAttribute="top" secondItem="cK2-MO-0pi" secondAttribute="bottom" id="T14-Vf-E4Q"/>
+                            <constraint firstItem="tKC-lE-HeM" firstAttribute="leading" secondItem="zph-OB-oGm" secondAttribute="leadingMargin" constant="-20" id="bdg-cJ-bin"/>
+                            <constraint firstItem="EJ3-kP-TKW" firstAttribute="top" secondItem="tKC-lE-HeM" secondAttribute="bottom" id="m3o-B3-YLY"/>
+                            <constraint firstItem="cK2-MO-0pi" firstAttribute="leading" secondItem="zph-OB-oGm" secondAttribute="leadingMargin" constant="-20" id="m5L-mt-taq"/>
+                            <constraint firstItem="cK2-MO-0pi" firstAttribute="top" secondItem="1V1-qV-EyJ" secondAttribute="bottom" id="ozS-r2-si7"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="tKC-lE-HeM" secondAttribute="trailing" constant="-20" id="vXE-dP-PGi"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Workout" id="Jth-04-RQa"/>
                     <connections>
-                        <outlet property="graphView" destination="zph-OB-oGm" id="qRr-B9-Y8R"/>
+                        <outlet property="graphView" destination="tKC-lE-HeM" id="s7H-Eg-p4V"/>
+                        <outlet property="toolBar" destination="cK2-MO-0pi" id="WOd-oW-cgO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yBU-Dk-1Dh" userLabel="First Responder" sceneMemberID="firstResponder"/>

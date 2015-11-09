@@ -9,6 +9,7 @@
 import WatchKit
 import Foundation
 import HealthKit
+import WatchConnectivity
 
 enum TDState {
     case ReadyToBegin
@@ -44,6 +45,8 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
     var sessionContext: TDWorkoutSessionContext?
     var workoutManager : TDWorkoutSessionManager?
     var isAuthorized = false
+    
+    var transfer : WCSessionUserInfoTransfer?
     
     private var _timer: NSTimer?
 //    private var _ticks: Double = 0.0
@@ -406,10 +409,22 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
         currentState = .ReadyToBegin
         resetMenuItems()
         _userDefaults.setDouble(endDate.timeIntervalSince1970, forKey: "workoutEndDate")
-        
-        let userInfo : [String: AnyObject] = ["workoutStartDate": workoutSessionManager.workoutStartDate!, "workoutEndDate": endDate, "score": overallScore]
-        let myDelegate = WKExtension.sharedExtension().delegate as! ExtensionDelegate
-        myDelegate.session.transferUserInfo(userInfo)
+    }
+    
+    func workoutSessionManager(workoutSessionManager: TDWorkoutSessionManager, didSaveWorkout workout: HKWorkout) {
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            let userInfo : [String: AnyObject] = ["workoutStartDate": workout.startDate, "workoutEndDate": workout.endDate, "score": self.overallScore]
+            let myDelegate = WKExtension.sharedExtension().delegate as! ExtensionDelegate
+            if myDelegate.session.reachable {
+                myDelegate.session.sendMessage(userInfo, replyHandler: { handler in
+                    print("success sendmessage")
+                }, errorHandler: { error in
+                    print(error.localizedDescription)
+                })
+            } else {
+                self.transfer = myDelegate.session.transferUserInfo(userInfo)
+            }
+        }
     }
     
     func workoutSessionManager(workoutSessionManager: TDWorkoutSessionManager, didUpdateEnergyQuantity energyQuantity: HKQuantity) {

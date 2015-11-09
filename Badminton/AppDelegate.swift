@@ -52,23 +52,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     }
     
     // authorization from watch
-    func applicationShouldRequestHealthAuthorization(application: UIApplication) {
-        
+    func applicationShouldRequestHealthAuthorization(application: UIApplication) {        
         self.healthStore.handleAuthorizationForExtensionWithCompletion { success, error in
-            
+            if success {
+                NSNotificationCenter.defaultCenter().postNotificationName("handledAuthorization", object:nil, userInfo: nil)
+            }
         }
     }
     
     // MARK: WCSessionDelegate
     
     func session(session: WCSession, didReceiveUserInfo userInfo: [String : AnyObject]) {
-        NSLog("didReceiveUserInfo in AppDelegate")
+        print("didReceiveUserInfo in AppDelegate")
         NSNotificationCenter.defaultCenter().postNotificationName("didReceiveUserInfo", object:nil, userInfo: userInfo)
     }
 
     func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
-        NSLog("didReceiveApplicationContext in AppDelegate")
+        print("didReceiveApplicationContext in AppDelegate")
     }
 
+    func session(session: WCSession, didReceiveMessage message: [String : AnyObject], replyHandler: ([String : AnyObject]) -> Void) {
+        print("didReceiveMessage handler in AppDelegate")
+        NSNotificationCenter.defaultCenter().postNotificationName("didReceiveUserInfo", object:nil, userInfo: message)
+
+    }
+    
+    func session(session: WCSession, didReceiveMessage message: [String : AnyObject]) {
+        print("didReceiveMessage in AppDelegate")
+        NSNotificationCenter.defaultCenter().postNotificationName("didReceiveUserInfo", object:nil, userInfo: message)
+
+    }
+    
+    func isAuthorized() -> Bool {
+        let status = self.healthStore.authorizationStatusForType(HKObjectType.workoutType())
+        if status == .SharingAuthorized {
+            return true
+        }
+        
+        return false
+    }
 }
 

@@ -12,11 +12,13 @@ import CorePlot
 import HealthKit
 import JGProgressHUD
 import MHPrettyDate
+import DateTools
 
-class TDGraphVC: UIViewController, CPTScatterPlotDataSource, CPTScatterPlotDelegate, CPTPlotSpaceDelegate {
+class TDGraphVC: UIViewController, CPTScatterPlotDataSource, CPTScatterPlotDelegate, CPTPlotSpaceDelegate, UIToolbarDelegate {
     @IBOutlet var graphView: CPTGraphHostingView!
     var HUD : JGProgressHUD?
 
+    @IBOutlet weak var toolBar: UIToolbar!
     var startDate = NSDate()
     var endDate = NSDate()
     
@@ -44,31 +46,62 @@ class TDGraphVC: UIViewController, CPTScatterPlotDataSource, CPTScatterPlotDeleg
     private let _stepsId = "Steps"
     private let _energyId = "Active Energy"
     
+    var plotSpace : CPTXYPlotSpace?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.title = MHPrettyDate.prettyDateFromDate(startDate, withFormat: MHPrettyDateFormatNoTime)
         
-        setupGraph()
+        toolBar.delegate = self
+        
+        setupHeartRateGraph()
         
         HUD = JGProgressHUD(style: JGProgressHUDStyle.Light)
         HUD?.showInView(self.view)
         HUD?.dismissAfterDelay(15.0)
         
         if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
-            var queries = [HKQuery]()
-            queries.append(createStreamingDistanceQuery())
-            queries.append(createStreamingEnergyQuery())
-            queries.append(createStreamingStepQuery())
-            queries.append(createStreamingHeartRateQuery())
-            
-            for query in queries {
-                appDelegate.healthStore.executeQuery(query)
+//            var queries = [HKQuery]()
+//            queries.append(createStreamingDistanceQuery())
+//            queries.append(createStreamingEnergyQuery())
+//            queries.append(createStreamingStepQuery())
+            let query = createStreamingHeartRateQuery()
+            appDelegate.healthStore.executeQuery(query)
+        }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let sbViews = self.navigationController?.navigationBar.subviews {
+            for view in sbViews {
+                if view is UIImageView {
+                    view.hidden = true
+                    return
+                }
             }
         }
     }
     
-    func setupGraph() {
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if let sbViews = self.navigationController?.navigationBar.subviews {
+            for view in sbViews {
+                if view is UIImageView {
+                    view.hidden = false
+                    return
+                }
+            }
+        }
+    }
+    
+    func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
+        return .TopAttached
+    }
+    
+    func setupHeartRateGraph() {
         // create graph
         let graph = CPTXYGraph(frame: CGRectZero)
         graph.title = "Workout"
@@ -84,11 +117,13 @@ class TDGraphVC: UIViewController, CPTScatterPlotDataSource, CPTScatterPlotDeleg
         //        graph.plotAreaFrame?.plotArea?.delegate = self
         //
         //        // Setup scatter plot space
-        let plotSpace = graph.defaultPlotSpace as! CPTXYPlotSpace
+        plotSpace = graph.defaultPlotSpace as? CPTXYPlotSpace
+        guard let plotSpace = plotSpace else {return}
         plotSpace.allowsUserInteraction = true
         plotSpace.delegate = self
+//        let startLocation = startDate.timeIntervalSince1970
         let length = endDate.timeIntervalSinceDate(startDate)
-        NSLog("Workout length is \(length) seconds")
+//        print("Workout length is \(length) seconds")
         plotSpace.xRange = CPTPlotRange(location: 0, length: length)
         plotSpace.yRange = CPTPlotRange(location: 0, length: 250)
         //
@@ -108,40 +143,43 @@ class TDGraphVC: UIViewController, CPTScatterPlotDataSource, CPTScatterPlotDeleg
         //
         //        // Axes
         //        // Label x axis with a fixed interval policy
-        let axisSet = graph.axisSet as! CPTXYAxisSet
-        guard let x = axisSet.xAxis else { return }
-        x.majorIntervalLength   = _minute
-        x.minorTicksPerInterval = 6
-        //        x.majorGridLineStyle    = majorGridLineStyle
-        //        x.minorGridLineStyle    = minorGridLineStyle
-        //        x.axisConstraints       = CPTConstraints.constraintWithRelativeOffset(0.5)
-        //
-        let lineCap = CPTLineCap.sweptArrowPlotLineCap()
-        lineCap.size = CGSizeMake(0.625, 0.625)
-        lineCap.lineStyle = x.axisLineStyle
-        lineCap.fill      = CPTFill(color:CPTColor.redColor())
-        x.axisLineCapMax  = lineCap
+//        let axisSet = graph.axisSet as! CPTXYAxisSet
+//        guard let x = axisSet.xAxis else { return }
+//        x.majorIntervalLength   = _minute
+//        x.minorTicksPerInterval = 6
+//        //        x.majorGridLineStyle    = majorGridLineStyle
+//        //        x.minorGridLineStyle    = minorGridLineStyle
+//        //        x.axisConstraints       = CPTConstraints.constraintWithRelativeOffset(0.5)
+//        //
+//        let lineCap = CPTLineCap.sweptArrowPlotLineCap()
+//        lineCap.size = CGSizeMake(0.625, 0.625)
+//        lineCap.lineStyle = x.axisLineStyle
+//        lineCap.fill      = CPTFill(color:CPTColor.redColor())
+//        x.axisLineCapMax  = lineCap
+//        
+//        x.title       = "Time";
+//        x.titleOffset = 4
         
-        x.title       = "Time";
-        x.titleOffset = 1.25
+        guard let x = configureXAxisForGraph(graph),
+                y = configureBMPYAxisForGraph(graph) else {return }
         //
-        //        // Label y with an automatic label policy.
-        guard let y = axisSet.yAxis else { return }
-        y.labelingPolicy              = CPTAxisLabelingPolicy.Automatic
-        y.minorTicksPerInterval       = 2
-        y.preferredNumberOfMajorTicks = 10
-        //        y.majorGridLineStyle          = majorGridLineStyle
-        //        y.minorGridLineStyle          = minorGridLineStyle
-        //        y.axisConstraints             = CPTConstraints.constraintWithLowerOffset(0.0)
-        //        y.labelOffset                 = 0.25
-        //
-        //        lineCap.lineStyle = y.axisLineStyle
-        ////        lineCap.fill      = CPTFill(color:lineCap.lineStyle?.lineColor)
-        //        y.axisLineCapMax  = lineCap
-        //        y.axisLineCapMin  = lineCap
-        //
-        y.title       = "BPM"
-        y.titleOffset = 1.25
+//        //        // Label y with an automatic label policy.
+//        guard let y = axisSet.yAxis else { return }
+//        y.labelingPolicy              = CPTAxisLabelingPolicy.Automatic
+//        y.minorTicksPerInterval       = 2
+//        y.preferredNumberOfMajorTicks = 10
+//        //        y.majorGridLineStyle          = majorGridLineStyle
+//        //        y.minorGridLineStyle          = minorGridLineStyle
+//        //        y.axisConstraints             = CPTConstraints.constraintWithLowerOffset(0.0)
+//        //        y.labelOffset                 = 0.25
+//        //
+//        //        lineCap.lineStyle = y.axisLineStyle
+//        ////        lineCap.fill      = CPTFill(color:lineCap.lineStyle?.lineColor)
+//        //        y.axisLineCapMax  = lineCap
+//        //        y.axisLineCapMin  = lineCap
+//        //
+//        y.title       = "BPM"
+//        y.titleOffset = 8
         
         // Set axes
         graph.axisSet?.axes = [x, y]
@@ -160,55 +198,29 @@ class TDGraphVC: UIViewController, CPTScatterPlotDataSource, CPTScatterPlotDeleg
         heartrateLinePlot.delegate = self
         graph.addPlot(heartrateLinePlot)
         
-        // Create distance plot
-        let distanceLinePlot = CPTScatterPlot()
-        distanceLinePlot.identifier = _distanceId
-        dataLineStyle.lineWidth = 2.0
-        dataLineStyle.lineColor = CPTColor.blueColor()
-        distanceLinePlot.dataLineStyle = dataLineStyle
-        distanceLinePlot.dataSource    = self
-        distanceLinePlot.delegate = self
-        graph.addPlot(distanceLinePlot)
 
-        // Create steps plot
-        let stepsLinePlot = CPTScatterPlot()
-        stepsLinePlot.identifier = _stepsId
-        dataLineStyle.lineColor  = CPTColor.yellowColor()
-        stepsLinePlot.dataLineStyle = dataLineStyle
-        stepsLinePlot.dataSource    = self
-        stepsLinePlot.delegate = self
-        graph.addPlot(stepsLinePlot)
-
-        // Create energy calorie plot
-        let energyLinePlot = CPTScatterPlot()
-        energyLinePlot.identifier = _energyId
-        dataLineStyle.lineColor  = CPTColor.orangeColor()
-        energyLinePlot.dataLineStyle = dataLineStyle
-        energyLinePlot.dataSource    = self
-        energyLinePlot.delegate = self
-        graph.addPlot(energyLinePlot)
         
         // Auto scale the plot space to fit the plot data
-        plotSpace.scaleToFitPlots(graph.allPlots())
-        let xRange = plotSpace.xRange.mutableCopy() as! CPTMutablePlotRange
-        let yRange = plotSpace.yRange.mutableCopy() as! CPTMutablePlotRange
-        
-        // Expand the ranges to put some space around the plot
-        xRange.expandRangeByFactor(1.2)
-        yRange.expandRangeByFactor(1.2)
-        plotSpace.xRange = xRange
-        plotSpace.yRange = yRange
-        
-        xRange.expandRangeByFactor(1.025)
-        xRange.location = plotSpace.xRange.location
-        yRange.expandRangeByFactor(1.05)
-        x.visibleAxisRange = plotSpace.xRange
-        y.visibleAxisRange = plotSpace.yRange
-        
-        xRange.expandRangeByFactor(1.2)
-        yRange.expandRangeByFactor(1.05)
-        plotSpace.globalXRange = xRange
-        plotSpace.globalYRange = yRange;
+//        plotSpace.scaleToFitPlots(graph.allPlots())
+//        let xRange = plotSpace.xRange.mutableCopy() as! CPTMutablePlotRange
+//        let yRange = plotSpace.yRange.mutableCopy() as! CPTMutablePlotRange
+//        
+//        // Expand the ranges to put some space around the plot
+//        xRange.expandRangeByFactor(1.2)
+//        yRange.expandRangeByFactor(1.2)
+//        plotSpace.xRange = xRange
+//        plotSpace.yRange = yRange
+//        
+//        xRange.expandRangeByFactor(1.025)
+//        xRange.location = plotSpace.xRange.location
+//        yRange.expandRangeByFactor(1.05)
+//        x.visibleAxisRange = plotSpace.xRange
+//        y.visibleAxisRange = plotSpace.yRange
+//        
+//        xRange.expandRangeByFactor(1.2)
+//        yRange.expandRangeByFactor(1.05)
+//        plotSpace.globalXRange = xRange
+//        plotSpace.globalYRange = yRange;
         
         // Add plot symbols
         let symbolLineStyle = CPTMutableLineStyle(style: nil)
@@ -239,22 +251,261 @@ class TDGraphVC: UIViewController, CPTScatterPlotDataSource, CPTScatterPlotDeleg
         self.graphView.hostedGraph = graph
     }
     
+    func configureXAxisForGraph(graph: CPTXYGraph) -> CPTXYAxis? {
+        guard let axisSet = graph.axisSet as? CPTXYAxisSet, x = axisSet.xAxis else { return nil }
+
+//        let startLocation = startDate.timeIntervalSince1970
+        let length = endDate.timeIntervalSinceDate(startDate)
+        let xAxisRange = CPTPlotRange(location: 0, length: length)
+        x.visibleAxisRange = xAxisRange
+        x.majorIntervalLength = _minute
+
+        x.minorTicksPerInterval = 4
+//        x.majorTickLineStyle = lineStyle;
+//        x.minorTickLineStyle = lineStyle;
+//        x.axisLineStyle = lineStyle;
+        x.minorTickLength = CGFloat(5)
+        x.majorTickLength = CGFloat(7)
+//        x.orthogonalCoordinateDecimal = 0
+        x.title = "Time";
+//        x.titleOffset = 47
+//        x.labelRotation=M_PI/4;
+//        x.labelingPolicy = .None
+//        let customTickLocations = [3*_hour, 6*_hour, 9*_hour, 12*_hour, 15*_hour, 18*_hour, 21*_hour, _day]
+//        let xAxisLabels = ["03:00","06:00","9:00","12:00","15:00","18:00","21:00","00:00"]
+//        var labelLocation = 0
+//        var customLabels = Set<CPTAxisLabel>()
+//        for tickLocation in customTickLocations {
+//            let newLabel = CPTAxisLabel(text: xAxisLabels[labelLocation++], textStyle:x.labelTextStyle)
+//            newLabel.tickLocation = tickLocation
+//            newLabel.offset = x.labelOffset + x.majorTickLength;
+////            newLabel.rotation = M_PI/4;
+//            customLabels.insert(newLabel)
+//        }
+//        x.axisLabels =  customLabels
+        
+        //        let lineCap = CPTLineCap.sweptArrowPlotLineCap()
+        //        lineCap.size = CGSizeMake(0.625, 0.625)
+        //        lineCap.lineStyle = x.axisLineStyle
+        //        lineCap.fill      = CPTFill(color:CPTColor.redColor())
+        //        x.axisLineCapMax  = lineCap
+        
+        return x
+    }
+    
+    func configureBMPYAxisForGraph(graph: CPTXYGraph) -> CPTXYAxis? {
+        guard let axisSet = graph.axisSet as? CPTXYAxisSet, y = axisSet.yAxis else { return nil }
+
+        y.labelingPolicy = CPTAxisLabelingPolicy.Automatic
+        y.minorTicksPerInterval = 2
+        y.preferredNumberOfMajorTicks = 10
+        //        y.majorGridLineStyle          = majorGridLineStyle
+        //        y.minorGridLineStyle          = minorGridLineStyle
+        //        y.axisConstraints             = CPTConstraints.constraintWithLowerOffset(0.0)
+        //        y.labelOffset                 = 0.25
+        //
+        //        lineCap.lineStyle = y.axisLineStyle
+        ////        lineCap.fill      = CPTFill(color:lineCap.lineStyle?.lineColor)
+        //        y.axisLineCapMax  = lineCap
+        //        y.axisLineCapMin  = lineCap
+        //
+        y.title       = "BPM"
+        y.titleOffset = 8
+        
+        return y
+    }
+    
+    func changeGraphToSteps() {
+        guard let graph = self.graphView.hostedGraph else { return }
+        guard let plots = self.graphView.hostedGraph?.allPlots() else {return}
+        for plot in plots {
+            graph.removePlot(plot)
+        }
+//        // Create distance plot
+//        let distanceLinePlot = CPTScatterPlot()
+//        distanceLinePlot.identifier = _distanceId
+//        dataLineStyle.lineWidth = 2.0
+//        dataLineStyle.lineColor = CPTColor.blueColor()
+//        distanceLinePlot.dataLineStyle = dataLineStyle
+//        distanceLinePlot.dataSource    = self
+//        distanceLinePlot.delegate = self
+//        graph.addPlot(distanceLinePlot)
+        
+        // Create steps plot
+        let stepsLinePlot = CPTScatterPlot()
+        stepsLinePlot.identifier = _stepsId
+        let dataLineStyle = CPTMutableLineStyle(style: nil)
+        dataLineStyle.lineColor  = CPTColor.yellowColor()
+        stepsLinePlot.dataLineStyle = dataLineStyle
+        stepsLinePlot.dataSource    = self
+        stepsLinePlot.delegate = self
+        graph.addPlot(stepsLinePlot)
+        
+//        // Create energy calorie plot
+//        let energyLinePlot = CPTScatterPlot()
+//        energyLinePlot.identifier = _energyId
+//        dataLineStyle.lineColor  = CPTColor.orangeColor()
+//        energyLinePlot.dataLineStyle = dataLineStyle
+//        energyLinePlot.dataSource    = self
+//        energyLinePlot.delegate = self
+//        graph.addPlot(energyLinePlot)
+        
+        //        // Axes
+        //        // Label x axis with a fixed interval policy
+        let axisSet = graph.axisSet as! CPTXYAxisSet
+        guard let x = axisSet.xAxis else { return }
+        x.majorIntervalLength   = _minute
+        x.minorTicksPerInterval = 6
+        //        x.majorGridLineStyle    = majorGridLineStyle
+        //        x.minorGridLineStyle    = minorGridLineStyle
+        //        x.axisConstraints       = CPTConstraints.constraintWithRelativeOffset(0.5)
+        //
+        let lineCap = CPTLineCap.sweptArrowPlotLineCap()
+        lineCap.size = CGSizeMake(0.625, 0.625)
+        lineCap.lineStyle = x.axisLineStyle
+        lineCap.fill      = CPTFill(color:CPTColor.redColor())
+        x.axisLineCapMax  = lineCap
+        
+        x.title       = "Time";
+        x.titleOffset = 4
+        //
+        //        // Label y with an automatic label policy.
+        guard let y = axisSet.yAxis else { return }
+        y.labelingPolicy              = CPTAxisLabelingPolicy.Automatic
+        y.minorTicksPerInterval       = 2
+        y.preferredNumberOfMajorTicks = 10
+        //        y.majorGridLineStyle          = majorGridLineStyle
+        //        y.minorGridLineStyle          = minorGridLineStyle
+//                y.axisConstraints             = CPTConstraints.constraintWithLowerOffset(0.0)
+//                y.labelOffset                 = 0.25
+        //
+        //        lineCap.lineStyle = y.axisLineStyle
+        ////        lineCap.fill      = CPTFill(color:lineCap.lineStyle?.lineColor)
+        //        y.axisLineCapMax  = lineCap
+        //        y.axisLineCapMin  = lineCap
+        //
+        y.title       = "Steps"
+        y.titleOffset = 8
+        
+        // Set axes
+        graph.axisSet?.axes = [x, y]
+        
+        // Auto scale the plot space to fit the plot data
+        guard let plotSpace = plotSpace else {return}
+        plotSpace.scaleToFitPlots(graph.allPlots())
+        let xRange = plotSpace.xRange.mutableCopy() as! CPTMutablePlotRange
+        let yRange = plotSpace.yRange.mutableCopy() as! CPTMutablePlotRange
+        
+        // Expand the ranges to put some space around the plot
+        xRange.expandRangeByFactor(1.2)
+        yRange.expandRangeByFactor(1.2)
+        plotSpace.xRange = xRange
+        plotSpace.yRange = yRange
+        
+        xRange.expandRangeByFactor(1.025)
+        xRange.location = plotSpace.xRange.location
+        yRange.expandRangeByFactor(1.05)
+        x.visibleAxisRange = plotSpace.xRange
+        y.visibleAxisRange = plotSpace.yRange
+        
+        xRange.expandRangeByFactor(1.2)
+        yRange.expandRangeByFactor(1.05)
+        plotSpace.globalXRange = xRange
+        plotSpace.globalYRange = yRange;
+
+        
+        HUD = JGProgressHUD(style: JGProgressHUDStyle.Light)
+        HUD?.showInView(self.view)
+        HUD?.dismissAfterDelay(15.0)
+        
+        if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
+            let query = createStreamingStepQuery()
+            appDelegate.healthStore.executeQuery(query)
+        }
+    }
+    
+    func changeGraphToEnergy() {
+        guard let plots = self.graphView.hostedGraph?.allPlots() else {return}
+        for plot in plots {
+            self.graphView.hostedGraph?.removePlot(plot)
+        }
+        
+        // Create energy calorie plot
+        let energyLinePlot = CPTScatterPlot()
+        energyLinePlot.identifier = _energyId
+        let dataLineStyle = CPTMutableLineStyle(style: nil)
+        dataLineStyle.lineColor  = CPTColor.orangeColor()
+        energyLinePlot.dataLineStyle = dataLineStyle
+        energyLinePlot.dataSource    = self
+        energyLinePlot.delegate = self
+        self.graphView.hostedGraph?.addPlot(energyLinePlot)
+        
+        //        // Axes
+        //        // Label x axis with a fixed interval policy
+        let axisSet = self.graphView.hostedGraph?.axisSet as! CPTXYAxisSet
+        guard let x = axisSet.xAxis else { return }
+        x.majorIntervalLength   = _minute
+        x.minorTicksPerInterval = 6
+        //        x.majorGridLineStyle    = majorGridLineStyle
+        //        x.minorGridLineStyle    = minorGridLineStyle
+        //        x.axisConstraints       = CPTConstraints.constraintWithRelativeOffset(0.5)
+        //
+        let lineCap = CPTLineCap.sweptArrowPlotLineCap()
+        lineCap.size = CGSizeMake(0.625, 0.625)
+        lineCap.lineStyle = x.axisLineStyle
+        lineCap.fill      = CPTFill(color:CPTColor.redColor())
+        x.axisLineCapMax  = lineCap
+        
+        x.title       = "Time";
+        x.titleOffset = 4
+        //
+        //        // Label y with an automatic label policy.
+        guard let y = axisSet.yAxis else { return }
+        y.labelingPolicy              = CPTAxisLabelingPolicy.Automatic
+        y.minorTicksPerInterval       = 2
+        y.preferredNumberOfMajorTicks = 10
+        //        y.majorGridLineStyle          = majorGridLineStyle
+        //        y.minorGridLineStyle          = minorGridLineStyle
+        y.axisConstraints             = CPTConstraints.constraintWithLowerOffset(0.0)
+        y.labelOffset                 = 0.25
+        //
+        //        lineCap.lineStyle = y.axisLineStyle
+        ////        lineCap.fill      = CPTFill(color:lineCap.lineStyle?.lineColor)
+        //        y.axisLineCapMax  = lineCap
+        //        y.axisLineCapMin  = lineCap
+        //
+        y.title       = "Calories"
+        y.titleOffset = 8
+        
+        // Set axes
+        self.graphView.hostedGraph?.axisSet?.axes = [x, y]
+        
+        HUD = JGProgressHUD(style: JGProgressHUDStyle.Light)
+        HUD?.showInView(self.view)
+        HUD?.dismissAfterDelay(15.0)
+        
+        if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
+            let query = createStreamingEnergyQuery()
+            appDelegate.healthStore.executeQuery(query)
+        }
+    }
+    
     func numberOfRecordsForPlot(plot: CPTPlot) -> UInt {
         var count : UInt = 0
         
         switch (plot.identifier) {
         case (let id as String) where id == _heartrateId:
             count = UInt(heartRateSamples.count)
-            NSLog("heartRateSamples sample count = \(count)")
+            print("heartRateSamples sample count = \(count)")
         case (let id as String) where id == _energyId:
             count = UInt(energySamples.count)
-            NSLog("energySamples sample count = \(count)")
+            print("energySamples sample count = \(count)")
         case (let id as String) where id == _stepsId:
             count = UInt(stepSamples.count)
-            NSLog("stepSamples sample count = \(count)")
+            print("stepSamples sample count = \(count)")
         case (let id as String) where id == _distanceId:
             count = UInt(distanceSamples.count)
-            NSLog("distanceSamples sample count = \(count)")
+            print("distanceSamples sample count = \(count)")
         default:
             return count
         }
@@ -273,64 +524,67 @@ class TDGraphVC: UIViewController, CPTScatterPlotDataSource, CPTScatterPlotDeleg
         case (let id as String, x) where id == _heartrateId:
             quant = heartRateSamples[Int(idx)]
             let seconds = quant.startDate.timeIntervalSinceDate(startDate)
-            NSLog("heartRateSamples x value : \(seconds)")
             return seconds
         case (let id as String, y) where id == _heartrateId:
             quant = heartRateSamples[Int(idx)]
             let dValue = quant.quantity.doubleValueForUnit(countPerMinuteUnit)
-            NSLog("heartRateSamples y value : \(dValue)")
+            let seconds = quant.startDate.timeIntervalSinceDate(startDate)
+            print(String(format:"(%.0fs, %.0fbpm)", seconds, dValue))
             return dValue
         case (let id as String, x) where id == _energyId:
             quant = energySamples[Int(idx)]
             let seconds = quant.startDate.timeIntervalSinceDate(startDate)
-            NSLog("energySamples x value : \(seconds)")
             return seconds
         case (let id as String, y) where id == _energyId:
             quant = energySamples[Int(idx)]
             let dValue = quant.quantity.doubleValueForUnit(energyUnit)
-            NSLog("energySamples y value : \(dValue)")
+            let seconds = quant.startDate.timeIntervalSinceDate(startDate)
+            print(String(format:"(%.0fs, %.0fcal)", seconds, dValue))
             return dValue
         case (let id as String, x) where id == _stepsId:
             quant = stepSamples[Int(idx)]
             let seconds = quant.startDate.timeIntervalSinceDate(startDate)
-            NSLog("stepSamples x value : \(seconds)")
             return seconds
         case (let id as String, y) where id == _stepsId:
             quant = stepSamples[Int(idx)]
             let dValue = quant.quantity.doubleValueForUnit(stepUnit)
-            NSLog("stepSamples y value : \(dValue)")
+            let seconds = quant.startDate.timeIntervalSinceDate(startDate)
+            print(String(format:"(%.0fs, %.0fsteps)", seconds, dValue))
             return dValue
         case (let id as String, x) where id == _distanceId:
             quant = distanceSamples[Int(idx)]
             let seconds = quant.startDate.timeIntervalSinceDate(startDate)
-            NSLog("distanceSamples x value : \(seconds)")
             return seconds
         case (let id as String, y) where id == _distanceId:
             quant = distanceSamples[Int(idx)]
             let dValue = quant.quantity.doubleValueForUnit(distanceUnit)
-            NSLog("distanceSamples y value : \(dValue)")
+            let seconds = quant.startDate.timeIntervalSinceDate(startDate)
+            print(String(format:"(%.0fs, %.0fm)", seconds, dValue))
             return dValue
         default:
             return nil
         }
     }
-    
 
+    
     
     //MARK: Data queries
     
     func createStreamingDistanceQuery() -> HKQuery {
         let predicate = self.predicateFromWorkoutSamples()
         
-        let distanceQuery = HKAnchoredObjectQuery(type: self.distanceType, predicate: predicate, anchor: nil, limit: Int(HKObjectQueryNoLimit)) { (query, samples, deletedObjects, anchor, error) -> Void in
-
-            if error == nil {
-                if let quantitySamples = samples as? [HKQuantitySample] {
-                    self.distanceSamples = quantitySamples
-                    self.refreshGraph()
-                }
-            } else {
-                NSLog(error!.localizedDescription)
+        let distanceQuery = HKSampleQuery(sampleType: self.distanceType, predicate: predicate, limit: Int(HKObjectQueryNoLimit), sortDescriptors: nil) { _, samples, error in
+            
+            switch (samples, error) {
+            case (let quantitySamples?, nil) :
+                self.distanceSamples = quantitySamples as! [HKQuantitySample]
+                self.refreshGraph(self._distanceId)
+            case (_, _?):
+                print(error!.localizedDescription)
+                fallthrough
+            default:
+                self.HUD?.textLabel?.text = "No Distance Data"
+                self.HUD?.dismissAfterDelay(5.0)
             }
         }
         
@@ -341,15 +595,18 @@ class TDGraphVC: UIViewController, CPTScatterPlotDataSource, CPTScatterPlotDeleg
     func createStreamingStepQuery() -> HKQuery {
         let predicate = self.predicateFromWorkoutSamples()
         
-        let distanceQuery = HKAnchoredObjectQuery(type: self.stepType, predicate: predicate, anchor: nil, limit: Int(HKObjectQueryNoLimit)) { (query, samples, deletedObjects, anchor, error) -> Void in
-
-            if error == nil {
-                if let quantitySamples = samples as? [HKQuantitySample] {
-                    self.stepSamples = quantitySamples
-                    self.refreshGraph()
-                }
-            } else {
-                NSLog(error!.localizedDescription)
+        let distanceQuery = HKSampleQuery(sampleType: self.stepType, predicate: predicate, limit: Int(HKObjectQueryNoLimit), sortDescriptors: nil) { _, samples, error in
+            
+            switch (samples, error) {
+            case (let quantitySamples?, nil) :
+                self.stepSamples = quantitySamples as! [HKQuantitySample]
+                self.refreshGraph(self._stepsId)
+            case (_, _?):
+                print(error!.localizedDescription)
+                fallthrough
+            default:
+                self.HUD?.textLabel?.text = "No Step Data"
+                self.HUD?.dismissAfterDelay(5.0)
             }
         }
         
@@ -360,14 +617,17 @@ class TDGraphVC: UIViewController, CPTScatterPlotDataSource, CPTScatterPlotDeleg
     func createStreamingEnergyQuery() -> HKQuery {
         let predicate = self.predicateFromWorkoutSamples()
         
-        let energyQuery = HKAnchoredObjectQuery(type: self.energyType, predicate: predicate, anchor: nil, limit: Int(HKObjectQueryNoLimit)) { (query, samples, deletedObjects, anchor, error) -> Void in
-            if error == nil {
-                if let quantitySamples = samples as? [HKQuantitySample] {
-                    self.energySamples = quantitySamples
-                    self.refreshGraph()
-                }
-            } else {
-                NSLog(error!.localizedDescription)
+        let energyQuery = HKSampleQuery(sampleType: self.energyType, predicate: predicate, limit: Int(HKObjectQueryNoLimit), sortDescriptors: nil) { _, samples, error in
+            switch (samples, error) {
+            case (let quantitySamples?, nil) :
+                self.energySamples = quantitySamples as! [HKQuantitySample]
+                self.refreshGraph(self._energyId)
+            case (_, _?):
+                print(error!.localizedDescription)
+                fallthrough
+            default:
+                self.HUD?.textLabel?.text = "No Energy Data"
+                self.HUD?.dismissAfterDelay(5.0)
             }
         }
         
@@ -378,14 +638,20 @@ class TDGraphVC: UIViewController, CPTScatterPlotDataSource, CPTScatterPlotDeleg
     func createStreamingHeartRateQuery() -> HKQuery {
         let predicate = self.predicateFromWorkoutSamples()
         
-        let heartRateQuery = HKAnchoredObjectQuery(type: self.heartRateType, predicate: predicate, anchor: nil, limit: Int(HKObjectQueryNoLimit)) { (query, samples, deletedObjects, anchor, error) -> Void in
-            if error == nil {
-                if let quantitySamples = samples as? [HKQuantitySample] {
-                    self.heartRateSamples = quantitySamples
-                    self.refreshGraph()
-                }
-            } else {
-                NSLog(error!.localizedDescription)
+        let heartRateQuery = HKSampleQuery(sampleType: self.heartRateType, predicate: predicate, limit: Int(HKObjectQueryNoLimit), sortDescriptors: nil) { _, samples, error in
+
+            switch (samples, error) {
+            case (let quantitySamples?, nil) where quantitySamples.count > 0:
+                self.heartRateSamples = quantitySamples as! [HKQuantitySample]
+                self.refreshGraph(self._heartrateId)
+            case (let quantitySamples?, nil) where quantitySamples.count == 0:
+                self.heartRateSamples = quantitySamples as! [HKQuantitySample]
+                self.displayNoData()
+            case (_, _?):
+                print(error!.localizedDescription)
+                fallthrough
+            default:
+                self.displayNoData()
             }
         }
         
@@ -397,10 +663,32 @@ class TDGraphVC: UIViewController, CPTScatterPlotDataSource, CPTScatterPlotDeleg
     }
     
 
-    func refreshGraph() {
+    func refreshGraph(identifier: String?) {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             self.HUD?.dismissAnimated(true)
-            self.graphView.hostedGraph?.reloadData()
+            if let id = identifier {
+                self.graphView.hostedGraph?.plotWithIdentifier(id)?.reloadData()
+            } else {
+                self.graphView.hostedGraph?.reloadData()
+            }
+        }
+    }
+    
+    
+    @IBAction func segmentCtrlChanged(sender: UISegmentedControl) {
+        changeGraphToEnergy()
+    }
+    
+    func displayNoData() {
+        dispatch_async(dispatch_get_main_queue()) {
+            guard let hud = self.HUD else {return}
+            if !hud.visible {
+                self.HUD = JGProgressHUD(style: JGProgressHUDStyle.Light)
+                self.HUD?.showInView(self.view)
+            }
+            self.HUD?.setProgress(1.0, animated: true)
+            self.HUD?.dismissAfterDelay(15.0)
+            self.HUD?.textLabel?.text = "No Heartrate Data"
         }
     }
 }
