@@ -11,10 +11,12 @@ import HealthKit
 import JGProgressHUD
 import MHPrettyDate
 
+
 class TDWorkoutListVC: UITableViewController {
     
     var workouts : [HKSample] = [HKSample]()
     var HUD : JGProgressHUD?
+    let speaker = TDSpeechManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,6 +71,14 @@ class TDWorkoutListVC: UITableViewController {
     }
     
     func didReceiveUserInfo(notification: NSNotification) {
+        if let score = notification.userInfo?["score"] as? [[Int]] {
+            if speaker.canSpeak() {
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.speaker.speakScore(score)
+                }
+            }
+        }
+        
         guard let startDate = notification.userInfo?["workoutStartDate"] as? NSDate,
             endDate = notification.userInfo?["workoutEndDate"] as? NSDate else { return }
         let workout = HKWorkout(activityType: .Badminton, startDate: startDate, endDate: endDate)

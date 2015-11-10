@@ -33,8 +33,7 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
     var canSaveGame = false
     var canSaveMatch = false
     
-    var overallScore : [[Int]] = [[0,0], [0,0], [0,0]]
-    var currentSet : Int = 0
+    var overallScore : [[Int]] = [[0,0]]
     var isMySaveActive = false
     var isThemSaveActive = false
     var currentState = TDState.ReadyToBegin
@@ -172,7 +171,7 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
     
     @IBAction func myMinusBtnPressed() {
         dispatch_async(dispatch_get_main_queue(), {
-            let currentSetScore = self.overallScore[self.currentSet]
+            let currentSetScore = self.overallScore[self.overallScore.count - 1]
             let mySetScore = currentSetScore[0]
             let themSetScore = currentSetScore[1]
 
@@ -181,7 +180,7 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
             }
 
             let newMySetScore = mySetScore - 1
-            self.overallScore[self.currentSet][0] = newMySetScore
+            self.overallScore[self.overallScore.count - 1][0] = newMySetScore
             self.mySetScoreLbl.setText("\(newMySetScore)")
             
             self.updateVisualState(newMySetScore, themSetScore: themSetScore)
@@ -192,7 +191,7 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
     
     @IBAction func themMinusBtnPressed() {
         dispatch_async(dispatch_get_main_queue(), {
-            let currentSetScore = self.overallScore[self.currentSet]
+            let currentSetScore = self.overallScore[self.overallScore.count - 1]
             let mySetScore = currentSetScore[0]
             let themSetScore = currentSetScore[1]
 
@@ -201,7 +200,7 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
             }
             
             let newMySetScore = themSetScore - 1
-            self.overallScore[self.currentSet][1] = newMySetScore
+            self.overallScore[self.overallScore.count - 1][1] = newMySetScore
             self.themSetScoreLbl.setText("\(newMySetScore)")
             
             self.updateVisualState(mySetScore, themSetScore: newMySetScore)
@@ -215,13 +214,13 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
                 return
             }
             
-            let currentSetScore = self.overallScore[self.currentSet]
+            let currentSetScore = self.overallScore[self.overallScore.count - 1]
             let mySetScore = currentSetScore[0]
             let themSetScore = currentSetScore[1]
             
             if self.isValidScore(mySetScore, themSetScore: themSetScore) { // won
                 let newMySetScore = mySetScore + 1
-                self.overallScore[self.currentSet][0] = newMySetScore
+                self.overallScore[self.overallScore.count - 1][0] = newMySetScore
                 self.mySetScoreLbl.setText("\(newMySetScore)")
                 
                 self.updateVisualState(newMySetScore, themSetScore: themSetScore)
@@ -237,13 +236,13 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
                 return
             }
             
-            let currentSetScore = self.overallScore[self.currentSet]
+            let currentSetScore = self.overallScore[self.overallScore.count - 1]
             let mySetScore = currentSetScore[0]
             let themSetScore = currentSetScore[1]
             
             if self.isValidScore(mySetScore, themSetScore: themSetScore) { // won
                 let newMySetScore = themSetScore + 1
-                self.overallScore[self.currentSet][1] = newMySetScore
+                self.overallScore[self.overallScore.count - 1][1] = newMySetScore
                 self.themSetScoreLbl.setText("\(newMySetScore)")
                 
                 self.updateVisualState(mySetScore, themSetScore: newMySetScore)
@@ -275,6 +274,20 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
     func updateVisualState(mySetScore: Int, themSetScore: Int) {
         setScoreString()
         
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { // do some task
+            let userInfo : [String: AnyObject] = ["score": self.overallScore]
+            let myDelegate = WKExtension.sharedExtension().delegate as! ExtensionDelegate
+            if myDelegate.session.reachable {
+                myDelegate.session.sendMessage(userInfo, replyHandler: { handler in
+                    print("success sendmessage")
+                    }, errorHandler: { error in
+                        print(error.localizedDescription)
+                })
+            } else {
+                self.transfer = myDelegate.session.transferUserInfo(userInfo)
+            }
+        }
+        
         if mySetScore > themSetScore {
             let difference = mySetScore - themSetScore
 
@@ -292,6 +305,8 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
             }
         }
         
+
+        
         hideSaveSet()        
     }
 
@@ -304,7 +319,7 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
             isThemSaveActive = true
         }
         
-        if currentSet == 2 {
+        if self.overallScore.count == 3 {
             canSaveMatch = true
         } else {
             canSaveGame = true
@@ -320,8 +335,8 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
     }
     
     func saveScore() {
-        if currentSet < 2 {
-            currentSet++
+        if overallScore.count < 3 {
+            overallScore.append([0,0])
         }
         
         mySetScoreLbl.setText("\(0)")
@@ -336,9 +351,9 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
     }
     
     func setScoreString() {
-        if currentSet == 0 {
+        if overallScore.count == 1 {
             scoreLbl.setText("Score: \(overallScore[0][0]) \(overallScore[0][1])")
-        } else if currentSet == 1 {
+        } else if overallScore.count == 2 {
             scoreLbl.setText("\(overallScore[0][0]) \(overallScore[0][1]), \(overallScore[1][0]) \(overallScore[1][1])")
         } else {
             scoreLbl.setText("\(overallScore[0][0]) \(overallScore[0][1]), \(overallScore[1][0]) \(overallScore[1][1]), \(overallScore[2][0]) \(overallScore[2][1])")
@@ -354,8 +369,7 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
         isMySaveActive = false
         isThemSaveActive = false
         
-        currentSet = 0
-        overallScore = [[0,0], [0,0], [0,0]]
+        overallScore = [[0,0]]
         setScoreString()
     }
     
@@ -367,8 +381,8 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
     
     func animateHeart() {
         self.animateWithDuration(0.2) {
-            self.heartIV.setWidth(28)
-            self.heartIV.setHeight(28)
+            self.heartIV.setWidth(20)
+            self.heartIV.setHeight(20)
         }
         
         let when = dispatch_time(DISPATCH_TIME_NOW, Int64(0.2 * double_t(NSEC_PER_SEC)))
@@ -376,8 +390,8 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
         dispatch_after(when, queue) {
             dispatch_async(dispatch_get_main_queue(), {
                 self.animateWithDuration(0.2, animations: {
-                    self.heartIV.setWidth(20)
-                    self.heartIV.setHeight(20)
+                    self.heartIV.setWidth(16)
+                    self.heartIV.setHeight(16)
                 })
             })
         }
