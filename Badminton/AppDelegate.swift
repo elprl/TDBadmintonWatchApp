@@ -9,6 +9,7 @@
 import UIKit
 import HealthKit
 import WatchConnectivity
+import AVFoundation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
@@ -25,6 +26,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
         if WCSession.isSupported() {
             session.activateSession()
         }
+        
+        let avSession = AVAudioSession.sharedInstance()
+        do {
+            try avSession.setCategory(AVAudioSessionCategoryPlayback, withOptions: .DefaultToSpeaker)
+            try avSession.setActive(true)
+        } catch {
+            
+        }
+        
         
         return true
     }

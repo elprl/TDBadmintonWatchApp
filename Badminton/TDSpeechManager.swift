@@ -64,8 +64,11 @@ class TDSpeechManager {
         }
         var scoreString = "\(mySetScore) \(themSetScore)"
         
+        let difference = abs(mySetScore - themSetScore)
+        let didIWinGame = (mySetScore >= 21 && difference > 1) || mySetScore == 30
+        let didTheyWinGame = (themSetScore >= 21 && difference > 1) || themSetScore == 30
+
         if mySetScore > themSetScore {
-            let difference = mySetScore - themSetScore
             if (mySetScore >= 21 && difference > 1) || mySetScore == 30 { // won set
                 if score.count == 1 || (score.count == 2 && score[0][0] < score[0][1]) {
                     scoreString = "Game, \(mySetScore) \(themSetScore)" // won set
@@ -76,7 +79,6 @@ class TDSpeechManager {
                 }
             }
         } else {
-            let difference = themSetScore - mySetScore
             if (themSetScore >= 21 && difference > 1) || themSetScore == 30 { // won
                 if score.count == 1 || (score.count == 2 && score[0][1] < score[0][0]) {
                     scoreString = "Game \(mySetScore) \(themSetScore)" // won set

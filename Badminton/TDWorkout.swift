@@ -7,9 +7,10 @@
 //
 
 import Foundation
+import HealthKit
 
-class TDWorkout {
-    var startDate = NSDate()
-    var endDate = NSDate()
-    var score = [[Int]]()
+class TDWorkout : HKWorkout {
+    var score : [[Int]]?
+    var scoreData : [NSDate: [[Int]]]?
+    var isProcessing = true
 }

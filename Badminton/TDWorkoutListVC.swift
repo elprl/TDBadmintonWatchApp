@@ -47,7 +47,7 @@ class TDWorkoutListVC: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         super.prepareForSegue(segue, sender: sender)
         
-        if let destination = segue.destinationViewController as? TDGraphVC {
+        if let destination = segue.destinationViewController as? TDShinobiGraphVC {
             if let index = sender as? Int {
                 let startDate = workouts[index].startDate
                 let endDate = workouts[index].endDate
@@ -71,6 +71,14 @@ class TDWorkoutListVC: UITableViewController {
     }
     
     func didReceiveUserInfo(notification: NSNotification) {
+        if let _ = notification.userInfo?["workoutStarted"] as? Bool {
+            if speaker.canSpeak() {
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.speaker.speakMessage("Workout started")
+                }
+            }
+        }
+        
         if let score = notification.userInfo?["score"] as? [[Int]] {
             if speaker.canSpeak() {
                 dispatch_async(dispatch_get_main_queue()) {
@@ -81,10 +89,13 @@ class TDWorkoutListVC: UITableViewController {
         
         guard let startDate = notification.userInfo?["workoutStartDate"] as? NSDate,
             endDate = notification.userInfo?["workoutEndDate"] as? NSDate else { return }
-        let workout = HKWorkout(activityType: .Badminton, startDate: startDate, endDate: endDate)
+        let workout = TDWorkout(activityType: .Badminton, startDate: startDate, endDate: endDate)
         self.workouts.insert(workout, atIndex: 0)
         
         dispatch_async(dispatch_get_main_queue()) {
+            if self.speaker.canSpeak() {
+                self.speaker.speakMessage("Workout ended")
+            }
             self.tableView.reloadData()
         }
     }
@@ -95,8 +106,19 @@ class TDWorkoutListVC: UITableViewController {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cellId", forIndexPath: indexPath)
-        let startDate = workouts[indexPath.row].startDate
-        cell.textLabel?.text = MHPrettyDate.prettyDateFromDate(startDate, withFormat: MHPrettyDateFormatWithTime)
+        let workout = workouts[indexPath.row]
+        let dateString = MHPrettyDate.prettyDateFromDate(workout.startDate, withFormat: MHPrettyDateFormatWithTime)
+        if workout is TDWorkout {
+            cell.textLabel?.text = dateString + " (Processing)"
+            cell.selectionStyle = .None
+            cell.accessoryType = .None
+        } else {
+            cell.textLabel?.text = dateString
+            cell.selectionStyle = .Gray
+            cell.accessoryType = .DisclosureIndicator
+        }
+        
+        print(workout.metadata)
         return cell
     }
     
@@ -125,13 +147,7 @@ class TDWorkoutListVC: UITableViewController {
         
         workoutsQuery.updateHandler = { query, samples, deletedObjects, anchor, error in
             if error == nil {
-                if let workoutSamples = samples {
-                    self.workouts += workoutSamples.reverse()
-                    dispatch_async(dispatch_get_main_queue()) { () -> Void in
-                        self.HUD?.dismissAnimated(true)
-                        self.tableView.reloadData()
-                    }
-                }
+                self.insertNewSamples(samples)
             } else {
                 NSLog(error!.localizedDescription)
             }
@@ -141,6 +157,32 @@ class TDWorkoutListVC: UITableViewController {
         if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
             appDelegate.healthStore.executeQuery(workoutsQuery)
         }
+    }
+    
+    func insertNewSamples(samples: [HKSample]?) {
+        if let workoutSamples = samples {
+            for workout in workoutSamples {
+                let index = indexOfWorkout(workout)
+                if index >= 0 {
+                    self.workouts.removeAtIndex(index)
+                }
+                self.workouts.insert(workout, atIndex: 0)
+            }
+            dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                self.HUD?.dismissAnimated(true)
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
+    func indexOfWorkout(myWorkout: HKSample) -> Int {
+        for (index, value) in workouts.enumerate() {
+            if value.startDate.compare(myWorkout.startDate) == NSComparisonResult.OrderedSame {
+                return index
+            }
+        }
+        
+        return -1
     }
 }
 
