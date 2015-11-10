@@ -24,8 +24,8 @@
 		DA24E8021BDC60B400DEC986 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA24E8011BDC60B400DEC986 /* ExtensionDelegate.swift */; };
 		DA24E8041BDC60B400DEC986 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA24E8031BDC60B400DEC986 /* NotificationController.swift */; };
 		DA24E8061BDC60B400DEC986 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA24E8051BDC60B400DEC986 /* Assets.xcassets */; };
+		DA673D7B1BF12D6D00DFDD0E /* TDSpeechManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA673D7A1BF12D6D00DFDD0E /* TDSpeechManager.swift */; };
 		DA7224F51BDD922400FE23AF /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA7224F41BDD922400FE23AF /* HealthKit.framework */; };
-		DA74C5111BF18232004A3158 /* TDSpeechManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA74C5101BF18232004A3158 /* TDSpeechManager.swift */; };
 		DAC5E8B41BEBFD00003126CC /* TDGraphVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC5E8B31BEBFD00003126CC /* TDGraphVC.swift */; };
 		DAC85EB71BEBF48B00E0326D /* TDWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC85EB61BEBF48B00E0326D /* TDWorkout.swift */; };
 		DAD4EA9A1BE6776300816B67 /* Settings-Watch.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DAD4EA991BE6776300816B67 /* Settings-Watch.bundle */; };
@@ -117,9 +117,9 @@
 		DA24E8031BDC60B400DEC986 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		DA24E8051BDC60B400DEC986 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA24E8071BDC60B400DEC986 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA673D7A1BF12D6D00DFDD0E /* TDSpeechManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDSpeechManager.swift; sourceTree = "<group>"; };
 		DA7224F41BDD922400FE23AF /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		DA7224F61BDD939200FE23AF /* Badminton.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Badminton.entitlements; sourceTree = "<group>"; };
-		DA74C5101BF18232004A3158 /* TDSpeechManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDSpeechManager.swift; sourceTree = "<group>"; };
 		DAC5E8B21BEBFB8B003126CC /* Badminton-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Badminton-Bridging-Header.h"; path = "Badminton/Badminton-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		DAC5E8B31BEBFD00003126CC /* TDGraphVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDGraphVC.swift; sourceTree = "<group>"; };
 		DAC85EB61BEBF48B00E0326D /* TDWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDWorkout.swift; sourceTree = "<group>"; };
@@ -292,9 +292,9 @@
 		DAC5E8BA1BEBFD4D003126CC /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				DA74C5101BF18232004A3158 /* TDSpeechManager.swift */,
 				DA24E7C61BDC60B400DEC986 /* TDWorkoutListVC.swift */,
 				DAC5E8B31BEBFD00003126CC /* TDGraphVC.swift */,
+				DA673D7A1BF12D6D00DFDD0E /* TDSpeechManager.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -439,7 +439,7 @@
 					};
 				};
 			};
-			buildConfigurationList = DA24E7BC1BDC60B400DEC986 /* Build configuration list for PBXProject "Badminton" */;
+			buildConfigurationList = DA24E7BC1BDC60B400DEC986 /* Build configuration list for PBXProject "BadmintonWakt" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -563,7 +563,7 @@
 				DA24E7C71BDC60B400DEC986 /* TDWorkoutListVC.swift in Sources */,
 				DAC5E8B41BEBFD00003126CC /* TDGraphVC.swift in Sources */,
 				DA24E7C51BDC60B400DEC986 /* AppDelegate.swift in Sources */,
-				DA74C5111BF18232004A3158 /* TDSpeechManager.swift in Sources */,
+				DA673D7B1BF12D6D00DFDD0E /* TDSpeechManager.swift in Sources */,
 				DAC85EB71BEBF48B00E0326D /* TDWorkout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -895,7 +895,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DA24E7BC1BDC60B400DEC986 /* Build configuration list for PBXProject "Badminton" */ = {
+		DA24E7BC1BDC60B400DEC986 /* Build configuration list for PBXProject "BadmintonWakt" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DA24E8081BDC60B400DEC986 /* Debug */,

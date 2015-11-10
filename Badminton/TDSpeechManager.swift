@@ -17,21 +17,9 @@ class TDSpeechManager {
 
     init() {
         self.langCodes = AVSpeechSynthesisVoice.speechVoices().map {($0 as AVSpeechSynthesisVoice).language }
-        
-//        for voice in AVSpeechSynthesisVoice.speechVoices() {
-//            let voiceLanguageCode = (voice as AVSpeechSynthesisVoice).language
-//            
-//            guard let languageName = NSLocale.currentLocale().displayNameForKey(NSLocaleIdentifier, value: voiceLanguageCode) else {return}
-//            
-//            let dictionary = ["languageName": languageName, "languageCode": voiceLanguageCode]
-//            print(dictionary)
-//            
-//            arrVoiceLanguages.append(dictionary)
-//        }
         if canSpeak() {
             self.voice = AVSpeechSynthesisVoice(language: getPreferredLanguage())
         }
-        
     }
 
     func canSpeak() -> Bool {
@@ -101,27 +89,7 @@ class TDSpeechManager {
         }
         
         scoreString = scoreString.stringByReplacingOccurrencesOfString(" 0", withString: " love")
-        
         speakMessage(scoreString)
-        
-//        switch (score.count, mySetScore, themSetScore) {
-//        case (_, 0...30, 0...30):
-//            scoreString = "\(mySetScore) \(themSetScore)"
-//        case (2, 21, 0...19) where score[0][0] < score[0][1]:
-//            scoreString = "Game \(mySetScore) \(themSetScore)"
-//        case (2, 21, 0...19) where score[0][0] > score[0][1]:
-//            scoreString = "Game and Match \(score[0][0]) \(score[0][1]) \(mySetScore) \(themSetScore)"
-//        case (2, 0...19, 21) where score[0][0] > score[0][1]:
-//            scoreString = "Game \(mySetScore) \(themSetScore)"
-//        case (2, 0...19, 21) where score[0][0] < score[0][1]:
-//            scoreString = "Game and Match \(score[0][0]) \(score[0][1]) \(mySetScore) \(themSetScore)"
-//        case (3, 21, 0...19):
-//            scoreString = "Game and Match \(score[0][0]) \(score[0][1]) \(score[1][0]) \(score[1][1]) \(mySetScore) \(themSetScore)"
-//        case (3, 0...19, 21):
-//            scoreString = "Game and Match \(score[0][0]) \(score[0][1]) \(score[1][0]) \(score[1][1]) \(mySetScore) \(themSetScore)"
-//        default:
-//            break
-//        }
     }
     
     // workaround for stopping speach issue

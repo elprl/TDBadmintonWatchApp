@@ -107,12 +107,12 @@ class TDWorkoutListVC: UITableViewController {
     
     func createWorkoutsQuery() {
         let predicate = HKQuery.predicateForSamplesWithStartDate(nil, endDate: nil, options: .None)
-        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
-        let workoutsQuery = HKSampleQuery(sampleType: HKObjectType.workoutType(), predicate: predicate, limit: 30, sortDescriptors: [sortDescriptor]) { _, samples, error in
+//        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
+        let workoutsQuery = HKAnchoredObjectQuery(type: HKObjectType.workoutType(), predicate: predicate,  anchor: nil, limit: Int(HKObjectQueryNoLimit)) { query, samples, deletedObjects, anchor, error in
 
             if error == nil {
                 if let workoutSamples = samples {
-                    self.workouts = workoutSamples
+                    self.workouts = workoutSamples.reverse()
                     dispatch_async(dispatch_get_main_queue()) { () -> Void in
                         self.HUD?.dismissAnimated(true)
                         self.tableView.reloadData()
@@ -122,6 +122,21 @@ class TDWorkoutListVC: UITableViewController {
                 NSLog(error!.localizedDescription)
             }
         }
+        
+        workoutsQuery.updateHandler = { query, samples, deletedObjects, anchor, error in
+            if error == nil {
+                if let workoutSamples = samples {
+                    self.workouts += workoutSamples.reverse()
+                    dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                        self.HUD?.dismissAnimated(true)
+                        self.tableView.reloadData()
+                    }
+                }
+            } else {
+                NSLog(error!.localizedDescription)
+            }
+        }
+        
 
         if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
             appDelegate.healthStore.executeQuery(workoutsQuery)
