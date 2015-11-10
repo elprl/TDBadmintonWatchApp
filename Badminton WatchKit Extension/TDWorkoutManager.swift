@@ -47,8 +47,9 @@ class TDWorkoutSessionManager: NSObject, HKWorkoutSessionDelegate {
     var distanceSamples: [HKQuantitySample] = []
     var stepSamples: [HKQuantitySample] = []
     var heartRateSamples: [HKQuantitySample] = []
+    var workoutMetadata: [String: AnyObject] = [HKMetadataKeyWorkoutBrandName: "BadmintonWakt"]
     
-    let energyUnit = HKUnit.calorieUnit()
+    let energyUnit = HKUnit.kilocalorieUnit()
     let distanceUnit = HKUnit.meterUnit()
     let stepUnit = HKUnit.countUnit()
     let countPerMinuteUnit = HKUnit(fromString: "count/min")
@@ -172,9 +173,9 @@ class TDWorkoutSessionManager: NSObject, HKWorkoutSessionDelegate {
     func saveWorkout() {
         guard let startDate = self.workoutStartDate, endDate = self.workoutEndDate else { return }
         
-        let metadata = [ HKMetadataKeyExternalUUID: "BadmintonId \(startDate)",  HKMetadataKeyWorkoutBrandName: "Badminton"]
+//        let metadata = [HKMetadataKeyWorkoutBrandName: "BadmintonWakt"]
 
-        let workout = HKWorkout(activityType: self.workoutSession.activityType, startDate: startDate, endDate: endDate, duration: endDate.timeIntervalSinceDate(startDate), totalEnergyBurned: self.currentEnergyQuantity, totalDistance: self.currentDistanceQuantity, metadata: metadata)
+        let workout = HKWorkout(activityType: self.workoutSession.activityType, startDate: startDate, endDate: endDate, duration: endDate.timeIntervalSinceDate(startDate), totalEnergyBurned: self.currentEnergyQuantity, totalDistance: self.currentDistanceQuantity, metadata: self.workoutMetadata)
         
         var allSamples: [HKQuantitySample] = []
         allSamples += self.energySamples

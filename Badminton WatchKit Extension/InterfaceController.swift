@@ -145,7 +145,7 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
         workoutManager?.startWorkout()
         _timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("timerTick"), userInfo: nil, repeats: true)
         currentState = .Started
-        stateLbl.setText("Measuring...")
+        stateLbl.setText("Measuring")
         
         resetMenuItems()
     }
@@ -154,7 +154,7 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
         workoutManager?.stopWorkoutAndSave()
         currentState = .ReadyToBegin
         stateLbl.setText("Ready")
-        heartRateLbl.setText("---")
+        heartRateLbl.setText("--")
 
         resetMenuItems()
         
@@ -224,6 +224,7 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
                 self.mySetScoreLbl.setText("\(newMySetScore)")
                 
                 self.updateVisualState(newMySetScore, themSetScore: themSetScore)
+                self.saveScoreMetric()
             }
         });
     }
@@ -246,6 +247,7 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
                 self.themSetScoreLbl.setText("\(newMySetScore)")
                 
                 self.updateVisualState(mySetScore, themSetScore: newMySetScore)
+                self.saveScoreMetric()
             }
         });
     }
@@ -271,6 +273,20 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
         return true
     }
     
+    func saveScoreMetric() {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { // do some task
+            guard let manager = self.workoutManager else {return}
+            let dateString = "\(NSDate().timeIntervalSince1970)"
+            do {
+                let data = try NSJSONSerialization.dataWithJSONObject(self.overallScore, options: NSJSONWritingOptions(rawValue: 0))
+                let scoreString = String(data: data, encoding: NSUTF8StringEncoding)
+                manager.workoutMetadata[dateString] = scoreString
+            } catch {
+                return
+            }
+        }
+    }
+    
     func updateVisualState(mySetScore: Int, themSetScore: Int) {
         setScoreString()
         
@@ -278,14 +294,13 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
             let userInfo : [String: AnyObject] = ["score": self.overallScore]
             let myDelegate = WKExtension.sharedExtension().delegate as! ExtensionDelegate
             if myDelegate.session.reachable {
-                myDelegate.session.sendMessage(userInfo, replyHandler: { handler in
-                    print("success sendmessage")
-                    }, errorHandler: { error in
+                myDelegate.session.sendMessage(userInfo, replyHandler: nil, errorHandler: { error in
                         print(error.localizedDescription)
                 })
-            } else {
-                self.transfer = myDelegate.session.transferUserInfo(userInfo)
             }
+//            else {
+//                self.transfer = myDelegate.session.transferUserInfo(userInfo)
+//            }
         }
         
         if mySetScore > themSetScore {
@@ -304,9 +319,7 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
                 return
             }
         }
-        
-
-        
+   
         hideSaveSet()        
     }
 
@@ -417,6 +430,13 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
         currentState = .Started
         resetMenuItems()
         _userDefaults.setDouble(startDate.timeIntervalSince1970, forKey: "workoutStartDate")
+        let userInfo : [String: AnyObject] = ["workoutStarted": true]
+        let myDelegate = WKExtension.sharedExtension().delegate as! ExtensionDelegate
+        if myDelegate.session.reachable {
+            myDelegate.session.sendMessage(userInfo, replyHandler: nil, errorHandler: { error in
+                print(error.localizedDescription)
+            })
+        }
     }
     
     func workoutSessionManager(workoutSessionManager: TDWorkoutSessionManager, didStopWorkoutWithDate endDate: NSDate) {
@@ -427,17 +447,16 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
     
     func workoutSessionManager(workoutSessionManager: TDWorkoutSessionManager, didSaveWorkout workout: HKWorkout) {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            let userInfo : [String: AnyObject] = ["workoutStartDate": workout.startDate, "workoutEndDate": workout.endDate, "score": self.overallScore]
+            let userInfo : [String: AnyObject] = ["workoutStartDate": workout.startDate, "workoutEndDate": workout.endDate, "finalScore": self.overallScore]
             let myDelegate = WKExtension.sharedExtension().delegate as! ExtensionDelegate
             if myDelegate.session.reachable {
-                myDelegate.session.sendMessage(userInfo, replyHandler: { handler in
-                    print("success sendmessage")
-                }, errorHandler: { error in
+                myDelegate.session.sendMessage(userInfo, replyHandler: nil, errorHandler: { error in
                     print(error.localizedDescription)
                 })
-            } else {
-                self.transfer = myDelegate.session.transferUserInfo(userInfo)
             }
+//            else {
+//                self.transfer = myDelegate.session.transferUserInfo(userInfo)
+//            }
         }
     }
     
