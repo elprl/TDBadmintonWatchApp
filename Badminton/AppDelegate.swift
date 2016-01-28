@@ -10,6 +10,8 @@ import UIKit
 import HealthKit
 import WatchConnectivity
 import AVFoundation
+import NSLogger
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
@@ -20,6 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        #if TD_DEBUG
+            LoggerStart(LoggerGetDefaultLogger())
+        #endif
+        
         session = WCSession.defaultSession()
         session.delegate = self
         

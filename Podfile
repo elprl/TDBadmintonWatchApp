@@ -7,5 +7,6 @@ pod 'CorePlot', :git => 'https://github.com/core-plot/core-plot.git', :branch =>
 #pod 'CorePlot', :git => 'https://github.com/core-plot/core-plot.git', :commit => '24f219e'
 
 pod 'JGProgressHUD'
-pod 'MHPrettyDate', '~> 1.1'
+pod 'MHPrettyDate'
 pod 'DateTools'
+pod 'NSLogger/NoStrip'

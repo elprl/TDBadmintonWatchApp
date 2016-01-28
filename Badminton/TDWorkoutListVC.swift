@@ -11,6 +11,12 @@ import HealthKit
 import JGProgressHUD
 import MHPrettyDate
 
+func == (left: HKSample, right: HKSample) -> Bool {
+    if left.startDate.compare(right.startDate) == NSComparisonResult.OrderedSame {
+        return true
+    }
+    return false
+}
 
 class TDWorkoutListVC: UITableViewController {
     
@@ -53,6 +59,13 @@ class TDWorkoutListVC: UITableViewController {
                 let endDate = workouts[index].endDate
                 destination.startDate = startDate
                 destination.endDate = endDate
+            }
+        } else if let destination = segue.destinationViewController as? TDGraphVC {
+            if let index = sender as? Int {
+                let startDate = workouts[index].startDate
+                let endDate = workouts[index].endDate
+                destination.plotFactory.startDate = startDate
+                destination.plotFactory.endDate = endDate
             }
         }
     }
@@ -124,7 +137,8 @@ class TDWorkoutListVC: UITableViewController {
     
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        performSegueWithIdentifier("showWorkoutId", sender: indexPath.row)
+        performSegueWithIdentifier("showCPGraphWorkoutId", sender: indexPath.row)
+//        performSegueWithIdentifier("showShinobiWorkoutId", sender: indexPath.row)
     }
     
     func createWorkoutsQuery() {
@@ -177,7 +191,7 @@ class TDWorkoutListVC: UITableViewController {
     
     func indexOfWorkout(myWorkout: HKSample) -> Int {
         for (index, value) in workouts.enumerate() {
-            if value.startDate.compare(myWorkout.startDate) == NSComparisonResult.OrderedSame {
+            if value == myWorkout {
                 return index
             }
         }
@@ -185,4 +199,5 @@ class TDWorkoutListVC: UITableViewController {
         return -1
     }
 }
+
 

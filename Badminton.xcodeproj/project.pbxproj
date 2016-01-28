@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		378203F3FCE15BF63FC4E3B0 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACC7C36D8AA194BEC20B8882 /* Pods.framework */; };
 		DA079CD91BE15D74001D9B52 /* Badminton.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = DA079CD81BE15D74001D9B52 /* Badminton.entitlements */; };
+		DA1FA4D41C581BF300B3456E /* NSLoggerSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1FA4D31C581BF300B3456E /* NSLoggerSupport.swift */; };
 		DA24E7C51BDC60B400DEC986 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA24E7C41BDC60B400DEC986 /* AppDelegate.swift */; };
 		DA24E7C71BDC60B400DEC986 /* TDWorkoutListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA24E7C61BDC60B400DEC986 /* TDWorkoutListVC.swift */; };
 		DA24E7CA1BDC60B400DEC986 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA24E7C81BDC60B400DEC986 /* Main.storyboard */; };
@@ -24,6 +25,7 @@
 		DA24E8021BDC60B400DEC986 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA24E8011BDC60B400DEC986 /* ExtensionDelegate.swift */; };
 		DA24E8041BDC60B400DEC986 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA24E8031BDC60B400DEC986 /* NotificationController.swift */; };
 		DA24E8061BDC60B400DEC986 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA24E8051BDC60B400DEC986 /* Assets.xcassets */; };
+		DA6D28C41C5AA94A00FD7CFE /* TDCorePlotFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6D28C31C5AA94A00FD7CFE /* TDCorePlotFactory.swift */; };
 		DA7224F51BDD922400FE23AF /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA7224F41BDD922400FE23AF /* HealthKit.framework */; };
 		DA74C5111BF18232004A3158 /* TDSpeechManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA74C5101BF18232004A3158 /* TDSpeechManager.swift */; };
 		DAB85D2F1BF22B04008C858A /* ShinobiCharts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB85D2E1BF22B04008C858A /* ShinobiCharts.framework */; };
@@ -101,6 +103,7 @@
 		9535C74F6BB88E454AF220BB /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		ACC7C36D8AA194BEC20B8882 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA079CD81BE15D74001D9B52 /* Badminton.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Badminton.entitlements; sourceTree = "<group>"; };
+		DA1FA4D31C581BF300B3456E /* NSLoggerSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSLoggerSupport.swift; sourceTree = "<group>"; };
 		DA24E7C11BDC60B400DEC986 /* Badminton.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Badminton.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA24E7C41BDC60B400DEC986 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DA24E7C61BDC60B400DEC986 /* TDWorkoutListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TDWorkoutListVC.swift; sourceTree = "<group>"; };
@@ -125,6 +128,7 @@
 		DA24E8031BDC60B400DEC986 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		DA24E8051BDC60B400DEC986 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA24E8071BDC60B400DEC986 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA6D28C31C5AA94A00FD7CFE /* TDCorePlotFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDCorePlotFactory.swift; sourceTree = "<group>"; };
 		DA7224F41BDD922400FE23AF /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		DA7224F61BDD939200FE23AF /* Badminton.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Badminton.entitlements; sourceTree = "<group>"; };
 		DA74C5101BF18232004A3158 /* TDSpeechManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDSpeechManager.swift; sourceTree = "<group>"; };
@@ -307,6 +311,7 @@
 		DAC5E8B81BEBFD12003126CC /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
+				DA1FA4D31C581BF300B3456E /* NSLoggerSupport.swift */,
 				DA7224F61BDD939200FE23AF /* Badminton.entitlements */,
 				DAC5E8B21BEBFB8B003126CC /* Badminton-Bridging-Header.h */,
 				DA24E7CB1BDC60B400DEC986 /* Assets.xcassets */,
@@ -333,6 +338,7 @@
 				DA24E7C61BDC60B400DEC986 /* TDWorkoutListVC.swift */,
 				DAC5E8B31BEBFD00003126CC /* TDGraphVC.swift */,
 				DAB85D3A1BF235E2008C858A /* TDShinobiGraphVC.swift */,
+				DA6D28C31C5AA94A00FD7CFE /* TDCorePlotFactory.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -602,8 +608,10 @@
 				DAC5E8B41BEBFD00003126CC /* TDGraphVC.swift in Sources */,
 				DA24E7C51BDC60B400DEC986 /* AppDelegate.swift in Sources */,
 				DA74C5111BF18232004A3158 /* TDSpeechManager.swift in Sources */,
+				DA6D28C41C5AA94A00FD7CFE /* TDCorePlotFactory.swift in Sources */,
 				DAB85D3B1BF235E2008C858A /* TDShinobiGraphVC.swift in Sources */,
 				DAC85EB71BEBF48B00E0326D /* TDWorkout.swift in Sources */,
+				DA1FA4D41C581BF300B3456E /* NSLoggerSupport.swift in Sources */,
 				DAB85D3D1BF24E04008C858A /* TDBadmintonScore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -810,14 +818,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Badminton/Badminton.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Paul Leo (75HQRE3TM6)";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer: Paul Leo (75HQRE3TM6)";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				IBSC_MODULE = Badminton_WatchKit_Extension;
 				INFOPLIST_FILE = "Badminton WatchKit App/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.TapDigital.Badminton.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f9551513-5176-4d79-9531-fa82a3a437e1";
+				PROVISIONING_PROFILE = "4bc5e4c9-4f0f-4471-83c3-34a90096c7fb";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -830,14 +838,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Badminton/Badminton.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Paul Leo (75HQRE3TM6)";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer: Paul Leo (75HQRE3TM6)";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				IBSC_MODULE = Badminton_WatchKit_Extension;
 				INFOPLIST_FILE = "Badminton WatchKit App/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.TapDigital.Badminton.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f9551513-5176-4d79-9531-fa82a3a437e1";
+				PROVISIONING_PROFILE = "4bc5e4c9-4f0f-4471-83c3-34a90096c7fb";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -865,9 +873,10 @@
 				);
 				INFOPLIST_FILE = Badminton/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DTD_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.TapDigital.Badminton;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6f5fca70-d48b-4fde-8d6f-418893e66fe4";
+				PROVISIONING_PROFILE = "53ccc743-3ad4-42ff-b213-49e4fead9436";
 				SWIFT_OBJC_BRIDGING_HEADER = "Badminton/Badminton-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -890,9 +899,10 @@
 				GCC_OPTIMIZATION_LEVEL = s;
 				INFOPLIST_FILE = Badminton/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" ";
 				PRODUCT_BUNDLE_IDENTIFIER = com.TapDigital.Badminton;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6f5fca70-d48b-4fde-8d6f-418893e66fe4";
+				PROVISIONING_PROFILE = "53ccc743-3ad4-42ff-b213-49e4fead9436";
 				SWIFT_OBJC_BRIDGING_HEADER = "Badminton/Badminton-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};

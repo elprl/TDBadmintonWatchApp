@@ -319,3 +319,43 @@ class TDWorkoutSessionManager: NSObject, HKWorkoutSessionDelegate {
     
 }
 
+/* JSON 
+
+[
+{
+"time" : 1447611378,
+"score" : [
+[
+21,
+0
+],
+[
+3,
+21
+],
+[
+29,
+30
+]
+]
+},
+{
+"time" : 1447611378,
+"score" : [
+[
+21,
+0
+],
+[
+3,
+21
+],
+[
+29,
+30
+]
+]
+}
+]
+*/
+

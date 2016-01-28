@@ -23,7 +23,7 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
     @IBOutlet var myPlusBtn: WKInterfaceButton!
     @IBOutlet var themMinusBtn: WKInterfaceButton!
     @IBOutlet var themPlusBtn: WKInterfaceButton!
-    @IBOutlet var stateLbl: WKInterfaceLabel!
+    @IBOutlet var timerLbl: WKInterfaceTimer!
     @IBOutlet var scoreLbl: WKInterfaceLabel!
     @IBOutlet var heartRateLbl: WKInterfaceLabel!
     @IBOutlet var mySetScoreLbl: WKInterfaceLabel!
@@ -47,7 +47,7 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
     
     var transfer : WCSessionUserInfoTransfer?
     
-    private var _timer: NSTimer?
+//    private var _timer: NSTimer?
 //    private var _ticks: Double = 0.0
     
     override func awakeWithContext(context: AnyObject?) {
@@ -101,17 +101,17 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
             }
         }
 
-        if self._timer == nil && self.currentState == .Started {
-            self._timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("timerTick"), userInfo: nil, repeats: true)
-        }
+//        if self._timer == nil && self.currentState == .Started {
+//            self._timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("timerTick"), userInfo: nil, repeats: true)
+//        }
     }
 
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
         
-        _timer?.invalidate()
-        _timer = nil
+//        _timer?.invalidate()
+//        _timer = nil
     }
     
     func resetMenuItems() {
@@ -143,9 +143,9 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
         }
         
         workoutManager?.startWorkout()
-        _timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("timerTick"), userInfo: nil, repeats: true)
+//        _timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("timerTick"), userInfo: nil, repeats: true)
         currentState = .Started
-        stateLbl.setText("Measuring")
+        timerLbl.start()
         
         resetMenuItems()
     }
@@ -153,13 +153,13 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
     @IBAction func endBtnPressed() {
         workoutManager?.stopWorkoutAndSave()
         currentState = .ReadyToBegin
-        stateLbl.setText("Ready")
+        timerLbl.stop()
         heartRateLbl.setText("--")
 
         resetMenuItems()
         
-        _timer?.invalidate()
-        _timer = nil
+//        _timer?.invalidate()
+//        _timer = nil
     }
     
     
@@ -388,7 +388,7 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
     
     func displayNotAllowed() {
         heartRateLbl.setText("n/a")
-        stateLbl.setText("Not authorised")
+//        stateLbl.setText("Not authorised")
     }
     
     
@@ -410,19 +410,19 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
         }
     }
     
-    func timerTick() {
-        // Timers are not guaranteed to tick at the nominal rate specified, so this isn't technically accurate.
-        // However, this is just an example to demonstrate how to stop some ongoing activity, so we can live with that inaccuracy.
-        if let startDate = self.workoutManager?.workoutStartDate {
-            let now = NSDate()
-            let interval = now.timeIntervalSinceDate(startDate)
-            let seconds = fmod(interval, 60.0)
-            let minutes = fmod(trunc(interval / 60.0), 60.0)
-            let hours = trunc(interval / 3600.0)
-            let clockString = String.localizedStringWithFormat("%02.0f:%02.0f:%02.0f", hours, minutes, seconds)
-            self.stateLbl.setText(clockString)
-        }
-    }
+//    func timerTick() {
+//        // Timers are not guaranteed to tick at the nominal rate specified, so this isn't technically accurate.
+//        // However, this is just an example to demonstrate how to stop some ongoing activity, so we can live with that inaccuracy.
+//        if let startDate = self.workoutManager?.workoutStartDate {
+//            let now = NSDate()
+//            let interval = now.timeIntervalSinceDate(startDate)
+//            let seconds = fmod(interval, 60.0)
+//            let minutes = fmod(trunc(interval / 60.0), 60.0)
+//            let hours = trunc(interval / 3600.0)
+//            let clockString = String.localizedStringWithFormat("%02.0f:%02.0f:%02.0f", hours, minutes, seconds)
+//            self.stateLbl.setText(clockString)
+//        }
+//    }
 
     // MARK: TDWorkoutSessionManagerDelegate
     
