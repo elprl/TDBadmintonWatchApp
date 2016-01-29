@@ -26,6 +26,7 @@
 		DA24E8041BDC60B400DEC986 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA24E8031BDC60B400DEC986 /* NotificationController.swift */; };
 		DA24E8061BDC60B400DEC986 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA24E8051BDC60B400DEC986 /* Assets.xcassets */; };
 		DA6D28C41C5AA94A00FD7CFE /* TDCorePlotFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6D28C31C5AA94A00FD7CFE /* TDCorePlotFactory.swift */; };
+		DA6D28C71C5AF50B00FD7CFE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6D28C61C5AF50B00FD7CFE /* Extensions.swift */; };
 		DA7224F51BDD922400FE23AF /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA7224F41BDD922400FE23AF /* HealthKit.framework */; };
 		DA74C5111BF18232004A3158 /* TDSpeechManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA74C5101BF18232004A3158 /* TDSpeechManager.swift */; };
 		DAB85D2F1BF22B04008C858A /* ShinobiCharts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB85D2E1BF22B04008C858A /* ShinobiCharts.framework */; };
@@ -129,6 +130,7 @@
 		DA24E8051BDC60B400DEC986 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA24E8071BDC60B400DEC986 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DA6D28C31C5AA94A00FD7CFE /* TDCorePlotFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDCorePlotFactory.swift; sourceTree = "<group>"; };
+		DA6D28C61C5AF50B00FD7CFE /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		DA7224F41BDD922400FE23AF /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		DA7224F61BDD939200FE23AF /* Badminton.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Badminton.entitlements; sourceTree = "<group>"; };
 		DA74C5101BF18232004A3158 /* TDSpeechManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDSpeechManager.swift; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 		DA24E7C31BDC60B400DEC986 /* Badminton */ = {
 			isa = PBXGroup;
 			children = (
+				DA6D28C51C5AF4F200FD7CFE /* Utilities */,
 				DAB85D2D1BF22AEF008C858A /* ExternalsLibs */,
 				DA24E7C41BDC60B400DEC986 /* AppDelegate.swift */,
 				DAC5E8BB1BEBFD56003126CC /* View */,
@@ -298,6 +301,14 @@
 				DA24E7FE1BDC60B400DEC986 /* PushNotificationPayload.apns */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DA6D28C51C5AF4F200FD7CFE /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				DA6D28C61C5AF50B00FD7CFE /* Extensions.swift */,
+			);
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 		DAB85D2D1BF22AEF008C858A /* ExternalsLibs */ = {
@@ -609,6 +620,7 @@
 				DA24E7C51BDC60B400DEC986 /* AppDelegate.swift in Sources */,
 				DA74C5111BF18232004A3158 /* TDSpeechManager.swift in Sources */,
 				DA6D28C41C5AA94A00FD7CFE /* TDCorePlotFactory.swift in Sources */,
+				DA6D28C71C5AF50B00FD7CFE /* Extensions.swift in Sources */,
 				DAB85D3B1BF235E2008C858A /* TDShinobiGraphVC.swift in Sources */,
 				DAC85EB71BEBF48B00E0326D /* TDWorkout.swift in Sources */,
 				DA1FA4D41C581BF300B3456E /* NSLoggerSupport.swift in Sources */,

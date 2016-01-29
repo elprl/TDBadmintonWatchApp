@@ -24,6 +24,7 @@ class TDGraphVC: UIViewController, CPTScatterPlotDataSource, CPTScatterPlotDeleg
     let distanceUnit = HKUnit.meterUnit()
     let stepUnit = HKUnit.countUnit()
     let countPerMinuteUnit = HKUnit(fromString: "count/min")
+    var currentUnit = HKUnit(fromString: "count/min")
     
     let energyType = HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierActiveEnergyBurned)!
     let distanceType = HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDistanceWalkingRunning)!
@@ -47,10 +48,10 @@ class TDGraphVC: UIViewController, CPTScatterPlotDataSource, CPTScatterPlotDeleg
     let graph = CPTXYGraph(frame: CGRectZero)
     var maxHRValue = Double(0)
     var minHRValue = Double.infinity
-    let touchPlot = CPTScatterPlot()
-    var touchPlotSelected = false
     var touchedPoint : HKQuantitySample?
     var symbolTextAnnotation : CPTPlotSpaceAnnotation?
+    
+    //MARK: - Lifecycle events
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,7 +94,7 @@ class TDGraphVC: UIViewController, CPTScatterPlotDataSource, CPTScatterPlotDeleg
         return .TopAttached
     }
     
-    //MARK: Configured Graph
+    //MARK: - Configured Graph
     
     func configureGraph() {
         // create graph
@@ -122,14 +123,13 @@ class TDGraphVC: UIViewController, CPTScatterPlotDataSource, CPTScatterPlotDeleg
         energyLinePlot.dataSource = self
         energyLinePlot.delegate = self
         graph.addPlot(energyLinePlot)
-        
+        configureTouchPlot()
+
         guard let x = plotFactory.configureTimeXAxisForGraph(graph),
             y = plotFactory.createAxisForType(graph, type:type) else { return }
         
         // Set axes
         graph.axisSet?.axes = [x, y]
-        
-        addInteractionTouchPlot()
         
         HUD = JGProgressHUD(style: JGProgressHUDStyle.Light)
         HUD?.showInView(self.view)
@@ -139,58 +139,89 @@ class TDGraphVC: UIViewController, CPTScatterPlotDataSource, CPTScatterPlotDeleg
             var query : HKQuery?
             switch type {
             case .Heartrate:
-                query = createStreamingHeartRateQuery()
+                if heartRateSamples.count > 0 {
+                    savePeakHRValues()
+                    refreshGraph(TDPlotType.Heartrate.rawValue)
+                } else {
+                    query = createStreamingHeartRateQuery()
+                }
             case .Calories:
-                query = createStreamingEnergyQuery()
+                if energySamples.count > 0 {
+                    refreshGraph(TDPlotType.Calories.rawValue)
+                } else {
+                    query = createStreamingEnergyQuery()
+                }
             case .Steps:
-                query = createStreamingStepQuery()
+                if stepSamples.count > 0 {
+                    refreshGraph(TDPlotType.Steps.rawValue)
+                } else {
+                    query = createStreamingStepQuery()
+                }
             case .Distance:
-                query = createStreamingDistanceQuery()
+                if distanceSamples.count > 0 {
+                    refreshGraph(TDPlotType.Distance.rawValue)
+                } else {
+                    query = createStreamingDistanceQuery()
+                }
             default:
                 query = createStreamingHeartRateQuery()
             }
+            
             if let query = query {
                 appDelegate.healthStore.executeQuery(query)
             }
         }
     }
     
-    //MARK: Touch interaction
     
-    func addInteractionTouchPlot() {
-        touchPlot.interpolation = CPTScatterPlotInterpolation.Histogram
-        touchPlot.identifier = TDPlotType.TouchInteraction.rawValue
+    func configureTouchPlot() {
+        guard let touchPlot = plotFactory.createCorePlotForType(.TouchInteraction) else {return}
         touchPlot.dataSource = self
         touchPlot.delegate = self
-        applyTouchPlotColor()
         self.graph.addPlot(touchPlot)
     }
     
-    // Assign different color to the touchable line symbol.
-    func applyTouchPlotColor() {
-        let touchPlotColor = CPTColor.blueColor()
-        
-        let savingsPlotLineStyle = CPTMutableLineStyle()
-        savingsPlotLineStyle.lineColor = touchPlotColor
-        savingsPlotLineStyle.lineFill = CPTFill(color: CPTColor.whiteColor())
-        savingsPlotLineStyle.lineWidth = 1.0
+    func configurePeakHRLines() {
+        guard let maxLine = plotFactory.createCorePlotForType(.Maxima),
+        minLine = plotFactory.createCorePlotForType(.Minima) else {return}
 
-        let touchPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol()
-        touchPlotSymbol.fill = CPTFill(color: touchPlotColor)
-        touchPlotSymbol.lineStyle = savingsPlotLineStyle
-        touchPlotSymbol.size = CGSizeMake(10.0, 10.0)
-            
-        touchPlot.plotSymbol = touchPlotSymbol
+        maxLine.dataSource = self
+        maxLine.delegate = self
+        minLine.dataSource = self
+        minLine.delegate = self
         
-        let touchLineStyle = CPTMutableLineStyle()
-        touchLineStyle.lineColor = CPTColor.blueColor()
-        touchLineStyle.lineWidth = 2.0
-        
-        touchPlot.dataLineStyle = touchLineStyle
+        graph.addPlot(maxLine)
+        graph.addPlot(minLine)
     }
     
     
-    //MARK: CPTPlotDataSource events
+    func addPeakHRAnnotations() {
+        let annotationTextStyleTop = CPTMutableTextStyle()
+        annotationTextStyleTop.color = CPTColor.redColor()
+        annotationTextStyleTop.fontSize = 16.0
+        annotationTextStyleTop.fontName = "Helvetica-Bold"
+        
+        let annotationTextStyleBottom = CPTMutableTextStyle()
+        annotationTextStyleBottom.color = CPTColor.orangeColor()
+        annotationTextStyleBottom.fontSize = 16.0
+        annotationTextStyleBottom.fontName = "Helvetica-Bold"
+        
+        guard let plotSpace = plotSpace else {return}
+        let maxPoint = CPTPlotSpaceAnnotation(plotSpace: plotSpace, anchorPlotPoint: [0.0, maxHRValue])
+        maxPoint.contentLayer = CPTTextLayer(text:String(format: "Max %.0f bpm", maxHRValue), style:annotationTextStyleTop)
+        maxPoint.displacement = CGPointMake(4.0, 0.0)
+        maxPoint.contentAnchorPoint = CGPointMake(0, 0)
+        
+        let minPoint = CPTPlotSpaceAnnotation(plotSpace: plotSpace, anchorPlotPoint: [0.0, minHRValue])
+        minPoint.contentLayer = CPTTextLayer(text:String(format: "Min %.0f bpm", minHRValue), style:annotationTextStyleBottom)
+        minPoint.displacement = CGPointMake(4.0, 0.0)
+        minPoint.contentAnchorPoint = CGPointMake(0, 1)
+        
+        graph.addAnnotation(maxPoint)
+        graph.addAnnotation(minPoint)
+    }
+    
+    //MARK: - CPTPlotDataSource events
     
     func numberOfRecordsForPlot(plot: CPTPlot) -> UInt {
         var count : UInt = 0
@@ -280,7 +311,7 @@ class TDGraphVC: UIViewController, CPTScatterPlotDataSource, CPTScatterPlotDeleg
         case (let id as String, x) where id == TDPlotType.TouchInteraction.rawValue && touchedPoint != nil:
             return touchedPoint?.startDate.timeIntervalSinceDate(plotFactory.startDate)
         case (let id as String, y) where id == TDPlotType.TouchInteraction.rawValue && touchedPoint != nil:
-            let bpm = touchedPoint?.quantity.doubleValueForUnit(countPerMinuteUnit)
+            let bpm = touchedPoint?.quantity.doubleValueForUnit(currentUnit)
             if idx == 0 {
                 return -200
             } else if idx == 1 {
@@ -293,14 +324,14 @@ class TDGraphVC: UIViewController, CPTScatterPlotDataSource, CPTScatterPlotDeleg
         }
     }
     
-    //MARK: CPTPlotSpaceDelegate events
+    //MARK: - CPTPlotSpaceDelegate events
     
     func plotSpace(space: CPTPlotSpace, shouldScaleBy interactionScale: CGFloat, aboutPoint interactionPoint: CGPoint) -> Bool {
         return true
     }
     
     func plotSpace(space: CPTPlotSpace, willChangePlotRangeTo newRange: CPTPlotRange, forCoordinate coordinate: CPTCoordinate) -> CPTPlotRange? {
-        if CPTCoordinate.Y == coordinate {
+        if CPTCoordinate.Y == coordinate && currentUnit == countPerMinuteUnit {
             return _bpmPlotRange
         }
         
@@ -309,20 +340,24 @@ class TDGraphVC: UIViewController, CPTScatterPlotDataSource, CPTScatterPlotDeleg
     
     func scatterPlot(plot: CPTScatterPlot, plotSymbolWasSelectedAtRecordIndex idx: UInt, withEvent event: UIEvent) {
         if let annotation1 = symbolTextAnnotation {
-            graph.plotAreaFrame?.plotArea?.removeAnnotation(annotation1)
+            graph.removeAnnotation(annotation1)
             symbolTextAnnotation = nil
             touchedPoint = nil
         }
         
         switch (plot.identifier) {
         case (let id as String) where id == TDPlotType.Heartrate.rawValue:
-            break
+            touchedPoint = heartRateSamples[Int(idx)]
+            currentUnit = countPerMinuteUnit
         case (let id as String) where id == TDPlotType.Calories.rawValue:
-            break
+            touchedPoint = energySamples[Int(idx)]
+            currentUnit = energyUnit
         case (let id as String) where id == TDPlotType.Steps.rawValue:
-            break
+            touchedPoint = stepSamples[Int(idx)]
+            currentUnit = stepUnit
         case (let id as String) where id == TDPlotType.Distance.rawValue:
-            break
+            touchedPoint = distanceSamples[Int(idx)]
+            currentUnit = distanceUnit
         case (let id as String) where id == TDPlotType.Maxima.rawValue || id == TDPlotType.Minima.rawValue || id == TDPlotType.TouchInteraction.rawValue:
             refreshGraph(TDPlotType.TouchInteraction.rawValue)
             return
@@ -336,16 +371,15 @@ class TDGraphVC: UIViewController, CPTScatterPlotDataSource, CPTScatterPlotDeleg
         hitAnnotationTextStyle.fontSize = 16.0
         hitAnnotationTextStyle.fontName = "Helvetica-Bold";
         
-        touchedPoint = heartRateSamples[Int(idx)]
         if let x = touchedPoint?.startDate.timeIntervalSinceDate(plotFactory.startDate),
-            y = touchedPoint?.quantity.doubleValueForUnit(countPerMinuteUnit) {
+            y = touchedPoint?.quantity.doubleValueForUnit(currentUnit) {
                 
                 guard let axisSet = graph.axisSet as? CPTXYAxisSet,
                     xAxis = axisSet.xAxis,
                     formatter = xAxis.labelFormatter as? CPTTimeFormatter,
                     time = formatter.stringFromNumber(x) else { return }
                 
-                let coordString = String(format: "%.0f bpm\n%@", y, time)
+                let coordString = String(format: "%.0f\n%@", y, time)
                 LogMessage("BPM", 0, coordString)
                 
                 guard let plotSpace = plotSpace else {return}
@@ -356,71 +390,20 @@ class TDGraphVC: UIViewController, CPTScatterPlotDataSource, CPTScatterPlotDeleg
                 annotation.displacement   = CGPointMake(2.0, 2.0)
                 annotation.contentAnchorPoint = CGPointMake(0, 0)
                 self.symbolTextAnnotation = annotation
-                self.graph.plotAreaFrame?.plotArea?.addAnnotation(annotation)
+                self.graph.addAnnotation(annotation)
                 
                 refreshGraph(TDPlotType.TouchInteraction.rawValue)
         }
     }
-    
-    
-    func configureHorizontalPeakLines() {
-        // 2 - Create the plot
-        let maxLine = CPTScatterPlot()
-        maxLine.identifier = TDPlotType.Maxima.rawValue
-        maxLine.dataSource = self
-        maxLine.delegate = self
-        
-        let minLine = CPTScatterPlot()
-        minLine.identifier = TDPlotType.Minima.rawValue
-        minLine.dataSource = self
-        minLine.delegate = self
-        
-        let myPlotLineStyle = CPTMutableLineStyle(style: nil)
-        myPlotLineStyle.dashPattern = [3,3]  //dashed line
-        myPlotLineStyle.lineWidth = 1
-        myPlotLineStyle.lineColor = CPTColor.redColor()
-        maxLine.dataLineStyle = myPlotLineStyle
-        myPlotLineStyle.lineColor = CPTColor.orangeColor()
-        minLine.dataLineStyle = myPlotLineStyle
-        
-        graph.addPlot(maxLine)
-        graph.addPlot(minLine)
-
-    }
-
-    func addPeakHRAnnotations() {
-        let annotationTextStyleTop = CPTMutableTextStyle()
-        annotationTextStyleTop.color = CPTColor.redColor()
-        annotationTextStyleTop.fontSize = 16.0
-        annotationTextStyleTop.fontName = "Helvetica-Bold"
-        
-        let annotationTextStyleBottom = CPTMutableTextStyle()
-        annotationTextStyleBottom.color = CPTColor.orangeColor()
-        annotationTextStyleBottom.fontSize = 16.0
-        annotationTextStyleBottom.fontName = "Helvetica-Bold"
-        
-        guard let plotSpace = plotSpace else {return}
-        let maxPoint = CPTPlotSpaceAnnotation(plotSpace: plotSpace, anchorPlotPoint: [0.0, maxHRValue])
-        maxPoint.contentLayer = CPTTextLayer(text:String(format: "Max %.0f bpm", maxHRValue), style:annotationTextStyleTop)
-        maxPoint.displacement = CGPointMake(4.0, 0.0)
-        maxPoint.contentAnchorPoint = CGPointMake(0, 0)
-        
-        let minPoint = CPTPlotSpaceAnnotation(plotSpace: plotSpace, anchorPlotPoint: [0.0, minHRValue])
-        minPoint.contentLayer = CPTTextLayer(text:String(format: "Min %.0f bpm", minHRValue), style:annotationTextStyleBottom)
-        minPoint.displacement = CGPointMake(4.0, 0.0)
-        minPoint.contentAnchorPoint = CGPointMake(0, 1)
-        
-        graph.addAnnotation(maxPoint)
-        graph.addAnnotation(minPoint)
-    }
 
     
-    //MARK: Data queries
+    //MARK: - Data queries
     
     func createStreamingDistanceQuery() -> HKQuery {
         let predicate = self.predicateFromWorkoutSamples()
-        
-        let distanceQuery = HKSampleQuery(sampleType: self.distanceType, predicate: predicate, limit: Int(HKObjectQueryNoLimit), sortDescriptors: nil) { _, samples, error in
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)
+
+        let distanceQuery = HKSampleQuery(sampleType: self.distanceType, predicate: predicate, limit: Int(HKObjectQueryNoLimit), sortDescriptors: [sortDescriptor]) { _, samples, error in
             
             switch (samples, error) {
             case (let quantitySamples?, nil) :
@@ -441,8 +424,9 @@ class TDGraphVC: UIViewController, CPTScatterPlotDataSource, CPTScatterPlotDeleg
     
     func createStreamingStepQuery() -> HKQuery {
         let predicate = self.predicateFromWorkoutSamples()
-        
-        let distanceQuery = HKSampleQuery(sampleType: self.stepType, predicate: predicate, limit: Int(HKObjectQueryNoLimit), sortDescriptors: nil) { _, samples, error in
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)
+
+        let distanceQuery = HKSampleQuery(sampleType: self.stepType, predicate: predicate, limit: Int(HKObjectQueryNoLimit), sortDescriptors: [sortDescriptor]) { _, samples, error in
             
             switch (samples, error) {
             case (let quantitySamples?, nil) :
@@ -463,8 +447,9 @@ class TDGraphVC: UIViewController, CPTScatterPlotDataSource, CPTScatterPlotDeleg
     
     func createStreamingEnergyQuery() -> HKQuery {
         let predicate = self.predicateFromWorkoutSamples()
-        
-        let energyQuery = HKSampleQuery(sampleType: self.energyType, predicate: predicate, limit: Int(HKObjectQueryNoLimit), sortDescriptors: nil) { _, samples, error in
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)
+
+        let energyQuery = HKSampleQuery(sampleType: self.energyType, predicate: predicate, limit: Int(HKObjectQueryNoLimit), sortDescriptors: [sortDescriptor]) { _, samples, error in
             switch (samples, error) {
             case (let quantitySamples?, nil) :
                 self.energySamples = quantitySamples as! [HKQuantitySample]
@@ -484,8 +469,9 @@ class TDGraphVC: UIViewController, CPTScatterPlotDataSource, CPTScatterPlotDeleg
     
     func createStreamingHeartRateQuery() -> HKQuery {
         let predicate = self.predicateFromWorkoutSamples()
-        
-        let heartRateQuery = HKSampleQuery(sampleType: self.heartRateType, predicate: predicate, limit: Int(HKObjectQueryNoLimit), sortDescriptors: nil) { _, samples, error in
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)
+
+        let heartRateQuery = HKSampleQuery(sampleType: self.heartRateType, predicate: predicate, limit: Int(HKObjectQueryNoLimit), sortDescriptors: [sortDescriptor]) { _, samples, error in
 
             switch (samples, error) {
             case (let quantitySamples?, nil) where quantitySamples.count > 0:
@@ -535,7 +521,7 @@ class TDGraphVC: UIViewController, CPTScatterPlotDataSource, CPTScatterPlotDeleg
         
         if minHRValue < Double.infinity && maxHRValue > 0 && self.heartRateSamples.count > 2 {
             dispatch_async(dispatch_get_main_queue()) { () -> Void in
-                self.configureHorizontalPeakLines()
+                self.configurePeakHRLines()
                 self.addPeakHRAnnotations()
                 guard let axisSet = self.graph.axisSet as? CPTXYAxisSet, y = axisSet.yAxis else { return }
                 guard let plotSpace = self.plotSpace else {return}
@@ -545,18 +531,6 @@ class TDGraphVC: UIViewController, CPTScatterPlotDataSource, CPTScatterPlotDeleg
                 self._bpmPlotRange.expandRangeByFactor(1.5)
                 plotSpace.globalYRange = self._bpmPlotRange
                 plotSpace.yRange = range
-                
-//                CPTAnimation.animate(plotSpace, property: "yRange", fromPlotRange: plotSpace.yRange, toPlotRange: range, duration: 10.0)
-//                CPTAnimation.animate(plotSpace, property: "globalYRange", fromPlotRange: plotSpace.yRange, toPlotRange: self._bpmPlotRange, duration: 10.0)
-//                CPTAnimation.animate(plotSpace, property: "visibleRange", fromPlotRange: plotSpace.yRange, toPlotRange: range, duration: 10.0)
-//                [CPTAnimation animate:plotSpace // CPTPlotSpace *
-//                    property:@"xRange"
-//                fromPlotRange:plotSpace.xRange
-//                toPlotRange:xRange
-//                duration:5.0
-//                withDelay:0
-//                animationCurve:CPTAnimationCurveCubicInOut
-//                delegate:nil];
 
                 self.graphView.hostedGraph?.plotWithIdentifier(TDPlotType.Maxima.rawValue)?.reloadData()
                 self.graphView.hostedGraph?.plotWithIdentifier(TDPlotType.Minima.rawValue)?.reloadData()
@@ -566,14 +540,21 @@ class TDGraphVC: UIViewController, CPTScatterPlotDataSource, CPTScatterPlotDeleg
     
     
     @IBAction func segmentCtrlChanged(sender: UISegmentedControl) {
+        touchedPoint = nil
+        symbolTextAnnotation = nil
+      
         switch sender.selectedSegmentIndex {
         case 0:
+            currentUnit = countPerMinuteUnit
             configureGraphForType(.Heartrate)
         case 1:
+            currentUnit = energyUnit
             configureGraphForType(.Calories)
         case 2:
+            currentUnit = stepUnit
             configureGraphForType(.Steps)
         case 3:
+            currentUnit = distanceUnit
             configureGraphForType(.Distance)
         default:
             break
@@ -594,15 +575,3 @@ class TDGraphVC: UIViewController, CPTScatterPlotDataSource, CPTScatterPlotDeleg
     }
 }
 
-extension NSDate {
-    var startOfDay: NSDate {
-        return NSCalendar.currentCalendar().startOfDayForDate(self)
-    }
-    
-    var endOfDay: NSDate? {
-        let components = NSDateComponents()
-        components.day = 1
-        components.second = -1
-        return NSCalendar.currentCalendar().dateByAddingComponents(components, toDate: startOfDay, options: NSCalendarOptions())
-    }
-}
