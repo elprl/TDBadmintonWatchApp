@@ -16,9 +16,9 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
     
     func applicationDidFinishLaunching() {
 
-        session = WCSession.defaultSession()
+        session = WCSession.default
         session.delegate = self
-        session.activateSession()
+        session.activate()
     }
 
     func applicationDidBecomeActive() {
@@ -30,12 +30,17 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
         // Use this method to pause ongoing tasks, disable timers, etc.
     }
     
-    func session(session: WCSession, didReceiveUserInfo userInfo: [String : AnyObject]) {
+    func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any] = [:]) {
         NSLog("didReceiveUserInfo in ExtensionDelegate")
     }
     
-    func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
+    func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
         NSLog("didReceiveApplicationContext in ExtensionDelegate")
+    }
+    
+    @available(watchOSApplicationExtension 2.2, *)
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        
     }
 
 }

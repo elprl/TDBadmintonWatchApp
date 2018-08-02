@@ -19,7 +19,7 @@ struct TDBadmintonScore : CustomDebugStringConvertible {
             var scoreString = "["
             for set in score {
                 scoreString += "["
-                scoreString += set.map({"\($0)"}).joinWithSeparator(",")
+                scoreString += set.map({"\($0)"}).joined(separator: ",")
                 scoreString += "]"
             }
             scoreString += "]"

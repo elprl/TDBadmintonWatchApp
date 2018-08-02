@@ -39,7 +39,7 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
     var currentState = TDState.ReadyToBegin
     
     let healthStore = HKHealthStore()
-    private let _userDefaults = NSUserDefaults.standardUserDefaults()
+    private let _userDefaults = UserDefaults.standard
     
     var sessionContext: TDWorkoutSessionContext?
     var workoutManager : TDWorkoutSessionManager?
@@ -50,8 +50,8 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
 //    private var _timer: NSTimer?
 //    private var _ticks: Double = 0.0
     
-    override func awakeWithContext(context: AnyObject?) {
-        super.awakeWithContext(context)
+    override func awake(withContext context: Any?) {
+        super.awake(withContext: context)
     }
 
     override func willActivate() {
@@ -64,29 +64,29 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
             return
         }
         
-        guard let heartRateType = HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate) else {
+        guard let heartRateType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate) else {
             displayNotAllowed()
             return
         }
         
-        guard let stepType = HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount) else {
+        guard let stepType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount) else {
             displayNotAllowed()
             return
         }
         
-        guard let energyType = HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierActiveEnergyBurned) else {
+        guard let energyType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.activeEnergyBurned) else {
             displayNotAllowed()
             return
         }
         
-        guard let distanceType = HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDistanceWalkingRunning) else {
+        guard let distanceType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.distanceWalkingRunning) else {
             displayNotAllowed()
             return
         }
         
         let typesToShare = Set([HKObjectType.workoutType(),heartRateType,stepType,energyType,distanceType])
         let dataTypes = Set([heartRateType,stepType,energyType,distanceType])
-        healthStore.requestAuthorizationToShareTypes(typesToShare, readTypes: dataTypes) { (success, error) -> Void in
+        healthStore.requestAuthorization(toShare: typesToShare, read: dataTypes) { (success, error) -> Void in
             if success {
                 self.isAuthorized = true
             } else {
@@ -116,17 +116,17 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
     
     func resetMenuItems() {
         self.clearAllMenuItems()
-        self.addMenuItemWithItemIcon(WKMenuItemIcon.Repeat, title: "Reset Score", action: Selector("resetMenuPressed"))
+        self.addMenuItem(with: WKMenuItemIcon.repeat, title: "Reset Score", action: #selector(InterfaceController.resetMenuPressed))
         if isAuthorized {
             switch currentState {
             case .ReadyToBegin:
-                self.addMenuItemWithItemIcon(WKMenuItemIcon.Play, title: "Start", action: Selector("startBtnPressed"))
+                self.addMenuItem(with: WKMenuItemIcon.play, title: "Start", action: #selector(InterfaceController.startBtnPressed))
                 break
             case .Started:
-                self.addMenuItemWithItemIcon(WKMenuItemIcon.Decline, title: "End", action: Selector("endBtnPressed"))
+                self.addMenuItem(with: WKMenuItemIcon.decline, title: "End", action: #selector(InterfaceController.endBtnPressed))
                 break
             case .Ended:
-                self.addMenuItemWithItemIcon(WKMenuItemIcon.Play, title: "Start", action: Selector("startBtnPressed"))
+                self.addMenuItem(with: WKMenuItemIcon.play, title: "Start", action: #selector(InterfaceController.startBtnPressed))
                 break
                 
             }
@@ -137,7 +137,7 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
     
     @IBAction func startBtnPressed() {
         if self.sessionContext == nil || self.workoutManager == nil {
-            self.sessionContext = TDWorkoutSessionContext(healthStore: self.healthStore, activityType: .Badminton, locationType: .Indoor)
+            self.sessionContext = TDWorkoutSessionContext(healthStore: self.healthStore, activityType: .badminton, locationType: .indoor)
             self.workoutManager = TDWorkoutSessionManager(context: self.sessionContext!)
             self.workoutManager?.delegate = self
         }
@@ -170,7 +170,7 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
     //MARK: Button events
     
     @IBAction func myMinusBtnPressed() {
-        dispatch_async(dispatch_get_main_queue(), {
+        DispatchQueue.main.async() {
             let currentSetScore = self.overallScore[self.overallScore.count - 1]
             let mySetScore = currentSetScore[0]
             let themSetScore = currentSetScore[1]
@@ -183,14 +183,13 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
             self.overallScore[self.overallScore.count - 1][0] = newMySetScore
             self.mySetScoreLbl.setText("\(newMySetScore)")
             
-            self.updateVisualState(newMySetScore, themSetScore: themSetScore)
-        });
-
+            self.updateVisualState(mySetScore: newMySetScore, themSetScore: themSetScore)
+        }
     }
 
     
     @IBAction func themMinusBtnPressed() {
-        dispatch_async(dispatch_get_main_queue(), {
+        DispatchQueue.main.async() {
             let currentSetScore = self.overallScore[self.overallScore.count - 1]
             let mySetScore = currentSetScore[0]
             let themSetScore = currentSetScore[1]
@@ -203,12 +202,12 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
             self.overallScore[self.overallScore.count - 1][1] = newMySetScore
             self.themSetScoreLbl.setText("\(newMySetScore)")
             
-            self.updateVisualState(mySetScore, themSetScore: newMySetScore)
-        });
+            self.updateVisualState(mySetScore: mySetScore, themSetScore: newMySetScore)
+        }
     }
     
     @IBAction func myPlusBtnPressed() {
-        dispatch_async(dispatch_get_main_queue(), {
+        DispatchQueue.main.async() {
             if self.isMySaveActive {
                 self.saveScore()
                 return
@@ -218,20 +217,20 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
             let mySetScore = currentSetScore[0]
             let themSetScore = currentSetScore[1]
             
-            if self.isValidScore(mySetScore, themSetScore: themSetScore) { // won
+            if self.isValidScore(mySetScore: mySetScore, themSetScore: themSetScore) { // won
                 let newMySetScore = mySetScore + 1
                 self.overallScore[self.overallScore.count - 1][0] = newMySetScore
                 self.mySetScoreLbl.setText("\(newMySetScore)")
                 
-                self.updateVisualState(newMySetScore, themSetScore: themSetScore)
+                self.updateVisualState(mySetScore: newMySetScore, themSetScore: themSetScore)
                 self.saveScoreMetric()
             }
-        });
+        }
     }
 
     
     @IBAction func themPlusBtnPressed() {
-        dispatch_async(dispatch_get_main_queue(), {
+        DispatchQueue.main.async() {
             if self.isThemSaveActive {
                 self.saveScore()
                 return
@@ -241,15 +240,15 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
             let mySetScore = currentSetScore[0]
             let themSetScore = currentSetScore[1]
             
-            if self.isValidScore(mySetScore, themSetScore: themSetScore) { // won
+            if self.isValidScore(mySetScore: mySetScore, themSetScore: themSetScore) { // won
                 let newMySetScore = themSetScore + 1
                 self.overallScore[self.overallScore.count - 1][1] = newMySetScore
                 self.themSetScoreLbl.setText("\(newMySetScore)")
                 
-                self.updateVisualState(mySetScore, themSetScore: newMySetScore)
+                self.updateVisualState(mySetScore: mySetScore, themSetScore: newMySetScore)
                 self.saveScoreMetric()
             }
-        });
+        }
     }
 
     
@@ -274,12 +273,12 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
     }
     
     func saveScoreMetric() {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { // do some task
+        DispatchQueue.global().async { // do some task
             guard let manager = self.workoutManager else {return}
-            let dateString = "\(NSDate().timeIntervalSince1970)"
+            let dateString = "\(Date().timeIntervalSince1970)"
             do {
-                let data = try NSJSONSerialization.dataWithJSONObject(self.overallScore, options: NSJSONWritingOptions(rawValue: 0))
-                let scoreString = String(data: data, encoding: NSUTF8StringEncoding)
+                let data = try JSONSerialization.data(withJSONObject: self.overallScore, options: JSONSerialization.WritingOptions(rawValue: 0))
+                let scoreString = String(data: data, encoding: String.Encoding.utf8)
                 manager.workoutMetadata[dateString] = scoreString
             } catch {
                 return
@@ -290,10 +289,10 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
     func updateVisualState(mySetScore: Int, themSetScore: Int) {
         setScoreString()
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { // do some task
-            let userInfo : [String: AnyObject] = ["score": self.overallScore]
-            let myDelegate = WKExtension.sharedExtension().delegate as! ExtensionDelegate
-            if myDelegate.session.reachable {
+        DispatchQueue.global().async { // do some task
+            let userInfo : [String: Any] = ["score": self.overallScore]
+            let myDelegate = WKExtension.shared().delegate as! ExtensionDelegate
+            if myDelegate.session.isReachable {
                 myDelegate.session.sendMessage(userInfo, replyHandler: nil, errorHandler: { error in
                         print(error.localizedDescription)
                 })
@@ -307,7 +306,7 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
             let difference = mySetScore - themSetScore
 
             if (mySetScore >= 21 && difference > 1) || mySetScore == 30 { // won
-                showSaveSet(true)
+                showSaveSet(isMeWon: true)
                 return
             }
         } else {
@@ -315,7 +314,7 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
             
             if (themSetScore >= 21 && difference > 1) || themSetScore == 30 { // won
                 // set save btn
-                showSaveSet(false)
+                showSaveSet(isMeWon: false)
                 return
             }
         }
@@ -393,20 +392,18 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
     
     
     func animateHeart() {
-        self.animateWithDuration(0.2) {
+        self.animate(withDuration: 0.2) {
             self.heartIV.setWidth(20)
             self.heartIV.setHeight(20)
         }
         
-        let when = dispatch_time(DISPATCH_TIME_NOW, Int64(0.2 * double_t(NSEC_PER_SEC)))
-        let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
-        dispatch_after(when, queue) {
-            dispatch_async(dispatch_get_main_queue(), {
-                self.animateWithDuration(0.2, animations: {
+        DispatchQueue.global().asyncAfter(deadline: .now() + 0.2) {
+            DispatchQueue.main.async {
+                self.animate(withDuration: 0.2, animations: {
                     self.heartIV.setWidth(16)
                     self.heartIV.setHeight(16)
                 })
-            })
+            }
         }
     }
     
@@ -414,7 +411,7 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
 //        // Timers are not guaranteed to tick at the nominal rate specified, so this isn't technically accurate.
 //        // However, this is just an example to demonstrate how to stop some ongoing activity, so we can live with that inaccuracy.
 //        if let startDate = self.workoutManager?.workoutStartDate {
-//            let now = NSDate()
+//            let now = Date()
 //            let interval = now.timeIntervalSinceDate(startDate)
 //            let seconds = fmod(interval, 60.0)
 //            let minutes = fmod(trunc(interval / 60.0), 60.0)
@@ -426,30 +423,30 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
 
     // MARK: TDWorkoutSessionManagerDelegate
     
-    func workoutSessionManager(workoutSessionManager: TDWorkoutSessionManager, didStartWorkoutWithDate startDate: NSDate) {
+    func workoutSessionManager(workoutSessionManager: TDWorkoutSessionManager, didStartWorkoutWithDate startDate: Date) {
         currentState = .Started
         resetMenuItems()
-        _userDefaults.setDouble(startDate.timeIntervalSince1970, forKey: "workoutStartDate")
-        let userInfo : [String: AnyObject] = ["workoutStarted": true]
-        let myDelegate = WKExtension.sharedExtension().delegate as! ExtensionDelegate
-        if myDelegate.session.reachable {
+        _userDefaults.set(startDate.timeIntervalSince1970, forKey: "workoutStartDate")
+        let userInfo : [String: Any] = ["workoutStarted": true]
+        let myDelegate = WKExtension.shared().delegate as! ExtensionDelegate
+        if myDelegate.session.isReachable {
             myDelegate.session.sendMessage(userInfo, replyHandler: nil, errorHandler: { error in
                 print(error.localizedDescription)
             })
         }
     }
     
-    func workoutSessionManager(workoutSessionManager: TDWorkoutSessionManager, didStopWorkoutWithDate endDate: NSDate) {
+    func workoutSessionManager(workoutSessionManager: TDWorkoutSessionManager, didStopWorkoutWithDate endDate: Date) {
         currentState = .ReadyToBegin
         resetMenuItems()
-        _userDefaults.setDouble(endDate.timeIntervalSince1970, forKey: "workoutEndDate")
+        _userDefaults.set(endDate.timeIntervalSince1970, forKey: "workoutEndDate")
     }
     
     func workoutSessionManager(workoutSessionManager: TDWorkoutSessionManager, didSaveWorkout workout: HKWorkout) {
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            let userInfo : [String: AnyObject] = ["workoutStartDate": workout.startDate, "workoutEndDate": workout.endDate, "finalScore": self.overallScore]
-            let myDelegate = WKExtension.sharedExtension().delegate as! ExtensionDelegate
-            if myDelegate.session.reachable {
+        DispatchQueue.main.async {
+            let userInfo : [String: Any] = ["workoutStartDate": workout.startDate, "workoutEndDate": workout.endDate, "finalScore": self.overallScore]
+            let myDelegate = WKExtension.shared().delegate as! ExtensionDelegate
+            if myDelegate.session.isReachable {
                 myDelegate.session.sendMessage(userInfo, replyHandler: nil, errorHandler: { error in
                     print(error.localizedDescription)
                 })
@@ -473,7 +470,7 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
     }
     
     func workoutSessionManager(workoutSessionManager: TDWorkoutSessionManager, didUpdateHeartRateSample heartRateSample: HKQuantitySample) {
-        let value = heartRateSample.quantity.doubleValueForUnit(self.workoutManager!.countPerMinuteUnit)
+        let value = heartRateSample.quantity.doubleValue(for: self.workoutManager!.countPerMinuteUnit)
         self.heartRateLbl.setText(String(UInt16(value)))
         self.animateHeart()
     }

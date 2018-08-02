@@ -11,6 +11,6 @@ import HealthKit
 
 class TDWorkout : HKWorkout {
     var score : [[Int]]?
-    var scoreData : [NSDate: [[Int]]]?
+    var scoreData : [Date: [[Int]]]?
     var isProcessing = true
 }

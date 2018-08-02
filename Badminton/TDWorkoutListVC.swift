@@ -12,7 +12,7 @@ import JGProgressHUD
 import MHPrettyDate
 
 func == (left: HKSample, right: HKSample) -> Bool {
-    if left.startDate.compare(right.startDate) == NSComparisonResult.OrderedSame {
+    if left.startDate.compare(right.startDate) == ComparisonResult.orderedSame {
         return true
     }
     return false
@@ -28,14 +28,14 @@ class TDWorkoutListVC: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveUserInfo:", name:"didReceiveUserInfo", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didHandledAuthorization:", name:"handledAuthorization", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(TDWorkoutListVC.didReceiveUserInfo), name:NSNotification.Name(rawValue: "didReceiveUserInfo"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(TDWorkoutListVC.didHandledAuthorization), name:NSNotification.Name(rawValue: "handledAuthorization"), object: nil)
         
-        HUD = JGProgressHUD(style: JGProgressHUDStyle.Dark)
-        HUD?.showInView(self.view)
-        HUD?.dismissAfterDelay(15.0)
+        HUD = JGProgressHUD(style: JGProgressHUDStyle.dark)
+        HUD?.show(in: self.view)
+        HUD?.dismiss(afterDelay: 15.0)
         
-        if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             if appDelegate.isAuthorized() {
                 createWorkoutsQuery()
                 HUD?.textLabel.text = "Loading workouts...";
@@ -50,17 +50,17 @@ class TDWorkoutListVC: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        super.prepareForSegue(segue, sender: sender)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
         
-        if let destination = segue.destinationViewController as? TDShinobiGraphVC {
+        if let destination = segue.destination as? TDShinobiGraphVC {
             if let index = sender as? Int {
                 let startDate = workouts[index].startDate
                 let endDate = workouts[index].endDate
                 destination.startDate = startDate
                 destination.endDate = endDate
             }
-        } else if let destination = segue.destinationViewController as? TDGraphVC {
+        } else if let destination = segue.destination as? TDGraphVC {
             if let index = sender as? Int {
                 let startDate = workouts[index].startDate
                 let endDate = workouts[index].endDate
@@ -72,85 +72,87 @@ class TDWorkoutListVC: UITableViewController {
 
     // MARK: WCSessionDelegate
     
-    func didHandledAuthorization(notification: NSNotification) {
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+    @objc func didHandledAuthorization(notification: Notification) {
+        DispatchQueue.main.async() {
             self.createWorkoutsQuery()
             
-            self.HUD = JGProgressHUD(style: JGProgressHUDStyle.Dark)
+            self.HUD = JGProgressHUD(style: JGProgressHUDStyle.dark)
             self.HUD?.textLabel.text = "Loading workouts...";
-            self.HUD?.showInView(self.view)
-            self.HUD?.dismissAfterDelay(15.0)
+            self.HUD?.show(in: self.view)
+            self.HUD?.dismiss(afterDelay: 15.0)
         }
     }
     
-    func didReceiveUserInfo(notification: NSNotification) {
+    
+    
+    @objc func didReceiveUserInfo(notification: Notification) {
         if let _ = notification.userInfo?["workoutStarted"] as? Bool {
             if speaker.canSpeak() {
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.speaker.speakMessage("Workout started")
+                DispatchQueue.main.async() {
+                    self.speaker.speakMessage(message: "Workout started")
                 }
             }
         }
         
         if let score = notification.userInfo?["score"] as? [[Int]] {
             if speaker.canSpeak() {
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.speaker.speakScore(score)
+                DispatchQueue.main.async() {
+                    self.speaker.speakScore(score: score)
                 }
             }
         }
         
-        guard let startDate = notification.userInfo?["workoutStartDate"] as? NSDate,
-            endDate = notification.userInfo?["workoutEndDate"] as? NSDate else { return }
-        let workout = TDWorkout(activityType: .Badminton, startDate: startDate, endDate: endDate)
-        self.workouts.insert(workout, atIndex: 0)
+        guard let startDate = notification.userInfo?["workoutStartDate"] as? Date,
+            let endDate = notification.userInfo?["workoutEndDate"] as? Date else { return }
+        let workout = TDWorkout(activityType: .badminton, start: startDate, end: endDate)
+        self.workouts.insert(workout, at: 0)
         
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async() {
             if self.speaker.canSpeak() {
-                self.speaker.speakMessage("Workout ended")
+                self.speaker.speakMessage(message: "Workout ended")
             }
             self.tableView.reloadData()
         }
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return workouts.count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cellId", forIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath)
         let workout = workouts[indexPath.row]
-        let dateString = MHPrettyDate.prettyDateFromDate(workout.startDate, withFormat: MHPrettyDateFormatWithTime)
+        let dateString = MHPrettyDate.prettyDate(from: workout.startDate, with: MHPrettyDateFormatWithTime)
         if workout is TDWorkout {
-            cell.textLabel?.text = dateString + " (Processing)"
-            cell.selectionStyle = .None
-            cell.accessoryType = .None
+            cell.textLabel?.text = dateString! + " (Processing)"
+            cell.selectionStyle = .none
+            cell.accessoryType = .none
         } else {
             cell.textLabel?.text = dateString
-            cell.selectionStyle = .Gray
-            cell.accessoryType = .DisclosureIndicator
+            cell.selectionStyle = .gray
+            cell.accessoryType = .disclosureIndicator
         }
         
-        print(workout.metadata)
+        print(workout.metadata ?? "no metadata")
         return cell
     }
     
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        performSegueWithIdentifier("showCPGraphWorkoutId", sender: indexPath.row)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "showCPGraphWorkoutId", sender: indexPath.row)
 //        performSegueWithIdentifier("showShinobiWorkoutId", sender: indexPath.row)
     }
     
     func createWorkoutsQuery() {
-        let predicate = HKQuery.predicateForSamplesWithStartDate(nil, endDate: nil, options: .None)
-//        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
+        let predicate = HKQuery.predicateForSamples(withStart: nil, end: nil, options: HKQueryOptions(rawValue: 0))
+//        let sortDescriptor = SortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
         let workoutsQuery = HKAnchoredObjectQuery(type: HKObjectType.workoutType(), predicate: predicate,  anchor: nil, limit: Int(HKObjectQueryNoLimit)) { query, samples, deletedObjects, anchor, error in
 
             if error == nil {
                 if let workoutSamples = samples {
-                    self.workouts = workoutSamples.reverse()
-                    dispatch_async(dispatch_get_main_queue()) { () -> Void in
-                        self.HUD?.dismissAnimated(true)
+                    self.workouts = workoutSamples.reversed()
+                    DispatchQueue.main.async() {
+                        self.HUD?.dismiss(animated: true)
                         self.tableView.reloadData()
                     }
                 }
@@ -161,36 +163,36 @@ class TDWorkoutListVC: UITableViewController {
         
         workoutsQuery.updateHandler = { query, samples, deletedObjects, anchor, error in
             if error == nil {
-                self.insertNewSamples(samples)
+                self.insertNewSamples(samples: samples)
             } else {
                 NSLog(error!.localizedDescription)
             }
         }
         
 
-        if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
-            appDelegate.healthStore.executeQuery(workoutsQuery)
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            appDelegate.healthStore.execute(workoutsQuery)
         }
     }
     
     func insertNewSamples(samples: [HKSample]?) {
         if let workoutSamples = samples {
             for workout in workoutSamples {
-                let index = indexOfWorkout(workout)
+                let index = indexOfWorkout(myWorkout: workout)
                 if index >= 0 {
-                    self.workouts.removeAtIndex(index)
+                    self.workouts.remove(at: index)
                 }
-                self.workouts.insert(workout, atIndex: 0)
+                self.workouts.insert(workout, at: 0)
             }
-            dispatch_async(dispatch_get_main_queue()) { () -> Void in
-                self.HUD?.dismissAnimated(true)
+            DispatchQueue.main.async() {
+                self.HUD?.dismiss(animated: true)
                 self.tableView.reloadData()
             }
         }
     }
     
     func indexOfWorkout(myWorkout: HKSample) -> Int {
-        for (index, value) in workouts.enumerate() {
+        for (index, value) in self.workouts.enumerated() {
             if value == myWorkout {
                 return index
             }

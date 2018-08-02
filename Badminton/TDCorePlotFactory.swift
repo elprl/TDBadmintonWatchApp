@@ -26,10 +26,10 @@ protocol TDCorePlotFactoryProtocol {
 }
 
 class TDCorePlotFactory : TDCorePlotFactoryProtocol {
-    var startDate = NSDate()
-    var endDate = NSDate()
+    var startDate = Date()
+    var endDate = Date()
     
-    init(startDate: NSDate, endDate: NSDate) {
+    init(startDate: Date, endDate: Date) {
         self.startDate = startDate
         self.endDate = endDate
     }
@@ -37,8 +37,8 @@ class TDCorePlotFactory : TDCorePlotFactoryProtocol {
     func createCorePlotForType(type: TDPlotType) -> CPTPlot? {
         if type == TDPlotType.Heartrate {
             let heartrateLinePlot = CPTScatterPlot()
-            heartrateLinePlot.identifier = type.rawValue
-            heartrateLinePlot.interpolation = CPTScatterPlotInterpolation.Linear
+            heartrateLinePlot.identifier = NSString.init(string: type.rawValue)
+            heartrateLinePlot.interpolation = CPTScatterPlotInterpolation.linear
             let dataLineStyle = CPTMutableLineStyle()
             dataLineStyle.lineWidth = 3.0
             dataLineStyle.lineColor = CPTColor(componentRed:1, green:0.45, blue:0.45, alpha:1)
@@ -48,12 +48,12 @@ class TDCorePlotFactory : TDCorePlotFactoryProtocol {
             heartrateLinePlot.areaBaseValue = 4.0
             
             // Add plot symbols
-            let plotSymbol = CPTPlotSymbol.ellipsePlotSymbol()
+            let plotSymbol = CPTPlotSymbol.ellipse()
             let lineStyle = CPTMutableLineStyle()
-            lineStyle.lineColor = CPTColor.whiteColor()
+            lineStyle.lineColor = CPTColor.white()
             plotSymbol.lineStyle = lineStyle
-            plotSymbol.fill = CPTFill(color: dataLineStyle.lineColor)
-            plotSymbol.size = CGSizeMake(3, 3)
+            plotSymbol.fill = CPTFill(color: dataLineStyle.lineColor!)
+            plotSymbol.size = CGSize(width: 3, height: 3)
             heartrateLinePlot.plotSymbol = plotSymbol
             heartrateLinePlot.plotSymbolMarginForHitDetection = 5.0
             
@@ -62,23 +62,23 @@ class TDCorePlotFactory : TDCorePlotFactoryProtocol {
         
         if type == TDPlotType.Steps {
             let stepsLinePlot = CPTScatterPlot()
-            stepsLinePlot.identifier = type.rawValue
-            stepsLinePlot.interpolation = CPTScatterPlotInterpolation.Stepped
+            stepsLinePlot.identifier = NSString.init(string: type.rawValue)
+            stepsLinePlot.interpolation = CPTScatterPlotInterpolation.stepped
             let dataLineStyle = CPTMutableLineStyle()
             dataLineStyle.lineWidth = 3.0
-            dataLineStyle.lineColor  = CPTColor.brownColor()
+            dataLineStyle.lineColor  = CPTColor.brown()
             stepsLinePlot.dataLineStyle = dataLineStyle
             let areaFill = CPTFill(color: CPTColor(componentRed:1, green:0.95, blue:0.33, alpha:1))
             stepsLinePlot.areaFill = areaFill
             stepsLinePlot.areaBaseValue = 4.0
             
             // Add plot symbols
-            let plotSymbol = CPTPlotSymbol.ellipsePlotSymbol()
+            let plotSymbol = CPTPlotSymbol.ellipse()
             let lineStyle = CPTMutableLineStyle()
-            lineStyle.lineColor = CPTColor.whiteColor()
+            lineStyle.lineColor = CPTColor.white()
             plotSymbol.lineStyle = lineStyle
-            plotSymbol.fill = CPTFill(color: dataLineStyle.lineColor)
-            plotSymbol.size = CGSizeMake(3, 3)
+            plotSymbol.fill = CPTFill(color: dataLineStyle.lineColor!)
+            plotSymbol.size = CGSize(width: 3, height: 3)
             stepsLinePlot.plotSymbol = plotSymbol
             stepsLinePlot.plotSymbolMarginForHitDetection = 5.0
             
@@ -87,11 +87,11 @@ class TDCorePlotFactory : TDCorePlotFactoryProtocol {
         
         if type == TDPlotType.Calories {
             let energyLinePlot = CPTScatterPlot()
-            energyLinePlot.identifier = type.rawValue
-            energyLinePlot.interpolation = CPTScatterPlotInterpolation.Curved
+            energyLinePlot.identifier = NSString.init(string: type.rawValue)
+            energyLinePlot.interpolation = CPTScatterPlotInterpolation.curved
             let dataLineStyle = CPTMutableLineStyle()
             dataLineStyle.lineWidth = 3.0
-            dataLineStyle.lineColor  = CPTColor.orangeColor()
+            dataLineStyle.lineColor  = CPTColor.orange()
             energyLinePlot.dataLineStyle = dataLineStyle
             
             let areaFill = CPTFill(color: CPTColor(componentRed:1, green:0.66, blue:0.11, alpha:1))
@@ -99,12 +99,12 @@ class TDCorePlotFactory : TDCorePlotFactoryProtocol {
             energyLinePlot.areaBaseValue = 4.0
             
             // Add plot symbols
-            let plotSymbol = CPTPlotSymbol.ellipsePlotSymbol()
+            let plotSymbol = CPTPlotSymbol.ellipse()
             let lineStyle = CPTMutableLineStyle()
-            lineStyle.lineColor = CPTColor.whiteColor()
+            lineStyle.lineColor = CPTColor.white()
             plotSymbol.lineStyle = lineStyle
-            plotSymbol.fill = CPTFill(color: dataLineStyle.lineColor)
-            plotSymbol.size = CGSizeMake(3, 3)
+            plotSymbol.fill = CPTFill(color: dataLineStyle.lineColor!)
+            plotSymbol.size = CGSize(width: 3, height: 3)
             energyLinePlot.plotSymbol = plotSymbol
             energyLinePlot.plotSymbolMarginForHitDetection = 5.0
             
@@ -113,11 +113,11 @@ class TDCorePlotFactory : TDCorePlotFactoryProtocol {
         
         if type == TDPlotType.Distance {
             let distanceLinePlot = CPTScatterPlot()
-            distanceLinePlot.identifier = type.rawValue
-            distanceLinePlot.interpolation = CPTScatterPlotInterpolation.Stepped
+            distanceLinePlot.identifier = NSString.init(string: type.rawValue)
+            distanceLinePlot.interpolation = CPTScatterPlotInterpolation.stepped
             let dataLineStyle = CPTMutableLineStyle()
             dataLineStyle.lineWidth = 3.0
-            dataLineStyle.lineColor  = CPTColor.greenColor()
+            dataLineStyle.lineColor  = CPTColor.green()
             distanceLinePlot.dataLineStyle = dataLineStyle
             
             let areaFill = CPTFill(color: CPTColor(componentRed:0.61, green:0.99, blue:0.11, alpha:1))
@@ -125,12 +125,12 @@ class TDCorePlotFactory : TDCorePlotFactoryProtocol {
             distanceLinePlot.areaBaseValue = 4.0
             
             // Add plot symbols
-            let plotSymbol = CPTPlotSymbol.ellipsePlotSymbol()
+            let plotSymbol = CPTPlotSymbol.ellipse()
             let lineStyle = CPTMutableLineStyle()
-            lineStyle.lineColor = CPTColor.whiteColor()
+            lineStyle.lineColor = CPTColor.white()
             plotSymbol.lineStyle = lineStyle
-            plotSymbol.fill = CPTFill(color: dataLineStyle.lineColor)
-            plotSymbol.size = CGSizeMake(3, 3)
+            plotSymbol.fill = CPTFill(color: dataLineStyle.lineColor!)
+            plotSymbol.size = CGSize(width: 3, height: 3)
             distanceLinePlot.plotSymbol = plotSymbol
             distanceLinePlot.plotSymbolMarginForHitDetection = 5.0
             
@@ -139,24 +139,24 @@ class TDCorePlotFactory : TDCorePlotFactoryProtocol {
         
         if type == TDPlotType.TouchInteraction {
             let touchPlot = CPTScatterPlot()
-            touchPlot.interpolation = CPTScatterPlotInterpolation.Histogram
-            touchPlot.identifier = type.rawValue
+            touchPlot.interpolation = CPTScatterPlotInterpolation.histogram
+            touchPlot.identifier = NSString.init(string: type.rawValue)
             
-            let touchPlotColor = CPTColor.blueColor()
+            let touchPlotColor = CPTColor.blue
             
             let savingsPlotLineStyle = CPTMutableLineStyle()
-            savingsPlotLineStyle.lineColor = touchPlotColor
-            savingsPlotLineStyle.lineFill = CPTFill(color: CPTColor.whiteColor())
+            savingsPlotLineStyle.lineColor = touchPlotColor()
+            savingsPlotLineStyle.lineFill = CPTFill(color: CPTColor.white())
             savingsPlotLineStyle.lineWidth = 1.0
             
-            let touchPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol()
-            touchPlotSymbol.fill = CPTFill(color: touchPlotColor)
+            let touchPlotSymbol = CPTPlotSymbol.ellipse()
+            touchPlotSymbol.fill = CPTFill(color: touchPlotColor())
             touchPlotSymbol.lineStyle = savingsPlotLineStyle
-            touchPlotSymbol.size = CGSizeMake(10.0, 10.0)
+            touchPlotSymbol.size = CGSize(width: 10.0, height: 10.0)
             touchPlot.plotSymbol = touchPlotSymbol
             
             let dataLineStyle = CPTMutableLineStyle()
-            dataLineStyle.lineColor = touchPlotColor
+            dataLineStyle.lineColor = touchPlotColor()
             dataLineStyle.lineWidth = 2.0
             touchPlot.dataLineStyle = dataLineStyle
             
@@ -165,12 +165,12 @@ class TDCorePlotFactory : TDCorePlotFactoryProtocol {
         
         if type == TDPlotType.Maxima {
             let maxLine = CPTScatterPlot()
-            maxLine.identifier = type.rawValue
+            maxLine.identifier = NSString.init(string: type.rawValue)
             
             let dataLineStyle = CPTMutableLineStyle()
             dataLineStyle.dashPattern = [3,3]  //dashed line
             dataLineStyle.lineWidth = 1
-            dataLineStyle.lineColor = CPTColor.redColor()
+            dataLineStyle.lineColor = CPTColor.red()
             maxLine.dataLineStyle = dataLineStyle
             
             return maxLine
@@ -178,12 +178,12 @@ class TDCorePlotFactory : TDCorePlotFactoryProtocol {
         
         if type == TDPlotType.Minima {
             let minLine = CPTScatterPlot()
-            minLine.identifier = type.rawValue
+            minLine.identifier = NSString.init(string: type.rawValue)
             
             let dataLineStyle = CPTMutableLineStyle()
             dataLineStyle.dashPattern = [3,3]  //dashed line
             dataLineStyle.lineWidth = 1
-            dataLineStyle.lineColor = CPTColor.orangeColor()
+            dataLineStyle.lineColor = CPTColor.orange()
             minLine.dataLineStyle = dataLineStyle
             
             return minLine
@@ -195,14 +195,14 @@ class TDCorePlotFactory : TDCorePlotFactoryProtocol {
     func createAxisForType(graph: CPTGraph, type: TDPlotType) -> CPTXYAxis? {
         if type == TDPlotType.Heartrate {
             guard let axisSet = graph.axisSet as? CPTXYAxisSet,
-                yBpm = axisSet.yAxis,
-                plotSpace = graph.defaultPlotSpace as? CPTXYPlotSpace else { return nil }
+                let yBpm = axisSet.yAxis,
+                let plotSpace = graph.defaultPlotSpace as? CPTXYPlotSpace else { return nil }
             
-            yBpm.labelingPolicy = CPTAxisLabelingPolicy.Automatic
+            yBpm.labelingPolicy = CPTAxisLabelingPolicy.automatic
             let yVisAxisRange = CPTPlotRange(location: 0, length: 200)
             yBpm.visibleAxisRange = yVisAxisRange
-            let exclRangeBottom = CPTPlotRange(location: 0.1, length: Int.min)
-            let exclRangeTop = CPTPlotRange(location: 201, length: Int.max)
+            let exclRangeBottom = CPTPlotRange(location: 0.1, length: NSNumber(value: Int.min))
+            let exclRangeTop = CPTPlotRange(location: 201, length: NSNumber(value: Int.max))
             yBpm.labelExclusionRanges = [exclRangeBottom, exclRangeTop]
             yBpm.preferredNumberOfMajorTicks = 5
             yBpm.minorTickLength = CGFloat(0)
@@ -217,15 +217,15 @@ class TDCorePlotFactory : TDCorePlotFactoryProtocol {
             majorGridLineStyle.lineColor = CPTColor(componentRed:0.82, green:0.82, blue:0.82, alpha:1)
             //        majorGridLineStyle.dashPattern = [10,10]  //dashed line
             yBpm.majorGridLineStyle = majorGridLineStyle
-            let length = endDate.timeIntervalSinceDate(startDate)
-            yBpm.gridLinesRange = CPTPlotRange(location: 0.0, length: length)
+            let length = endDate.timeIntervalSince(startDate)
+            yBpm.gridLinesRange = CPTPlotRange(location: 0.0, length: NSNumber(value: length))
             
-            yBpm.axisConstraints = CPTConstraints.constraintWithLowerOffset(50.0)
+            yBpm.axisConstraints = CPTConstraints.constraint(withLowerOffset: 50.0)
             yBpm.title = "bpm"
             //        y.titleOffset = 8
-            let numbFormatter = NSNumberFormatter()
+            let numbFormatter = NumberFormatter()
             numbFormatter.generatesDecimalNumbers = false
-            numbFormatter.numberStyle = .DecimalStyle
+            numbFormatter.numberStyle = .decimal
             yBpm.labelFormatter = numbFormatter
             
             return yBpm
@@ -233,8 +233,8 @@ class TDCorePlotFactory : TDCorePlotFactoryProtocol {
         
         if type == TDPlotType.Steps {
             guard let axisSet = graph.axisSet as? CPTXYAxisSet,
-                ySteps = axisSet.yAxis,
-                plotSpace = graph.defaultPlotSpace as? CPTXYPlotSpace else { return nil }
+                let ySteps = axisSet.yAxis,
+                let plotSpace = graph.defaultPlotSpace as? CPTXYPlotSpace else { return nil }
 
             ySteps.visibleRange = nil
             ySteps.visibleAxisRange = nil
@@ -242,14 +242,14 @@ class TDCorePlotFactory : TDCorePlotFactoryProtocol {
             plotSpace.yRange = CPTMutablePlotRange(location: 0, length: 250)
             plotSpace.globalYRange = CPTPlotRange(location: -50, length: 300);
             
-            ySteps.labelingPolicy = CPTAxisLabelingPolicy.Automatic
-            let exclRangeBottom = CPTPlotRange(location: 0, length: Int.min)
+            ySteps.labelingPolicy = CPTAxisLabelingPolicy.automatic
+            let exclRangeBottom = CPTPlotRange(location: 0, length: NSNumber(value: Int.min))
             ySteps.labelExclusionRanges = [exclRangeBottom]
             ySteps.preferredNumberOfMajorTicks = 5
             ySteps.minorTickLength = CGFloat(0)
             ySteps.majorTickLength = CGFloat(6)
             
-            ySteps.axisConstraints = CPTConstraints.constraintWithLowerOffset(50.0)
+            ySteps.axisConstraints = CPTConstraints.constraint(withLowerOffset: 50.0)
             ySteps.title = "Steps"
             
             return ySteps
@@ -257,8 +257,8 @@ class TDCorePlotFactory : TDCorePlotFactoryProtocol {
         
         if type == TDPlotType.Calories {
             guard let axisSet = graph.axisSet as? CPTXYAxisSet,
-                yCalories = axisSet.yAxis,
-                plotSpace = graph.defaultPlotSpace as? CPTXYPlotSpace else { return nil }
+                let yCalories = axisSet.yAxis,
+                let plotSpace = graph.defaultPlotSpace as? CPTXYPlotSpace else { return nil }
             
             let range = CPTMutablePlotRange(location: 0, length: 1000)
             yCalories.visibleRange = range
@@ -267,14 +267,14 @@ class TDCorePlotFactory : TDCorePlotFactoryProtocol {
             plotSpace.yRange = range
             plotSpace.globalYRange = CPTPlotRange(location: -50, length: 1200);
             
-            yCalories.labelingPolicy = CPTAxisLabelingPolicy.Automatic
-            let exclRangeBottom = CPTPlotRange(location: 0, length: Int.min)
+            yCalories.labelingPolicy = CPTAxisLabelingPolicy.automatic
+            let exclRangeBottom = CPTPlotRange(location: 0, length: NSNumber(value: Int.min))
             yCalories.labelExclusionRanges = [exclRangeBottom]
             yCalories.preferredNumberOfMajorTicks = 5
             yCalories.minorTickLength = CGFloat(0)
             yCalories.majorTickLength = CGFloat(6)
             
-            yCalories.axisConstraints = CPTConstraints.constraintWithLowerOffset(50.0)
+            yCalories.axisConstraints = CPTConstraints.constraint(withLowerOffset: 50.0)
             yCalories.title = "Calories"
             
             return yCalories
@@ -282,8 +282,8 @@ class TDCorePlotFactory : TDCorePlotFactoryProtocol {
         
         if type == TDPlotType.Distance {
             guard let axisSet = graph.axisSet as? CPTXYAxisSet,
-                yDistance = axisSet.yAxis,
-                plotSpace = graph.defaultPlotSpace as? CPTXYPlotSpace else { return nil }
+                let yDistance = axisSet.yAxis,
+                let plotSpace = graph.defaultPlotSpace as? CPTXYPlotSpace else { return nil }
             
             yDistance.visibleRange = nil
             yDistance.visibleAxisRange = nil
@@ -291,14 +291,14 @@ class TDCorePlotFactory : TDCorePlotFactoryProtocol {
             plotSpace.yRange = CPTMutablePlotRange(location: 0, length: 250)
             plotSpace.globalYRange = CPTPlotRange(location: -50, length: 300);
             
-            yDistance.labelingPolicy = CPTAxisLabelingPolicy.Automatic
-            let exclRangeBottom = CPTPlotRange(location: 0, length: Int.min)
+            yDistance.labelingPolicy = CPTAxisLabelingPolicy.automatic
+            let exclRangeBottom = CPTPlotRange(location: 0, length: NSNumber(value: Int.min))
             yDistance.labelExclusionRanges = [exclRangeBottom]
             yDistance.preferredNumberOfMajorTicks = 5
             yDistance.minorTickLength = CGFloat(0)
             yDistance.majorTickLength = CGFloat(6)
             
-            yDistance.axisConstraints = CPTConstraints.constraintWithLowerOffset(50.0)
+            yDistance.axisConstraints = CPTConstraints.constraint(withLowerOffset: 50.0)
             yDistance.title = "Distance (m)"
             
             return yDistance
@@ -310,33 +310,33 @@ class TDCorePlotFactory : TDCorePlotFactoryProtocol {
     
     func configureTimeXAxisForGraph(graph: CPTXYGraph) -> CPTXYAxis? {
         guard let axisSet = graph.axisSet as? CPTXYAxisSet,
-            x = axisSet.xAxis,
-            plotSpace = graph.defaultPlotSpace as? CPTXYPlotSpace else { return nil }
+            let x = axisSet.xAxis,
+            let plotSpace = graph.defaultPlotSpace as? CPTXYPlotSpace else { return nil }
 
-        let length = endDate.timeIntervalSinceDate(startDate)
-        LogMessage("BPM", 0, "Workout length is \(length) seconds")
-        plotSpace.xRange = CPTPlotRange(location: 0, length: length)
+        let length = endDate.timeIntervalSince(startDate)
+        debugPrint("Workout length is \(length) seconds")
+        plotSpace.xRange = CPTPlotRange(location: 0, length: NSNumber(value: length))
         let xRange = plotSpace.xRange.mutableCopy() as! CPTMutablePlotRange
         
         // Expand the ranges to put some space around the plot
-        xRange.expandRangeByFactor(1.2)
+        xRange.expand(byFactor: 1.2)
         plotSpace.xRange = xRange
         
-        xRange.expandRangeByFactor(1.2)
+        xRange.expand(byFactor: 1.2)
         plotSpace.globalXRange = xRange
         
-        x.labelingPolicy = CPTAxisLabelingPolicy.Automatic
+        x.labelingPolicy = CPTAxisLabelingPolicy.automatic
         
-        let xAxisRange = CPTPlotRange(location: 0.1, length: length)
+        let xAxisRange = CPTPlotRange(location: 0.1, length: NSNumber(value: length))
         x.visibleAxisRange = xAxisRange
-        let exclRangeLeft = CPTPlotRange(location: 0, length: Int.min)
-        let exclRangeRight = CPTPlotRange(location: length+1, length: Int.max)
+        let exclRangeLeft = CPTPlotRange(location: 0, length: NSNumber(value: Int.min))
+        let exclRangeRight = CPTPlotRange(location: NSNumber(value: length+1), length: NSNumber(value: Int.max))
         x.labelExclusionRanges = [exclRangeLeft, exclRangeRight]
         
         //        x.orthogonalPosition = 2.0
         //        x.minorTicksPerInterval = 0
-        let dateFormatter = NSDateFormatter()
-        //        dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
+        let dateFormatter = DateFormatter()
+        //        dateFormatter.dateStyle = DateFormatterStyle.ShortStyle
         dateFormatter.dateFormat = "H:mm:ss"
         let timeFormatter = CPTTimeFormatter(dateFormatter:dateFormatter)
         timeFormatter.referenceDate = startDate.startOfDay
@@ -348,7 +348,7 @@ class TDCorePlotFactory : TDCorePlotFactoryProtocol {
         x.title = "Elapsed Time";
         //        x.titleOffset = 47
         
-        x.axisConstraints = CPTConstraints.constraintWithLowerOffset(50.0)
+        x.axisConstraints = CPTConstraints.constraint(withLowerOffset: 50.0)
         
         //        let lineCap = CPTLineCap.sweptArrowPlotLineCap()
         //        lineCap.size = CGSizeMake(0.625, 0.625)
@@ -361,7 +361,7 @@ class TDCorePlotFactory : TDCorePlotFactoryProtocol {
 
     func resetPlots(graph: CPTGraph) {
         for plot in graph.allPlots() {
-            graph.removePlot(plot)
+            graph.remove(plot)
         }
         graph.removeAllAnnotations()
     }

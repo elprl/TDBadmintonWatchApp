@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		378203F3FCE15BF63FC4E3B0 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACC7C36D8AA194BEC20B8882 /* Pods.framework */; };
+		02985A9C6CB41F460BA9D64C /* Pods_BadmintonUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FEDFCADA364E513D1FFF5FF /* Pods_BadmintonUITests.framework */; };
+		55C6D270A5DA4F004754A8AD /* Pods_Badminton.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 986E8329D89F63F25DD8124D /* Pods_Badminton.framework */; };
+		B4F842DF5AA174C13236A22C /* Pods_BadmintonTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C08C713315718EA79E05AEF7 /* Pods_BadmintonTests.framework */; };
 		DA079CD91BE15D74001D9B52 /* Badminton.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = DA079CD81BE15D74001D9B52 /* Badminton.entitlements */; };
-		DA1FA4D41C581BF300B3456E /* NSLoggerSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1FA4D31C581BF300B3456E /* NSLoggerSupport.swift */; };
 		DA24E7C51BDC60B400DEC986 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA24E7C41BDC60B400DEC986 /* AppDelegate.swift */; };
 		DA24E7C71BDC60B400DEC986 /* TDWorkoutListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA24E7C61BDC60B400DEC986 /* TDWorkoutListVC.swift */; };
 		DA24E7CA1BDC60B400DEC986 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA24E7C81BDC60B400DEC986 /* Main.storyboard */; };
@@ -100,11 +101,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1F595A648CD1129B4C13C5D6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		9535C74F6BB88E454AF220BB /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		07E4272699AA9B5DD9D3ED80 /* Pods-BadmintonUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BadmintonUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BadmintonUITests/Pods-BadmintonUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		6DE873BBB3DE1546BDDF3E89 /* Pods-Badminton.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Badminton.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Badminton/Pods-Badminton.debug.xcconfig"; sourceTree = "<group>"; };
+		83100643A1E0211D0CA0D9A9 /* Pods-BadmintonUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BadmintonUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BadmintonUITests/Pods-BadmintonUITests.release.xcconfig"; sourceTree = "<group>"; };
+		8EDDE1AD0549FD1A7E27B7FB /* Pods-BadmintonTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BadmintonTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BadmintonTests/Pods-BadmintonTests.debug.xcconfig"; sourceTree = "<group>"; };
+		8FEDFCADA364E513D1FFF5FF /* Pods_BadmintonUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BadmintonUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		986E8329D89F63F25DD8124D /* Pods_Badminton.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Badminton.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACC7C36D8AA194BEC20B8882 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AEDC55C99C91695F05C2B418 /* Pods-BadmintonTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BadmintonTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BadmintonTests/Pods-BadmintonTests.release.xcconfig"; sourceTree = "<group>"; };
+		C08C713315718EA79E05AEF7 /* Pods_BadmintonTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BadmintonTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA079CD81BE15D74001D9B52 /* Badminton.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Badminton.entitlements; sourceTree = "<group>"; };
-		DA1FA4D31C581BF300B3456E /* NSLoggerSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSLoggerSupport.swift; sourceTree = "<group>"; };
 		DA24E7C11BDC60B400DEC986 /* Badminton.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Badminton.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA24E7C41BDC60B400DEC986 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DA24E7C61BDC60B400DEC986 /* TDWorkoutListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TDWorkoutListVC.swift; sourceTree = "<group>"; };
@@ -147,9 +153,17 @@
 		DAC85EB61BEBF48B00E0326D /* TDWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDWorkout.swift; sourceTree = "<group>"; };
 		DAD4EA991BE6776300816B67 /* Settings-Watch.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "Settings-Watch.bundle"; sourceTree = "<group>"; };
 		DAD4EA9B1BE6886B00816B67 /* TDWorkoutManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDWorkoutManager.swift; sourceTree = "<group>"; };
+		F8C81CF6D5ADA6F7A3CF3310 /* Pods-Badminton.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Badminton.release.xcconfig"; path = "Pods/Target Support Files/Pods-Badminton/Pods-Badminton.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		01F787D74134CB510E13DC7C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DA24E7BE1BDC60B400DEC986 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -161,7 +175,7 @@
 				DAB85D311BF22B43008C858A /* Security.framework in Frameworks */,
 				DA7224F51BDD922400FE23AF /* HealthKit.framework in Frameworks */,
 				DAB85D2F1BF22B04008C858A /* ShinobiCharts.framework in Frameworks */,
-				378203F3FCE15BF63FC4E3B0 /* Pods.framework in Frameworks */,
+				55C6D270A5DA4F004754A8AD /* Pods_Badminton.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,6 +183,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4F842DF5AA174C13236A22C /* Pods_BadmintonTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,6 +191,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02985A9C6CB41F460BA9D64C /* Pods_BadmintonUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,11 +205,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		826CA836C6347B781AD36341 /* Pods */ = {
+		0033D077BD6AD56B6B6BB4E5 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				9535C74F6BB88E454AF220BB /* Pods.debug.xcconfig */,
-				1F595A648CD1129B4C13C5D6 /* Pods.release.xcconfig */,
+				6DE873BBB3DE1546BDDF3E89 /* Pods-Badminton.debug.xcconfig */,
+				F8C81CF6D5ADA6F7A3CF3310 /* Pods-Badminton.release.xcconfig */,
+				8EDDE1AD0549FD1A7E27B7FB /* Pods-BadmintonTests.debug.xcconfig */,
+				AEDC55C99C91695F05C2B418 /* Pods-BadmintonTests.release.xcconfig */,
+				07E4272699AA9B5DD9D3ED80 /* Pods-BadmintonUITests.debug.xcconfig */,
+				83100643A1E0211D0CA0D9A9 /* Pods-BadmintonUITests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -207,6 +227,9 @@
 				DAB85D321BF22B5A008C858A /* QuartzCore.framework */,
 				DAB85D301BF22B43008C858A /* Security.framework */,
 				ACC7C36D8AA194BEC20B8882 /* Pods.framework */,
+				986E8329D89F63F25DD8124D /* Pods_Badminton.framework */,
+				C08C713315718EA79E05AEF7 /* Pods_BadmintonTests.framework */,
+				8FEDFCADA364E513D1FFF5FF /* Pods_BadmintonUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -221,8 +244,8 @@
 				DA24E7ED1BDC60B400DEC986 /* Badminton WatchKit App */,
 				DA24E7FC1BDC60B400DEC986 /* Badminton WatchKit Extension */,
 				DA24E7C21BDC60B400DEC986 /* Products */,
-				826CA836C6347B781AD36341 /* Pods */,
 				C5AC6114CB3A1A2A4BDBC5B0 /* Frameworks */,
+				0033D077BD6AD56B6B6BB4E5 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -322,7 +345,6 @@
 		DAC5E8B81BEBFD12003126CC /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				DA1FA4D31C581BF300B3456E /* NSLoggerSupport.swift */,
 				DA7224F61BDD939200FE23AF /* Badminton.entitlements */,
 				DAC5E8B21BEBFB8B003126CC /* Badminton-Bridging-Header.h */,
 				DA24E7CB1BDC60B400DEC986 /* Assets.xcassets */,
@@ -369,13 +391,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DA24E8121BDC60B400DEC986 /* Build configuration list for PBXNativeTarget "Badminton" */;
 			buildPhases = (
-				2EB71F53CB823967AA908598 /* Check Pods Manifest.lock */,
+				BC68DF7893B7C8270869C6B8 /* [CP] Check Pods Manifest.lock */,
 				DA24E7BD1BDC60B400DEC986 /* Sources */,
 				DA24E7BE1BDC60B400DEC986 /* Frameworks */,
 				DA24E7BF1BDC60B400DEC986 /* Resources */,
 				DA24E8111BDC60B400DEC986 /* Embed Watch Content */,
-				3231B419492A9FB3B028080B /* Embed Pods Frameworks */,
-				FD570459DC2B8B209CFD588B /* Copy Pods Resources */,
+				243F2145AC820B22B0042ECA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -391,9 +412,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DA24E8151BDC60B400DEC986 /* Build configuration list for PBXNativeTarget "BadmintonTests" */;
 			buildPhases = (
+				04B453B34B119C45435CFD66 /* [CP] Check Pods Manifest.lock */,
 				DA24E7D11BDC60B400DEC986 /* Sources */,
 				DA24E7D21BDC60B400DEC986 /* Frameworks */,
 				DA24E7D31BDC60B400DEC986 /* Resources */,
+				A15C21C64E31E9D4CBC8485E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -409,9 +432,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DA24E8181BDC60B400DEC986 /* Build configuration list for PBXNativeTarget "BadmintonUITests" */;
 			buildPhases = (
+				A05AC2E7321D9087A1F50F90 /* [CP] Check Pods Manifest.lock */,
 				DA24E7DC1BDC60B400DEC986 /* Sources */,
 				DA24E7DD1BDC60B400DEC986 /* Frameworks */,
 				DA24E7DE1BDC60B400DEC986 /* Resources */,
+				7649B0BB410B30AEFEBF3287 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -429,6 +454,7 @@
 			buildPhases = (
 				DA24E7E71BDC60B400DEC986 /* Resources */,
 				DA24E80D1BDC60B400DEC986 /* Embed App Extensions */,
+				01F787D74134CB510E13DC7C /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -563,49 +589,136 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2EB71F53CB823967AA908598 /* Check Pods Manifest.lock */ = {
+		04B453B34B119C45435CFD66 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BadmintonTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		3231B419492A9FB3B028080B /* Embed Pods Frameworks */ = {
+		243F2145AC820B22B0042ECA /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Badminton/Pods-Badminton-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/CorePlot/CorePlot.framework",
+				"${BUILT_PRODUCTS_DIR}/DateTools/DateTools.framework",
+				"${BUILT_PRODUCTS_DIR}/JGProgressHUD/JGProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/MHPrettyDate/MHPrettyDate.framework",
+				"${BUILT_PRODUCTS_DIR}/NSLogger/NSLogger.framework",
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CorePlot.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DateTools.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JGProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MHPrettyDate.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NSLogger.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Badminton/Pods-Badminton-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FD570459DC2B8B209CFD588B /* Copy Pods Resources */ = {
+		7649B0BB410B30AEFEBF3287 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-BadmintonUITests/Pods-BadmintonUITests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/CorePlot/CorePlot.framework",
+				"${BUILT_PRODUCTS_DIR}/DateTools/DateTools.framework",
+				"${BUILT_PRODUCTS_DIR}/JGProgressHUD/JGProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/MHPrettyDate/MHPrettyDate.framework",
+				"${BUILT_PRODUCTS_DIR}/NSLogger/NSLogger.framework",
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CorePlot.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DateTools.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JGProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MHPrettyDate.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NSLogger.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BadmintonUITests/Pods-BadmintonUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A05AC2E7321D9087A1F50F90 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BadmintonUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A15C21C64E31E9D4CBC8485E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-BadmintonTests/Pods-BadmintonTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/CorePlot/CorePlot.framework",
+				"${BUILT_PRODUCTS_DIR}/DateTools/DateTools.framework",
+				"${BUILT_PRODUCTS_DIR}/JGProgressHUD/JGProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/MHPrettyDate/MHPrettyDate.framework",
+				"${BUILT_PRODUCTS_DIR}/NSLogger/NSLogger.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CorePlot.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DateTools.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JGProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MHPrettyDate.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NSLogger.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BadmintonTests/Pods-BadmintonTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BC68DF7893B7C8270869C6B8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Badminton-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -623,7 +736,6 @@
 				DA6D28C71C5AF50B00FD7CFE /* Extensions.swift in Sources */,
 				DAB85D3B1BF235E2008C858A /* TDShinobiGraphVC.swift in Sources */,
 				DAC85EB71BEBF48B00E0326D /* TDWorkout.swift in Sources */,
-				DA1FA4D41C581BF300B3456E /* NSLoggerSupport.swift in Sources */,
 				DAB85D3D1BF24E04008C858A /* TDBadmintonScore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -748,7 +860,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -785,6 +897,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 4.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -867,7 +980,7 @@
 		};
 		DA24E8131BDC60B400DEC986 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9535C74F6BB88E454AF220BB /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 6DE873BBB3DE1546BDDF3E89 /* Pods-Badminton.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -884,19 +997,19 @@
 					"PL_DEBUG=1",
 				);
 				INFOPLIST_FILE = Badminton/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DTD_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.TapDigital.Badminton;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "53ccc743-3ad4-42ff-b213-49e4fead9436";
 				SWIFT_OBJC_BRIDGING_HEADER = "Badminton/Badminton-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		DA24E8141BDC60B400DEC986 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1F595A648CD1129B4C13C5D6 /* Pods.release.xcconfig */;
+			baseConfigurationReference = F8C81CF6D5ADA6F7A3CF3310 /* Pods-Badminton.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -910,18 +1023,19 @@
 				);
 				GCC_OPTIMIZATION_LEVEL = s;
 				INFOPLIST_FILE = Badminton/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" ";
 				PRODUCT_BUNDLE_IDENTIFIER = com.TapDigital.Badminton;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "53ccc743-3ad4-42ff-b213-49e4fead9436";
 				SWIFT_OBJC_BRIDGING_HEADER = "Badminton/Badminton-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};
 			name = Release;
 		};
 		DA24E8161BDC60B400DEC986 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8EDDE1AD0549FD1A7E27B7FB /* Pods-BadmintonTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = BadmintonTests/Info.plist;
@@ -934,6 +1048,7 @@
 		};
 		DA24E8171BDC60B400DEC986 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AEDC55C99C91695F05C2B418 /* Pods-BadmintonTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = BadmintonTests/Info.plist;
@@ -946,6 +1061,7 @@
 		};
 		DA24E8191BDC60B400DEC986 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 07E4272699AA9B5DD9D3ED80 /* Pods-BadmintonUITests.debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = BadmintonUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -958,6 +1074,7 @@
 		};
 		DA24E81A1BDC60B400DEC986 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 83100643A1E0211D0CA0D9A9 /* Pods-BadmintonUITests.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = BadmintonUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

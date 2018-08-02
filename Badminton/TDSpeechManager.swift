@@ -23,7 +23,7 @@ class TDSpeechManager {
     }
 
     func canSpeak() -> Bool {
-        if let codes = langCodes where codes.contains(getPreferredLanguage()) {
+        if let codes = langCodes, codes.contains(getPreferredLanguage()) {
             return true
         }
         
@@ -31,7 +31,7 @@ class TDSpeechManager {
     }
     
     func getPreferredLanguage() -> String {
-        if let prefLanguage = NSLocale.preferredLanguages().first {
+        if let prefLanguage = Locale.preferredLanguages.first {
             return prefLanguage
         }
         
@@ -39,14 +39,14 @@ class TDSpeechManager {
     }
     
     func speakMessage(message: String) {
-        if speechSynthesizer.speaking {
+        if speechSynthesizer.isSpeaking {
             stopSpeech()
         } 
         
         let speechUtterance = AVSpeechUtterance(string: message)
 //        speechUtterance.postUtteranceDelay = 0.005
         speechUtterance.voice = self.voice
-        speechSynthesizer.speakUtterance(speechUtterance)
+        speechSynthesizer.speak(speechUtterance)
     }
     
     func speakScore(score: [[Int]]) {
@@ -90,17 +90,17 @@ class TDSpeechManager {
             }
         }
         
-        scoreString = scoreString.stringByReplacingOccurrencesOfString(" 0", withString: " love")
-        speakMessage(scoreString)
+        scoreString = scoreString.replacingOccurrences(of: " 0", with: " love")
+        speakMessage(message: scoreString)
     }
     
     // workaround for stopping speach issue
     func stopSpeech() {
-        if speechSynthesizer.speaking {
-            speechSynthesizer.stopSpeakingAtBoundary(.Immediate)
+        if speechSynthesizer.isSpeaking {
+            speechSynthesizer.stopSpeaking(at: .immediate)
             let speechUtterance = AVSpeechUtterance(string: "")
-            speechSynthesizer.speakUtterance(speechUtterance)
-            speechSynthesizer.stopSpeakingAtBoundary(.Immediate)
+            speechSynthesizer.speak(speechUtterance)
+            speechSynthesizer.stopSpeaking(at: .immediate)
         }
     }
    

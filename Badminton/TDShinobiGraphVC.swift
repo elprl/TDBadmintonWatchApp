@@ -19,18 +19,18 @@ class TDShinobiGraphVC: UIViewController, UIToolbarDelegate, SChartDatasource {
     @IBOutlet weak var toolBar: UIToolbar!
     @IBOutlet weak var segmentedCtrl: UISegmentedControl!
     var HUD : JGProgressHUD?
-    var startDate = NSDate()
-    var endDate = NSDate()
+    var startDate = Date()
+    var endDate = Date()
     
-    let energyUnit = HKUnit.kilocalorieUnit()
-    let distanceUnit = HKUnit.meterUnit()
-    let stepUnit = HKUnit.countUnit()
-    let countPerMinuteUnit = HKUnit(fromString: "count/min")
+    let energyUnit = HKUnit.kilocalorie()
+    let distanceUnit = HKUnit.meter()
+    let stepUnit = HKUnit.count()
+    let countPerMinuteUnit = HKUnit(from: "count/min")
     
-    let energyType = HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierActiveEnergyBurned)!
-    let distanceType = HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierDistanceWalkingRunning)!
-    let stepType = HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)!
-    let heartRateType = HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)!
+    let energyType = HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!
+    let distanceType = HKObjectType.quantityType(forIdentifier: .distanceWalkingRunning)!
+    let stepType = HKObjectType.quantityType(forIdentifier: .stepCount)!
+    let heartRateType = HKObjectType.quantityType(forIdentifier: .heartRate)!
     
     var energySamples: [HKQuantitySample] = []
     var distanceSamples: [HKQuantitySample] = []
@@ -51,48 +51,48 @@ class TDShinobiGraphVC: UIViewController, UIToolbarDelegate, SChartDatasource {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = MHPrettyDate.prettyDateFromDate(startDate, withFormat: MHPrettyDateFormatNoTime)
+        self.title = MHPrettyDate.prettyDate(from: startDate, with: MHPrettyDateFormatNoTime)
         
         toolBar.delegate = self
         
         setupHeartRateGraph()
         
-        HUD = JGProgressHUD(style: JGProgressHUDStyle.Light)
-        HUD?.showInView(self.view)
-        HUD?.dismissAfterDelay(15.0)
+        HUD = JGProgressHUD(style: .light)
+        HUD?.show(in: self.view)
+        HUD?.dismiss(afterDelay: 15.0)
         
-        if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             var queries = [HKQuery]()
             queries.append(createStreamingDistanceQuery())
             queries.append(createStreamingEnergyQuery())
             queries.append(createStreamingStepQuery())
             queries.append(createStreamingHeartRateQuery())
             for query in queries {
-                appDelegate.healthStore.executeQuery(query)
+                appDelegate.healthStore.execute(query)
             }
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         if let sbViews = self.navigationController?.navigationBar.subviews {
             for view in sbViews {
                 if view is UIImageView {
-                    view.hidden = true
+                    view.isHidden = true
                     return
                 }
             }
         }
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         if let sbViews = self.navigationController?.navigationBar.subviews {
             for view in sbViews {
                 if view is UIImageView {
-                    view.hidden = false
+                    view.isHidden = false
                     return
                 }
             }
@@ -100,15 +100,15 @@ class TDShinobiGraphVC: UIViewController, UIToolbarDelegate, SChartDatasource {
     }
     
     func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
-        return .TopAttached
+        return .topAttached
     }
     
     func setupHeartRateGraph() {
         chart.licenseKey = "gSZlTcZdCPcgvT4MjAxNTEyMTBwYXVsX3JfbGVvQGhvdG1haWwuY29ti7K9mVMIXlfcC0HTwyC0tk8xs6ZeTmohFbrdR5xgg+ohdMLdkMJ7hsDAPSeDYwLV77heqz0k1erUnEAeDOptgRJhJiNaJhZw99WtbJmmv3/1SpKMkDT/Zo9M82lBy67+G+G2CnEa3kcVHsmwUIZVJp0PRhUM=AXR/y+mxbZFM+Bz4HYAHkrZ/ekxdI/4Aa6DClSrE4o73czce7pcia/eHXffSfX9gssIRwBWEPX9e+kKts4mY6zZWsReM+aaVF0BL6G9Vj2249wYEThll6JQdqaKda41AwAbZXwcssavcgnaHc3rxWNBjJDOk6Cd78fr/LwdW8q7gmlj4risUXPJV0h7d21jO1gzaaFCPlp5G8l05UUe2qe7rKbarpjoddMoXrpErC9j8Lm5Oj7XKbmciqAKap+71+9DGNE2sBC+sY4V/arvEthfhk52vzLe3kmSOsvg5q+DQG/W9WbgZTmlMdWHY2B2nbgm3yZB7jFCiXH/KfzyE1A==PFJTQUtleVZhbHVlPjxNb2R1bHVzPnh6YlRrc2dYWWJvQUh5VGR6dkNzQXUrUVAxQnM5b2VrZUxxZVdacnRFbUx3OHZlWStBK3pteXg4NGpJbFkzT2hGdlNYbHZDSjlKVGZQTTF4S2ZweWZBVXBGeXgxRnVBMThOcDNETUxXR1JJbTJ6WXA3a1YyMEdYZGU3RnJyTHZjdGhIbW1BZ21PTTdwMFBsNWlSKzNVMDg5M1N4b2hCZlJ5RHdEeE9vdDNlMD08L01vZHVsdXM+PEV4cG9uZW50PkFRQUI8L0V4cG9uZW50PjwvUlNBS2V5VmFsdWU+"
         chart.datasource = self
 //        chart.delegate = self;
-        chart.legend.hidden = false
-        chart.legend.position = SChartLegendPosition.BottomMiddle;
+        chart.legend.isHidden = false
+        chart.legend.position = SChartLegendPosition.bottomMiddle;
         chart.title = "Wakt Metrics"
         
         // Turn off clipsToBounds so that our tooltip can go outside of the chart area
@@ -116,31 +116,31 @@ class TDShinobiGraphVC: UIViewController, UIToolbarDelegate, SChartDatasource {
         
         // Add x-axis
         let dateAxis = SChartDateTimeAxis()
-        dateAxis.title = "Time"
+        dateAxis?.title = "Time"
         chart.xAxis = dateAxis
         
         // Add y-axis (heartrate)
         let heartAxis = SChartNumberAxis()
-        heartAxis.title = "BMP"
-        heartAxis.style.titleStyle.textColor = UIColor.redColor()
-        heartAxis.minorTickFrequency = 1
-        heartAxis.setRangeWithMinimum(0, andMaximum: 220)
-        heartAxis.enableGesturePanning = true
-        heartAxis.enableGestureZooming = true
-        heartAxis.enableMomentumPanning = true
-        heartAxis.enableMomentumZooming = true
+        heartAxis?.title = "BMP"
+        heartAxis?.style.titleStyle.textColor = UIColor.red
+        heartAxis?.minorTickFrequency = 1
+        heartAxis?.setRangeWithMinimum(0, andMaximum: 220)
+        heartAxis?.enableGesturePanning = true
+        heartAxis?.enableGestureZooming = true
+        heartAxis?.enableMomentumPanning = true
+        heartAxis?.enableMomentumZooming = true
         chart.yAxis = heartAxis
 
 
-        chart.legend.hidden = true
+        chart.legend.isHidden = true
     }
     
     //MARK: SChartDatasource methods
-    func numberOfSeriesInSChart(chart: ShinobiChart!) -> Int {
+    func numberOfSeries(inSChart chart: ShinobiChart!) -> Int {
         return 4
     }
     
-    func sChart(chart: ShinobiChart!, seriesAtIndex index: Int) -> SChartSeries! {
+    func sChart(_ chart: ShinobiChart!, seriesAt index: Int) -> SChartSeries! {
         let lineSeries = SChartLineSeries()
         let style = lineSeries.style()
         lineSeries.hidden = segmentedCtrl.selectedSegmentIndex != index
@@ -148,19 +148,19 @@ class TDShinobiGraphVC: UIViewController, UIToolbarDelegate, SChartDatasource {
         switch (index) {
         case 0:
 //            style.showFill = true
-            style.lineColor = UIColor.redColor()
+            style?.lineColor = UIColor.red
             lineSeries.title = "Heartrate"
         case 1:
 //            style.showFill = true
-            style.lineColor = UIColor.orangeColor()
+            style?.lineColor = UIColor.orange
             lineSeries.title = "Calories"
         case 2:
 //            style.showFill = true
-            style.lineColor = UIColor.yellowColor()
+            style?.lineColor = UIColor.yellow
             lineSeries.title = "Steps"
         case 3:
 //            style.showFill = true
-            style.lineColor = UIColor.blueColor()
+            style?.lineColor = UIColor.blue
             lineSeries.title = "Distance"
         default:
             break
@@ -172,7 +172,7 @@ class TDShinobiGraphVC: UIViewController, UIToolbarDelegate, SChartDatasource {
     }
     
     
-    func sChart(chart: ShinobiChart!, numberOfDataPointsForSeriesAtIndex seriesIndex: Int) -> Int {
+    func sChart(_ chart: ShinobiChart!, numberOfDataPointsForSeriesAt seriesIndex: Int) -> Int {
         var count : Int = 0
         
         switch (seriesIndex) {
@@ -199,7 +199,7 @@ class TDShinobiGraphVC: UIViewController, UIToolbarDelegate, SChartDatasource {
     }
     
     
-    func sChart(chart: ShinobiChart!, dataPointAtIndex dataIndex: Int, forSeriesAtIndex seriesIndex: Int) -> SChartData! {
+    func sChart(_ chart: ShinobiChart!, dataPointAt dataIndex: Int, forSeriesAt seriesIndex: Int) -> SChartData! {
         var quant : HKQuantitySample
         
         let pt = SChartDataPoint()
@@ -208,26 +208,26 @@ class TDShinobiGraphVC: UIViewController, UIToolbarDelegate, SChartDatasource {
         case 0:
             quant = heartRateSamples[dataIndex]
             pt.xValue = quant.startDate
-            pt.yValue = quant.quantity.doubleValueForUnit(countPerMinuteUnit)
+            pt.yValue = quant.quantity.doubleValue(for: countPerMinuteUnit)
             print(pt)
             return pt
         case 1:
             quant = energySamples[dataIndex]
             pt.xValue = quant.startDate
-            cumulativeEnergy += quant.quantity.doubleValueForUnit(energyUnit)
+            cumulativeEnergy += quant.quantity.doubleValue(for: energyUnit)
             pt.yValue = cumulativeEnergy
             print(pt)
             return pt
         case 2:
             quant = stepSamples[dataIndex]
             pt.xValue = quant.startDate
-            pt.yValue = quant.quantity.doubleValueForUnit(stepUnit)
+            pt.yValue = quant.quantity.doubleValue(for: stepUnit)
             print(pt)
             return pt
         case 3:
             quant = distanceSamples[dataIndex]
             pt.xValue = quant.startDate
-            pt.yValue = quant.quantity.doubleValueForUnit(distanceUnit)
+            pt.yValue = quant.quantity.doubleValue(for: distanceUnit)
             print(pt)
             return pt
        default:
@@ -247,13 +247,13 @@ class TDShinobiGraphVC: UIViewController, UIToolbarDelegate, SChartDatasource {
             switch (samples, error) {
             case (let quantitySamples?, nil) :
                 self.distanceSamples = quantitySamples as! [HKQuantitySample]
-                self.refreshGraph(self._distanceId)
+                self.refreshGraph(identifier: self._distanceId)
             case (_, _?):
                 print(error!.localizedDescription)
                 fallthrough
             default:
-                self.HUD?.textLabel?.text = "No Distance Data"
-                self.HUD?.dismissAfterDelay(5.0)
+                self.HUD?.textLabel.text = "No Distance Data"
+                self.HUD?.dismiss(afterDelay: 5.0)
             }
         }
         
@@ -269,13 +269,13 @@ class TDShinobiGraphVC: UIViewController, UIToolbarDelegate, SChartDatasource {
             switch (samples, error) {
             case (let quantitySamples?, nil) :
                 self.stepSamples = quantitySamples as! [HKQuantitySample]
-                self.refreshGraph(self._stepsId)
+                self.refreshGraph(identifier: self._stepsId)
             case (_, _?):
                 print(error!.localizedDescription)
                 fallthrough
             default:
-                self.HUD?.textLabel?.text = "No Step Data"
-                self.HUD?.dismissAfterDelay(5.0)
+                self.HUD?.textLabel.text = "No Step Data"
+                self.HUD?.dismiss(afterDelay: 5.0)
             }
         }
         
@@ -290,13 +290,13 @@ class TDShinobiGraphVC: UIViewController, UIToolbarDelegate, SChartDatasource {
             switch (samples, error) {
             case (let quantitySamples?, nil) :
                 self.energySamples = quantitySamples as! [HKQuantitySample]
-                self.refreshGraph(self._energyId)
+                self.refreshGraph(identifier: self._energyId)
             case (_, _?):
                 print(error!.localizedDescription)
                 fallthrough
             default:
-                self.HUD?.textLabel?.text = "No Energy Data"
-                self.HUD?.dismissAfterDelay(5.0)
+                self.HUD?.textLabel.text = "No Energy Data"
+                self.HUD?.dismiss(afterDelay: 5.0)
             }
         }
         
@@ -312,7 +312,7 @@ class TDShinobiGraphVC: UIViewController, UIToolbarDelegate, SChartDatasource {
             switch (samples, error) {
             case (let quantitySamples?, nil) where quantitySamples.count > 0:
                 self.heartRateSamples = quantitySamples as! [HKQuantitySample]
-                self.refreshGraph(self._heartrateId)
+                self.refreshGraph(identifier: self._heartrateId)
             case (let quantitySamples?, nil) where quantitySamples.count == 0:
                 self.heartRateSamples = quantitySamples as! [HKQuantitySample]
                 self.displayNoData()
@@ -328,15 +328,15 @@ class TDShinobiGraphVC: UIViewController, UIToolbarDelegate, SChartDatasource {
     }
     
     func predicateFromWorkoutSamples() -> NSPredicate {
-        return HKQuery.predicateForSamplesWithStartDate(startDate, endDate: endDate, options: .None)
+        return HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: HKQueryOptions(rawValue: 0))
     }
     
     
     func refreshGraph(identifier: String?) {
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            self.HUD?.dismissAnimated(true)
+        DispatchQueue.main.async() {
+            self.HUD?.dismiss(animated: true)
             self.chart.reloadData()
-            self.chart.redrawChart()
+            self.chart.redraw()
         }
     }
     
@@ -346,53 +346,53 @@ class TDShinobiGraphVC: UIViewController, UIToolbarDelegate, SChartDatasource {
         case 0:
             // Add y-axis (heartrate)
             let heartAxis = SChartNumberAxis()
-            heartAxis.title = "BMP"
-            heartAxis.style.titleStyle.textColor = UIColor.redColor()
-            heartAxis.minorTickFrequency = 1
-            heartAxis.setRangeWithMinimum(0, andMaximum: 220)
-            heartAxis.enableGesturePanning = true
-            heartAxis.enableGestureZooming = true
-            heartAxis.enableMomentumPanning = true
-            heartAxis.enableMomentumZooming = true
+            heartAxis?.title = "BMP"
+            heartAxis?.style.titleStyle.textColor = UIColor.red
+            heartAxis?.minorTickFrequency = 1
+            heartAxis?.setRangeWithMinimum(0, andMaximum: 220)
+            heartAxis?.enableGesturePanning = true
+            heartAxis?.enableGestureZooming = true
+            heartAxis?.enableMomentumPanning = true
+            heartAxis?.enableMomentumZooming = true
             chart.yAxis = heartAxis
             
         case 1:
             // Add  y-axis (calories)
             let energyAxis = SChartNumberAxis()
-            energyAxis.title = "Calories (kcal)"
-            energyAxis.style.titleStyle.textColor = UIColor.orangeColor()
-            energyAxis.minorTickFrequency = 1
-            energyAxis.axisLabelsAreFixed = true
-            energyAxis.enableGesturePanning = true
-            energyAxis.enableGestureZooming = true
-            energyAxis.enableMomentumPanning = false
-            energyAxis.enableMomentumZooming = false
+            energyAxis?.title = "Calories (kcal)"
+            energyAxis?.style.titleStyle.textColor = UIColor.orange
+            energyAxis?.minorTickFrequency = 1
+            energyAxis?.axisLabelsAreFixed = true
+            energyAxis?.enableGesturePanning = true
+            energyAxis?.enableGestureZooming = true
+            energyAxis?.enableMomentumPanning = false
+            energyAxis?.enableMomentumZooming = false
             chart.yAxis = energyAxis
             
         case 2:
             // Add  y-axis (steps)
             let stepsAxis = SChartNumberAxis()
-            stepsAxis.title = "Steps"
-//            stepsAxis.labelFormatString = "%.0f"
-            stepsAxis.minorTickFrequency = 1
-            stepsAxis.axisLabelsAreFixed = true
-            stepsAxis.enableGesturePanning = true
-            stepsAxis.enableGestureZooming = true
-            stepsAxis.enableMomentumPanning = false
-            stepsAxis.enableMomentumZooming = false
+            stepsAxis?.title = "Steps"
+//            stepsAxis?.labelFormatString = "%.0f"
+            stepsAxis?.minorTickFrequency = 1
+            stepsAxis?.axisLabelsAreFixed = true
+            stepsAxis?.enableGesturePanning = true
+            stepsAxis?.enableGestureZooming = true
+            stepsAxis?.enableMomentumPanning = false
+            stepsAxis?.enableMomentumZooming = false
             chart.yAxis = stepsAxis
             
         case 3:
             // Add  y-axis (distance)
             let distanceAxis = SChartNumberAxis()
-            distanceAxis.title = "Distance (metres)"
-            distanceAxis.titleLabel.textColor = UIColor.blueColor()
-//            distanceAxis.labelFormatString = "%.0f"
-            distanceAxis.axisLabelsAreFixed = true
-            distanceAxis.enableGesturePanning = true
-            distanceAxis.enableGestureZooming = true
-            distanceAxis.enableMomentumPanning = false
-            distanceAxis.enableMomentumZooming = false
+            distanceAxis?.title = "Distance (metres)"
+            distanceAxis?.titleLabel.textColor = UIColor.blue
+//            distanceAxis?.labelFormatString = "%.0f"
+            distanceAxis?.axisLabelsAreFixed = true
+            distanceAxis?.enableGesturePanning = true
+            distanceAxis?.enableGestureZooming = true
+            distanceAxis?.enableMomentumPanning = false
+            distanceAxis?.enableMomentumZooming = false
             chart.yAxis = distanceAxis
 
         default:
@@ -400,19 +400,19 @@ class TDShinobiGraphVC: UIViewController, UIToolbarDelegate, SChartDatasource {
         }
 
         
-        chart.redrawChart()
+        chart.redraw()
     }
     
     func displayNoData() {
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async() {
             guard let hud = self.HUD else {return}
-            if !hud.visible {
-                self.HUD = JGProgressHUD(style: JGProgressHUDStyle.Light)
-                self.HUD?.showInView(self.view)
+            if !hud.isVisible {
+                self.HUD = JGProgressHUD(style: .light)
+                self.HUD?.show(in: self.view)
             }
             self.HUD?.setProgress(1.0, animated: true)
-            self.HUD?.dismissAfterDelay(15.0)
-            self.HUD?.textLabel?.text = "No Heartrate Data"
+            self.HUD?.dismiss(afterDelay: 15.0)
+            self.HUD?.textLabel.text = "No Heartrate Data"
         }
     }
 }
