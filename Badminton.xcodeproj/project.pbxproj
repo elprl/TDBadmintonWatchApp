@@ -10,7 +10,6 @@
 		02985A9C6CB41F460BA9D64C /* Pods_BadmintonUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FEDFCADA364E513D1FFF5FF /* Pods_BadmintonUITests.framework */; };
 		55C6D270A5DA4F004754A8AD /* Pods_Badminton.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 986E8329D89F63F25DD8124D /* Pods_Badminton.framework */; };
 		B4F842DF5AA174C13236A22C /* Pods_BadmintonTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C08C713315718EA79E05AEF7 /* Pods_BadmintonTests.framework */; };
-		DA079CD91BE15D74001D9B52 /* Badminton.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = DA079CD81BE15D74001D9B52 /* Badminton.entitlements */; };
 		DA24E7C51BDC60B400DEC986 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA24E7C41BDC60B400DEC986 /* AppDelegate.swift */; };
 		DA24E7C71BDC60B400DEC986 /* TDWorkoutListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA24E7C61BDC60B400DEC986 /* TDWorkoutListVC.swift */; };
 		DA24E7CA1BDC60B400DEC986 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA24E7C81BDC60B400DEC986 /* Main.storyboard */; };
@@ -28,7 +27,6 @@
 		DA24E8061BDC60B400DEC986 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA24E8051BDC60B400DEC986 /* Assets.xcassets */; };
 		DA6D28C41C5AA94A00FD7CFE /* TDCorePlotFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6D28C31C5AA94A00FD7CFE /* TDCorePlotFactory.swift */; };
 		DA6D28C71C5AF50B00FD7CFE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6D28C61C5AF50B00FD7CFE /* Extensions.swift */; };
-		DA7224F51BDD922400FE23AF /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA7224F41BDD922400FE23AF /* HealthKit.framework */; };
 		DA74C5111BF18232004A3158 /* TDSpeechManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA74C5101BF18232004A3158 /* TDSpeechManager.swift */; };
 		DAB85D2F1BF22B04008C858A /* ShinobiCharts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB85D2E1BF22B04008C858A /* ShinobiCharts.framework */; };
 		DAB85D311BF22B43008C858A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB85D301BF22B43008C858A /* Security.framework */; };
@@ -39,9 +37,10 @@
 		DAB85D3B1BF235E2008C858A /* TDShinobiGraphVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB85D3A1BF235E2008C858A /* TDShinobiGraphVC.swift */; };
 		DAB85D3D1BF24E04008C858A /* TDBadmintonScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB85D3C1BF24E04008C858A /* TDBadmintonScore.swift */; };
 		DAC5E8B41BEBFD00003126CC /* TDGraphVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC5E8B31BEBFD00003126CC /* TDGraphVC.swift */; };
-		DAC85EB71BEBF48B00E0326D /* TDWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC85EB61BEBF48B00E0326D /* TDWorkout.swift */; };
+		DAC85EB71BEBF48B00E0326D /* TDWorkoutEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC85EB61BEBF48B00E0326D /* TDWorkoutEntity.swift */; };
 		DAD4EA9A1BE6776300816B67 /* Settings-Watch.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DAD4EA991BE6776300816B67 /* Settings-Watch.bundle */; };
 		DAD4EA9C1BE6886B00816B67 /* TDWorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD4EA9B1BE6886B00816B67 /* TDWorkoutManager.swift */; };
+		DAF390B62113B07B0098B8BF /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAF390B52113B07B0098B8BF /* HealthKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,7 +109,6 @@
 		ACC7C36D8AA194BEC20B8882 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEDC55C99C91695F05C2B418 /* Pods-BadmintonTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BadmintonTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BadmintonTests/Pods-BadmintonTests.release.xcconfig"; sourceTree = "<group>"; };
 		C08C713315718EA79E05AEF7 /* Pods_BadmintonTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BadmintonTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DA079CD81BE15D74001D9B52 /* Badminton.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Badminton.entitlements; sourceTree = "<group>"; };
 		DA24E7C11BDC60B400DEC986 /* Badminton.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Badminton.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA24E7C41BDC60B400DEC986 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DA24E7C61BDC60B400DEC986 /* TDWorkoutListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TDWorkoutListVC.swift; sourceTree = "<group>"; };
@@ -137,8 +135,6 @@
 		DA24E8071BDC60B400DEC986 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DA6D28C31C5AA94A00FD7CFE /* TDCorePlotFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDCorePlotFactory.swift; sourceTree = "<group>"; };
 		DA6D28C61C5AF50B00FD7CFE /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		DA7224F41BDD922400FE23AF /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
-		DA7224F61BDD939200FE23AF /* Badminton.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Badminton.entitlements; sourceTree = "<group>"; };
 		DA74C5101BF18232004A3158 /* TDSpeechManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDSpeechManager.swift; sourceTree = "<group>"; };
 		DAB85D2E1BF22B04008C858A /* ShinobiCharts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ShinobiCharts.framework; path = ExternalLibs/ShinobiCharts.framework; sourceTree = "<group>"; };
 		DAB85D301BF22B43008C858A /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -150,9 +146,11 @@
 		DAB85D3C1BF24E04008C858A /* TDBadmintonScore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDBadmintonScore.swift; sourceTree = "<group>"; };
 		DAC5E8B21BEBFB8B003126CC /* Badminton-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Badminton-Bridging-Header.h"; path = "Badminton/Badminton-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		DAC5E8B31BEBFD00003126CC /* TDGraphVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDGraphVC.swift; sourceTree = "<group>"; };
-		DAC85EB61BEBF48B00E0326D /* TDWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDWorkout.swift; sourceTree = "<group>"; };
+		DAC85EB61BEBF48B00E0326D /* TDWorkoutEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDWorkoutEntity.swift; sourceTree = "<group>"; };
 		DAD4EA991BE6776300816B67 /* Settings-Watch.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "Settings-Watch.bundle"; sourceTree = "<group>"; };
 		DAD4EA9B1BE6886B00816B67 /* TDWorkoutManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDWorkoutManager.swift; sourceTree = "<group>"; };
+		DAF390B52113B07B0098B8BF /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		DAF390B72113B2DE0098B8BF /* Badminton.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Badminton.entitlements; sourceTree = "<group>"; };
 		F8C81CF6D5ADA6F7A3CF3310 /* Pods-Badminton.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Badminton.release.xcconfig"; path = "Pods/Target Support Files/Pods-Badminton/Pods-Badminton.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -173,7 +171,7 @@
 				DAB85D351BF22B63008C858A /* OpenGLES.framework in Frameworks */,
 				DAB85D331BF22B5A008C858A /* QuartzCore.framework in Frameworks */,
 				DAB85D311BF22B43008C858A /* Security.framework in Frameworks */,
-				DA7224F51BDD922400FE23AF /* HealthKit.framework in Frameworks */,
+				DAF390B62113B07B0098B8BF /* HealthKit.framework in Frameworks */,
 				DAB85D2F1BF22B04008C858A /* ShinobiCharts.framework in Frameworks */,
 				55C6D270A5DA4F004754A8AD /* Pods_Badminton.framework in Frameworks */,
 			);
@@ -221,6 +219,7 @@
 		C5AC6114CB3A1A2A4BDBC5B0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DAF390B52113B07B0098B8BF /* HealthKit.framework */,
 				DAB85D381BF22B95008C858A /* libc++.tbd */,
 				DAB85D361BF22B6A008C858A /* CoreText.framework */,
 				DAB85D341BF22B63008C858A /* OpenGLES.framework */,
@@ -237,7 +236,6 @@
 		DA24E7B81BDC60B400DEC986 = {
 			isa = PBXGroup;
 			children = (
-				DA7224F41BDD922400FE23AF /* HealthKit.framework */,
 				DA24E7C31BDC60B400DEC986 /* Badminton */,
 				DA24E7D81BDC60B400DEC986 /* BadmintonTests */,
 				DA24E7E31BDC60B400DEC986 /* BadmintonUITests */,
@@ -264,6 +262,7 @@
 		DA24E7C31BDC60B400DEC986 /* Badminton */ = {
 			isa = PBXGroup;
 			children = (
+				DAF390B72113B2DE0098B8BF /* Badminton.entitlements */,
 				DA6D28C51C5AF4F200FD7CFE /* Utilities */,
 				DAB85D2D1BF22AEF008C858A /* ExternalsLibs */,
 				DA24E7C41BDC60B400DEC986 /* AppDelegate.swift */,
@@ -296,7 +295,6 @@
 		DA24E7ED1BDC60B400DEC986 /* Badminton WatchKit App */ = {
 			isa = PBXGroup;
 			children = (
-				DA079CD81BE15D74001D9B52 /* Badminton.entitlements */,
 				DA24E7EE1BDC60B400DEC986 /* Interface.storyboard */,
 				DA24E7F11BDC60B400DEC986 /* Assets.xcassets */,
 				DA24E7F31BDC60B400DEC986 /* Info.plist */,
@@ -345,7 +343,6 @@
 		DAC5E8B81BEBFD12003126CC /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				DA7224F61BDD939200FE23AF /* Badminton.entitlements */,
 				DAC5E8B21BEBFB8B003126CC /* Badminton-Bridging-Header.h */,
 				DA24E7CB1BDC60B400DEC986 /* Assets.xcassets */,
 				DA24E7CD1BDC60B400DEC986 /* LaunchScreen.storyboard */,
@@ -358,7 +355,7 @@
 		DAC5E8B91BEBFD45003126CC /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				DAC85EB61BEBF48B00E0326D /* TDWorkout.swift */,
+				DAC85EB61BEBF48B00E0326D /* TDWorkoutEntity.swift */,
 				DAB85D3C1BF24E04008C858A /* TDBadmintonScore.swift */,
 			);
 			name = Model;
@@ -496,6 +493,7 @@
 					DA24E7C01BDC60B400DEC986 = {
 						CreatedOnToolsVersion = 7.1;
 						DevelopmentTeam = WY258SLJLV;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.HealthKit = {
 								enabled = 1;
@@ -513,6 +511,7 @@
 					DA24E7E81BDC60B400DEC986 = {
 						CreatedOnToolsVersion = 7.1;
 						DevelopmentTeam = WY258SLJLV;
+						ProvisioningStyle = Automatic;
 					};
 					DA24E7F71BDC60B400DEC986 = {
 						CreatedOnToolsVersion = 7.1;
@@ -574,7 +573,6 @@
 			files = (
 				DA24E7F21BDC60B400DEC986 /* Assets.xcassets in Resources */,
 				DA24E7F01BDC60B400DEC986 /* Interface.storyboard in Resources */,
-				DA079CD91BE15D74001D9B52 /* Badminton.entitlements in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -735,7 +733,7 @@
 				DA6D28C41C5AA94A00FD7CFE /* TDCorePlotFactory.swift in Sources */,
 				DA6D28C71C5AF50B00FD7CFE /* Extensions.swift in Sources */,
 				DAB85D3B1BF235E2008C858A /* TDShinobiGraphVC.swift in Sources */,
-				DAC85EB71BEBF48B00E0326D /* TDWorkout.swift in Sources */,
+				DAC85EB71BEBF48B00E0326D /* TDWorkoutEntity.swift in Sources */,
 				DAB85D3D1BF24E04008C858A /* TDBadmintonScore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -856,7 +854,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -894,7 +892,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 4.0;
@@ -942,19 +940,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Badminton/Badminton.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Paul Leo (75HQRE3TM6)";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer: Paul Leo (75HQRE3TM6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = WY258SLJLV;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				IBSC_MODULE = Badminton_WatchKit_Extension;
 				INFOPLIST_FILE = "Badminton WatchKit App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.TapDigital.Badminton.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4bc5e4c9-4f0f-4471-83c3-34a90096c7fb";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
 			name = Debug;
 		};
@@ -962,19 +961,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Badminton/Badminton.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Paul Leo (75HQRE3TM6)";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer: Paul Leo (75HQRE3TM6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = WY258SLJLV;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				IBSC_MODULE = Badminton_WatchKit_Extension;
 				INFOPLIST_FILE = "Badminton WatchKit App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.TapDigital.Badminton.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4bc5e4c9-4f0f-4471-83c3-34a90096c7fb";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
 			name = Release;
 		};
@@ -985,9 +985,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Badminton/Badminton.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Paul Leo (75HQRE3TM6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Paul Leo (75HQRE3TM6)";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer: Paul Leo (75HQRE3TM6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = WY258SLJLV;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Badminton/ExternalLibs",
@@ -997,12 +997,12 @@
 					"PL_DEBUG=1",
 				);
 				INFOPLIST_FILE = Badminton/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DTD_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.TapDigital.Badminton;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "53ccc743-3ad4-42ff-b213-49e4fead9436";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Badminton/Badminton-Bridging-Header.h";
 			};
 			name = Debug;
@@ -1014,21 +1014,21 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Badminton/Badminton.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Paul Leo (75HQRE3TM6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Paul Leo (75HQRE3TM6)";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer: Paul Leo (75HQRE3TM6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = WY258SLJLV;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Badminton/ExternalLibs",
 				);
 				GCC_OPTIMIZATION_LEVEL = s;
 				INFOPLIST_FILE = Badminton/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" ";
 				PRODUCT_BUNDLE_IDENTIFIER = com.TapDigital.Badminton;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "53ccc743-3ad4-42ff-b213-49e4fead9436";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Badminton/Badminton-Bridging-Header.h";
 			};
 			name = Release;
@@ -1039,6 +1039,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = BadmintonTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.TapDigital.BadmintonTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1052,6 +1053,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = BadmintonTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.TapDigital.BadmintonTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1064,6 +1066,7 @@
 			baseConfigurationReference = 07E4272699AA9B5DD9D3ED80 /* Pods-BadmintonUITests.debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = BadmintonUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.TapDigital.BadmintonUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1077,6 +1080,7 @@
 			baseConfigurationReference = 83100643A1E0211D0CA0D9A9 /* Pods-BadmintonUITests.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = BadmintonUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.TapDigital.BadmintonUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

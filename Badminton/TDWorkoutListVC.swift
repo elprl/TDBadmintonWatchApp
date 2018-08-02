@@ -20,8 +20,9 @@ func == (left: HKSample, right: HKSample) -> Bool {
 
 class TDWorkoutListVC: UITableViewController {
     
-    var workouts : [HKSample] = [HKSample]()
-    var HUD : JGProgressHUD?
+//    var workouts: [TDWorkoutProtocol] = [TDWorkoutEntity]()
+    var workouts: [HKSample] = [HKSample]()
+    var HUD: JGProgressHUD?
     let speaker = TDSpeechManager()
 
     override func viewDidLoad() {
@@ -104,8 +105,9 @@ class TDWorkoutListVC: UITableViewController {
         
         guard let startDate = notification.userInfo?["workoutStartDate"] as? Date,
             let endDate = notification.userInfo?["workoutEndDate"] as? Date else { return }
-        let workout = TDWorkout(activityType: .badminton, start: startDate, end: endDate)
-        self.workouts.insert(workout, at: 0)
+        let workout = HKWorkout(activityType: .badminton, start: startDate, end: endDate)
+        
+//        self.workouts.insert(TDWorkoutEntity(workoutRecord: workout, samples: nil, scoreData: nil, isProcessing: true), at: 0)
         
         DispatchQueue.main.async() {
             if self.speaker.canSpeak() {
@@ -123,15 +125,15 @@ class TDWorkoutListVC: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath)
         let workout = workouts[indexPath.row]
         let dateString = MHPrettyDate.prettyDate(from: workout.startDate, with: MHPrettyDateFormatWithTime)
-        if workout is TDWorkout {
-            cell.textLabel?.text = dateString! + " (Processing)"
-            cell.selectionStyle = .none
-            cell.accessoryType = .none
-        } else {
+//        if workout is TDWorkout {
+//            cell.textLabel?.text = dateString! + " (Processing)"
+//            cell.selectionStyle = .none
+//            cell.accessoryType = .none
+//        } else {
             cell.textLabel?.text = dateString
-            cell.selectionStyle = .gray
-            cell.accessoryType = .disclosureIndicator
-        }
+//            cell.selectionStyle = .gray
+//            cell.accessoryType = .disclosureIndicator
+//        }
         
         print(workout.metadata ?? "no metadata")
         return cell
