@@ -1,15 +1,18 @@
 use_frameworks!
 workspace 'Badminton'
 
-
 def myPods
-	#pod 'CorePlot', :git => 'https://github.com/core-plot/core-plot.git', :branch => 'release-2.1'
-	#pod 'CorePlot', :git => 'https://github.com/core-plot/core-plot.git', :commit => '24f219e'
 	pod 'CorePlot'
 
 	pod 'JGProgressHUD'
 	pod 'MHPrettyDate'
 	pod 'DateTools'
+    pod 'Viperit'
+end
+
+def testingPods
+    pod 'Quick'
+    pod 'Nimble'
 end
 
 target 'Badminton' do
@@ -22,12 +25,14 @@ target 'BadmintonTests' do
 	platform :ios, '11.0'
 	project 'Badminton.xcodeproj'
 	myPods
+    testingPods
 end
 
 target 'BadmintonUITests' do
 	platform :ios, '11.0'
 	project 'Badminton.xcodeproj'
 	myPods
+    testingPods
 end
 
 target 'Badminton WatchKit Extension' do

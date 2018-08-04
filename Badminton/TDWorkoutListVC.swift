@@ -32,7 +32,7 @@ class TDWorkoutListVC: UITableViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(TDWorkoutListVC.didReceiveUserInfo), name:NSNotification.Name(rawValue: "didReceiveUserInfo"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(TDWorkoutListVC.didHandledAuthorization), name:NSNotification.Name(rawValue: "handledAuthorization"), object: nil)
         
-        HUD = JGProgressHUD(style: JGProgressHUDStyle.dark)
+        HUD = JGProgressHUD(style: .dark)
         HUD?.show(in: self.view)
         HUD?.dismiss(afterDelay: 15.0)
         
@@ -54,14 +54,7 @@ class TDWorkoutListVC: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
-        if let destination = segue.destination as? TDShinobiGraphVC {
-            if let index = sender as? Int {
-                let startDate = workouts[index].startDate
-                let endDate = workouts[index].endDate
-                destination.startDate = startDate
-                destination.endDate = endDate
-            }
-        } else if let destination = segue.destination as? TDGraphVC {
+        if let destination = segue.destination as? TDGraphVC {
             if let index = sender as? Int {
                 let startDate = workouts[index].startDate
                 let endDate = workouts[index].endDate
@@ -107,7 +100,7 @@ class TDWorkoutListVC: UITableViewController {
             let endDate = notification.userInfo?["workoutEndDate"] as? Date else { return }
         let workout = HKWorkout(activityType: .badminton, start: startDate, end: endDate)
         
-//        self.workouts.insert(TDWorkoutEntity(workoutRecord: workout, samples: nil, scoreData: nil, isProcessing: true), at: 0)
+        self.workouts.insert(workout, at: 0)
         
         DispatchQueue.main.async() {
             if self.speaker.canSpeak() {

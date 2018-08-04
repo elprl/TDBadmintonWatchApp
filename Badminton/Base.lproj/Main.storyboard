@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14306.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="RDr-tj-e1K">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.3.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="RDr-tj-e1K">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14278.2"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -34,73 +35,11 @@
                     <navigationItem key="navigationItem" title="Workouts" id="53D-9G-QT5"/>
                     <connections>
                         <segue destination="1gn-dh-2wT" kind="show" identifier="showCPGraphWorkoutId" id="rSC-d9-sva"/>
-                        <segue destination="O1c-Pq-AyR" kind="show" identifier="showShinobiWorkoutId" id="Rjv-b3-cHt"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xyN-4q-VwY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="877" y="365"/>
-        </scene>
-        <!--Workout-->
-        <scene sceneID="L0R-H5-HeA">
-            <objects>
-                <viewController id="O1c-Pq-AyR" customClass="TDShinobiGraphVC" customModule="Badminton" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="1V1-qV-EyJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="EJ3-kP-TKW"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="zph-OB-oGm">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cK2-MO-0pi">
-                                <rect key="frame" x="0.0" y="64" width="600" height="44"/>
-                                <items>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="C5I-t2-7GL"/>
-                                    <barButtonItem style="plain" id="JFe-re-mza">
-                                        <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="3Lb-lg-ctk">
-                                            <rect key="frame" x="150" y="7" width="300" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <segments>
-                                                <segment title="Heartrate"/>
-                                                <segment title="Calories"/>
-                                                <segment title="Steps"/>
-                                                <segment title="Distance"/>
-                                            </segments>
-                                            <connections>
-                                                <action selector="segmentCtrlChanged:" destination="O1c-Pq-AyR" eventType="valueChanged" id="Cg8-Qi-Zlu"/>
-                                            </connections>
-                                        </segmentedControl>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="RMa-hy-ZFB"/>
-                                </items>
-                            </toolbar>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tKC-lE-HeM" customClass="ShinobiChart">
-                                <rect key="frame" x="0.0" y="108" width="600" height="492"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="cK2-MO-0pi" secondAttribute="trailing" constant="-20" id="MJL-pu-7rS"/>
-                            <constraint firstItem="tKC-lE-HeM" firstAttribute="top" secondItem="cK2-MO-0pi" secondAttribute="bottom" id="T14-Vf-E4Q"/>
-                            <constraint firstItem="tKC-lE-HeM" firstAttribute="leading" secondItem="zph-OB-oGm" secondAttribute="leadingMargin" constant="-20" id="bdg-cJ-bin"/>
-                            <constraint firstItem="EJ3-kP-TKW" firstAttribute="top" secondItem="tKC-lE-HeM" secondAttribute="bottom" id="m3o-B3-YLY"/>
-                            <constraint firstItem="cK2-MO-0pi" firstAttribute="leading" secondItem="zph-OB-oGm" secondAttribute="leadingMargin" constant="-20" id="m5L-mt-taq"/>
-                            <constraint firstItem="cK2-MO-0pi" firstAttribute="top" secondItem="1V1-qV-EyJ" secondAttribute="bottom" id="ozS-r2-si7"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="tKC-lE-HeM" secondAttribute="trailing" constant="-20" id="vXE-dP-PGi"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Workout" id="Jth-04-RQa"/>
-                    <connections>
-                        <outlet property="chart" destination="tKC-lE-HeM" id="0yS-R9-OvJ"/>
-                        <outlet property="segmentedCtrl" destination="3Lb-lg-ctk" id="pYz-Ku-otf"/>
-                        <outlet property="toolBar" destination="cK2-MO-0pi" id="WOd-oW-cgO"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yBU-Dk-1Dh" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1551" y="357"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="rIN-iE-TH2">
@@ -176,7 +115,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NLG-K8-vNF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1559" y="1109"/>
+            <point key="canvasLocation" x="1754" y="365"/>
         </scene>
     </scenes>
 </document>

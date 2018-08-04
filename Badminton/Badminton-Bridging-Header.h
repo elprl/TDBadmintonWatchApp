@@ -3,4 +3,3 @@
 //
 
 #import <CorePlot/CorePlot-CocoaTouch.h>
-#import <ShinobiCharts/ShinobiChart.h>
