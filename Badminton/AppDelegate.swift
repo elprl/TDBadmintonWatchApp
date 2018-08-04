@@ -10,7 +10,13 @@ import UIKit
 import HealthKit
 import WatchConnectivity
 import AVFoundation
+import Viperit
 
+//MARK: - Application modules
+enum AppModules: String, ViperitModule {
+    case tDWorkoutList
+    case tDWorkoutDetail
+}
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
@@ -34,8 +40,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
             try avSession.setActive(true)
         } catch {
             
-        }
+        }        
         
+        window = UIWindow(frame: UIScreen.main.bounds)
+        let module = AppModules.tDWorkoutList.build()
+        module.router.show(inWindow: window, embedInNavController: true)
         
         return true
     }
