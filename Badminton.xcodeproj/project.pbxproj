@@ -29,23 +29,11 @@
 		DA6D28C71C5AF50B00FD7CFE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6D28C61C5AF50B00FD7CFE /* Extensions.swift */; };
 		DA74C5111BF18232004A3158 /* TDSpeechManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA74C5101BF18232004A3158 /* TDSpeechManager.swift */; };
 		DAB42C122115E680007F2C52 /* TDWorkoutListDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB42C0C2115E680007F2C52 /* TDWorkoutListDisplayData.swift */; };
-		DAB42C132115E680007F2C52 /* TDWorkoutListDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB42C0C2115E680007F2C52 /* TDWorkoutListDisplayData.swift */; };
-		DAB42C142115E680007F2C52 /* TDWorkoutListDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB42C0C2115E680007F2C52 /* TDWorkoutListDisplayData.swift */; };
 		DAB42C152115E680007F2C52 /* TDWorkoutListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB42C0D2115E680007F2C52 /* TDWorkoutListPresenter.swift */; };
-		DAB42C162115E680007F2C52 /* TDWorkoutListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB42C0D2115E680007F2C52 /* TDWorkoutListPresenter.swift */; };
-		DAB42C172115E680007F2C52 /* TDWorkoutListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB42C0D2115E680007F2C52 /* TDWorkoutListPresenter.swift */; };
 		DAB42C182115E680007F2C52 /* TDWorkoutListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB42C0E2115E680007F2C52 /* TDWorkoutListRouter.swift */; };
-		DAB42C192115E680007F2C52 /* TDWorkoutListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB42C0E2115E680007F2C52 /* TDWorkoutListRouter.swift */; };
-		DAB42C1A2115E680007F2C52 /* TDWorkoutListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB42C0E2115E680007F2C52 /* TDWorkoutListRouter.swift */; };
 		DAB42C1B2115E680007F2C52 /* TDWorkoutListModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB42C0F2115E680007F2C52 /* TDWorkoutListModuleApi.swift */; };
-		DAB42C1C2115E680007F2C52 /* TDWorkoutListModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB42C0F2115E680007F2C52 /* TDWorkoutListModuleApi.swift */; };
-		DAB42C1D2115E680007F2C52 /* TDWorkoutListModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB42C0F2115E680007F2C52 /* TDWorkoutListModuleApi.swift */; };
 		DAB42C1E2115E680007F2C52 /* TDWorkoutListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB42C102115E680007F2C52 /* TDWorkoutListInteractor.swift */; };
-		DAB42C1F2115E680007F2C52 /* TDWorkoutListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB42C102115E680007F2C52 /* TDWorkoutListInteractor.swift */; };
-		DAB42C202115E680007F2C52 /* TDWorkoutListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB42C102115E680007F2C52 /* TDWorkoutListInteractor.swift */; };
 		DAB42C212115E680007F2C52 /* TDWorkoutListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB42C112115E680007F2C52 /* TDWorkoutListView.swift */; };
-		DAB42C222115E680007F2C52 /* TDWorkoutListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB42C112115E680007F2C52 /* TDWorkoutListView.swift */; };
-		DAB42C232115E680007F2C52 /* TDWorkoutListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB42C112115E680007F2C52 /* TDWorkoutListView.swift */; };
 		DAB42C49211605B6007F2C52 /* TDWorkoutDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAB42C42211605B6007F2C52 /* TDWorkoutDetail.storyboard */; };
 		DAB42C4A211605B6007F2C52 /* TDWorkoutDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAB42C42211605B6007F2C52 /* TDWorkoutDetail.storyboard */; };
 		DAB42C4B211605B6007F2C52 /* TDWorkoutDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAB42C42211605B6007F2C52 /* TDWorkoutDetail.storyboard */; };
@@ -70,6 +58,22 @@
 		DAB42C5F21160662007F2C52 /* TDWorkoutList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAB42C5E21160662007F2C52 /* TDWorkoutList.storyboard */; };
 		DAB42C6021160662007F2C52 /* TDWorkoutList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAB42C5E21160662007F2C52 /* TDWorkoutList.storyboard */; };
 		DAB42C6121160662007F2C52 /* TDWorkoutList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAB42C5E21160662007F2C52 /* TDWorkoutList.storyboard */; };
+		DAB42C62211632EE007F2C52 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA24E7C41BDC60B400DEC986 /* AppDelegate.swift */; };
+		DAB42C63211632EE007F2C52 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA24E7C41BDC60B400DEC986 /* AppDelegate.swift */; };
+		DAB42C6421163307007F2C52 /* TDSpeechManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA74C5101BF18232004A3158 /* TDSpeechManager.swift */; };
+		DAB42C6521163308007F2C52 /* TDSpeechManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA74C5101BF18232004A3158 /* TDSpeechManager.swift */; };
+		DAB42C662116330F007F2C52 /* TDWorkoutListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA24E7C61BDC60B400DEC986 /* TDWorkoutListVC.swift */; };
+		DAB42C672116330F007F2C52 /* TDWorkoutListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA24E7C61BDC60B400DEC986 /* TDWorkoutListVC.swift */; };
+		DAB42C6821163312007F2C52 /* TDGraphVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC5E8B31BEBFD00003126CC /* TDGraphVC.swift */; };
+		DAB42C6921163312007F2C52 /* TDGraphVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC5E8B31BEBFD00003126CC /* TDGraphVC.swift */; };
+		DAB42C6A21163315007F2C52 /* TDCorePlotFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6D28C31C5AA94A00FD7CFE /* TDCorePlotFactory.swift */; };
+		DAB42C6B21163316007F2C52 /* TDCorePlotFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6D28C31C5AA94A00FD7CFE /* TDCorePlotFactory.swift */; };
+		DAB42C6C21163319007F2C52 /* TDWorkoutEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC85EB61BEBF48B00E0326D /* TDWorkoutEntity.swift */; };
+		DAB42C6D21163319007F2C52 /* TDWorkoutEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC85EB61BEBF48B00E0326D /* TDWorkoutEntity.swift */; };
+		DAB42C6E2116331C007F2C52 /* TDBadmintonScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB85D3C1BF24E04008C858A /* TDBadmintonScore.swift */; };
+		DAB42C6F2116331D007F2C52 /* TDBadmintonScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB85D3C1BF24E04008C858A /* TDBadmintonScore.swift */; };
+		DAB42C7021163326007F2C52 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6D28C61C5AF50B00FD7CFE /* Extensions.swift */; };
+		DAB42C7121163327007F2C52 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6D28C61C5AF50B00FD7CFE /* Extensions.swift */; };
 		DAB85D311BF22B43008C858A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB85D301BF22B43008C858A /* Security.framework */; };
 		DAB85D331BF22B5A008C858A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB85D321BF22B5A008C858A /* QuartzCore.framework */; };
 		DAB85D351BF22B63008C858A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB85D341BF22B63008C858A /* OpenGLES.framework */; };
@@ -846,17 +850,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAB42C192115E680007F2C52 /* TDWorkoutListRouter.swift in Sources */,
-				DAB42C1C2115E680007F2C52 /* TDWorkoutListModuleApi.swift in Sources */,
 				DAB42C4D211605B6007F2C52 /* TDWorkoutDetailDisplayData.swift in Sources */,
-				DAB42C1F2115E680007F2C52 /* TDWorkoutListInteractor.swift in Sources */,
+				DAB42C6421163307007F2C52 /* TDSpeechManager.swift in Sources */,
+				DAB42C62211632EE007F2C52 /* AppDelegate.swift in Sources */,
 				DAB42C56211605B6007F2C52 /* TDWorkoutDetailModuleApi.swift in Sources */,
-				DAB42C162115E680007F2C52 /* TDWorkoutListPresenter.swift in Sources */,
-				DAB42C132115E680007F2C52 /* TDWorkoutListDisplayData.swift in Sources */,
+				DAB42C6821163312007F2C52 /* TDGraphVC.swift in Sources */,
+				DAB42C662116330F007F2C52 /* TDWorkoutListVC.swift in Sources */,
+				DAB42C6C21163319007F2C52 /* TDWorkoutEntity.swift in Sources */,
 				DAB42C59211605B6007F2C52 /* TDWorkoutDetailInteractor.swift in Sources */,
-				DAB42C222115E680007F2C52 /* TDWorkoutListView.swift in Sources */,
+				DAB42C7021163326007F2C52 /* Extensions.swift in Sources */,
+				DAB42C6A21163315007F2C52 /* TDCorePlotFactory.swift in Sources */,
 				DAB42C5C211605B6007F2C52 /* TDWorkoutDetailView.swift in Sources */,
 				DA24E7DA1BDC60B400DEC986 /* BadmintonTests.swift in Sources */,
+				DAB42C6E2116331C007F2C52 /* TDBadmintonScore.swift in Sources */,
 				DAB42C50211605B6007F2C52 /* TDWorkoutDetailPresenter.swift in Sources */,
 				DAB42C53211605B6007F2C52 /* TDWorkoutDetailRouter.swift in Sources */,
 			);
@@ -866,17 +872,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAB42C1A2115E680007F2C52 /* TDWorkoutListRouter.swift in Sources */,
-				DAB42C1D2115E680007F2C52 /* TDWorkoutListModuleApi.swift in Sources */,
 				DAB42C4E211605B6007F2C52 /* TDWorkoutDetailDisplayData.swift in Sources */,
-				DAB42C202115E680007F2C52 /* TDWorkoutListInteractor.swift in Sources */,
+				DAB42C6521163308007F2C52 /* TDSpeechManager.swift in Sources */,
+				DAB42C63211632EE007F2C52 /* AppDelegate.swift in Sources */,
 				DAB42C57211605B6007F2C52 /* TDWorkoutDetailModuleApi.swift in Sources */,
-				DAB42C172115E680007F2C52 /* TDWorkoutListPresenter.swift in Sources */,
-				DAB42C142115E680007F2C52 /* TDWorkoutListDisplayData.swift in Sources */,
+				DAB42C6921163312007F2C52 /* TDGraphVC.swift in Sources */,
+				DAB42C672116330F007F2C52 /* TDWorkoutListVC.swift in Sources */,
+				DAB42C6D21163319007F2C52 /* TDWorkoutEntity.swift in Sources */,
 				DAB42C5A211605B6007F2C52 /* TDWorkoutDetailInteractor.swift in Sources */,
-				DAB42C232115E680007F2C52 /* TDWorkoutListView.swift in Sources */,
+				DAB42C7121163327007F2C52 /* Extensions.swift in Sources */,
+				DAB42C6B21163316007F2C52 /* TDCorePlotFactory.swift in Sources */,
 				DAB42C5D211605B6007F2C52 /* TDWorkoutDetailView.swift in Sources */,
 				DA24E7E51BDC60B400DEC986 /* BadmintonUITests.swift in Sources */,
+				DAB42C6F2116331D007F2C52 /* TDBadmintonScore.swift in Sources */,
 				DAB42C51211605B6007F2C52 /* TDWorkoutDetailPresenter.swift in Sources */,
 				DAB42C54211605B6007F2C52 /* TDWorkoutDetailRouter.swift in Sources */,
 			);

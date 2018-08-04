@@ -36,6 +36,10 @@ final class TDWorkoutListPresenter: Presenter {
 // MARK: - TDWorkoutListPresenter API
 extension TDWorkoutListPresenter: TDWorkoutListPresenterApi {
     
+    func didSelectRow(at indexPath: IndexPath) {
+        //performSegue(withIdentifier: "showCPGraphWorkoutId", sender: indexPath.row)
+    }
+    
     func didFinishLoadingData() {
         view.hideHUD()
         view.refreshView()
