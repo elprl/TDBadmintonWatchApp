@@ -10,25 +10,7 @@ import XCTest
 import Viperit
 @testable import Badminton
 
-class TDWorkoutListMockView: UserInterface, TDWorkoutListViewApi {
-    //TEST PROPERTIES
-    var expectation: XCTestExpectation!
-    var expectedMessage: String!
-    
-    func displayHUD(with message: String) {
-        print("EXPECTED MESSAGE : \(expectedMessage!)")
-        XCTAssert(message == expectedMessage)
-        expectation.fulfill()
-    }
-    
-    func hideHUD() {
-        //
-    }
-    
-    func refreshView() {
-        //
-    }
-}
+
 
 class BadmintonUITests: XCTestCase {
         

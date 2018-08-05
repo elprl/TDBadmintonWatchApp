@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import HealthKit
 import WatchConnectivity
 import AVFoundation
 import Viperit
@@ -22,7 +21,6 @@ enum AppModules: String, ViperitModule {
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    let healthStore = HKHealthStore()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         
@@ -65,27 +63,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-}
-
-
-// MARK: -- Healthkit authorization from watch
-extension AppDelegate {
     
     func applicationShouldRequestHealthAuthorization(_ application: UIApplication) {
-        self.healthStore.handleAuthorizationForExtension { success, _ in
-            if success {
-                NotificationCenter.default.post(name: NSNotification.Name("handledAuthorization"), object: nil)
-            }
-        }
-    }
-    
-    func isAuthorized() -> Bool {
-        let status = self.healthStore.authorizationStatus(for: HKObjectType.workoutType())
-        if status == .sharingAuthorized {
-            return true
-        }
-        
-        return false
+        TDHealthKitSessionManager.sharedManager.handleAuthorizationForExtension()
     }
 }
+
+
 

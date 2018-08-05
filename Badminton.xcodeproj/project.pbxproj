@@ -8,12 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		02985A9C6CB41F460BA9D64C /* Pods_BadmintonUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FEDFCADA364E513D1FFF5FF /* Pods_BadmintonUITests.framework */; };
+		074FF756B3701433C6446F94 /* Pods_Badminton_WatchKit_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30DC4FC5217F5DB0196142A8 /* Pods_Badminton_WatchKit_Extension.framework */; };
 		55C6D270A5DA4F004754A8AD /* Pods_Badminton.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 986E8329D89F63F25DD8124D /* Pods_Badminton.framework */; };
 		B4F842DF5AA174C13236A22C /* Pods_BadmintonTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C08C713315718EA79E05AEF7 /* Pods_BadmintonTests.framework */; };
 		DA0D6B0221175B800061562C /* TDWatchSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0D6B0121175B800061562C /* TDWatchSessionManager.swift */; };
 		DA0D6B0321175B800061562C /* TDWatchSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0D6B0121175B800061562C /* TDWatchSessionManager.swift */; };
 		DA0D6B0421175B800061562C /* TDWatchSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0D6B0121175B800061562C /* TDWatchSessionManager.swift */; };
 		DA0D6B0521175F3D0061562C /* TDWatchSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0D6B0121175B800061562C /* TDWatchSessionManager.swift */; };
+		DA0D6B082117695E0061562C /* TDHealthKitSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0D6B072117695E0061562C /* TDHealthKitSessionManager.swift */; };
+		DA0D6B092117695E0061562C /* TDHealthKitSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0D6B072117695E0061562C /* TDHealthKitSessionManager.swift */; };
+		DA0D6B0A2117695E0061562C /* TDHealthKitSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0D6B072117695E0061562C /* TDHealthKitSessionManager.swift */; };
 		DA24E7C51BDC60B400DEC986 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA24E7C41BDC60B400DEC986 /* AppDelegate.swift */; };
 		DA24E7C71BDC60B400DEC986 /* TDWorkoutListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA24E7C61BDC60B400DEC986 /* TDWorkoutListVC.swift */; };
 		DA24E7CA1BDC60B400DEC986 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA24E7C81BDC60B400DEC986 /* Main.storyboard */; };
@@ -149,15 +153,18 @@
 
 /* Begin PBXFileReference section */
 		07E4272699AA9B5DD9D3ED80 /* Pods-BadmintonUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BadmintonUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BadmintonUITests/Pods-BadmintonUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		30DC4FC5217F5DB0196142A8 /* Pods_Badminton_WatchKit_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Badminton_WatchKit_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DE873BBB3DE1546BDDF3E89 /* Pods-Badminton.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Badminton.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Badminton/Pods-Badminton.debug.xcconfig"; sourceTree = "<group>"; };
 		83100643A1E0211D0CA0D9A9 /* Pods-BadmintonUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BadmintonUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BadmintonUITests/Pods-BadmintonUITests.release.xcconfig"; sourceTree = "<group>"; };
 		8EDDE1AD0549FD1A7E27B7FB /* Pods-BadmintonTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BadmintonTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BadmintonTests/Pods-BadmintonTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8FEDFCADA364E513D1FFF5FF /* Pods_BadmintonUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BadmintonUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		972EF8C0726FD198E9C5BC27 /* Pods-Badminton WatchKit Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Badminton WatchKit Extension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Badminton WatchKit Extension/Pods-Badminton WatchKit Extension.debug.xcconfig"; sourceTree = "<group>"; };
 		986E8329D89F63F25DD8124D /* Pods_Badminton.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Badminton.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACC7C36D8AA194BEC20B8882 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEDC55C99C91695F05C2B418 /* Pods-BadmintonTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BadmintonTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BadmintonTests/Pods-BadmintonTests.release.xcconfig"; sourceTree = "<group>"; };
 		C08C713315718EA79E05AEF7 /* Pods_BadmintonTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BadmintonTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA0D6B0121175B800061562C /* TDWatchSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TDWatchSessionManager.swift; sourceTree = "<group>"; };
+		DA0D6B072117695E0061562C /* TDHealthKitSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TDHealthKitSessionManager.swift; sourceTree = "<group>"; };
 		DA24E7C11BDC60B400DEC986 /* Badminton.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Badminton.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA24E7C41BDC60B400DEC986 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DA24E7C61BDC60B400DEC986 /* TDWorkoutListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TDWorkoutListVC.swift; sourceTree = "<group>"; };
@@ -212,6 +219,7 @@
 		DAD4EA9B1BE6886B00816B67 /* TDWorkoutManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDWorkoutManager.swift; sourceTree = "<group>"; };
 		DAF390B52113B07B0098B8BF /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		DAF390B72113B2DE0098B8BF /* Badminton.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Badminton.entitlements; sourceTree = "<group>"; };
+		E704F36B26E379E332C2B11A /* Pods-Badminton WatchKit Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Badminton WatchKit Extension.release.xcconfig"; path = "Pods/Target Support Files/Pods-Badminton WatchKit Extension/Pods-Badminton WatchKit Extension.release.xcconfig"; sourceTree = "<group>"; };
 		F8C81CF6D5ADA6F7A3CF3310 /* Pods-Badminton.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Badminton.release.xcconfig"; path = "Pods/Target Support Files/Pods-Badminton/Pods-Badminton.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -257,6 +265,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				074FF756B3701433C6446F94 /* Pods_Badminton_WatchKit_Extension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,6 +281,8 @@
 				AEDC55C99C91695F05C2B418 /* Pods-BadmintonTests.release.xcconfig */,
 				07E4272699AA9B5DD9D3ED80 /* Pods-BadmintonUITests.debug.xcconfig */,
 				83100643A1E0211D0CA0D9A9 /* Pods-BadmintonUITests.release.xcconfig */,
+				972EF8C0726FD198E9C5BC27 /* Pods-Badminton WatchKit Extension.debug.xcconfig */,
+				E704F36B26E379E332C2B11A /* Pods-Badminton WatchKit Extension.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -289,8 +300,18 @@
 				986E8329D89F63F25DD8124D /* Pods_Badminton.framework */,
 				C08C713315718EA79E05AEF7 /* Pods_BadmintonTests.framework */,
 				8FEDFCADA364E513D1FFF5FF /* Pods_BadmintonUITests.framework */,
+				30DC4FC5217F5DB0196142A8 /* Pods_Badminton_WatchKit_Extension.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DA0D6B06211768E40061562C /* Sessions */ = {
+			isa = PBXGroup;
+			children = (
+				DA0D6B0121175B800061562C /* TDWatchSessionManager.swift */,
+				DA0D6B072117695E0061562C /* TDHealthKitSessionManager.swift */,
+			);
+			name = Sessions;
 			sourceTree = "<group>";
 		};
 		DA24E7B81BDC60B400DEC986 = {
@@ -322,9 +343,10 @@
 		DA24E7C31BDC60B400DEC986 /* Badminton */ = {
 			isa = PBXGroup;
 			children = (
-				DAB42C0A2115E5E6007F2C52 /* VIPERModules */,
 				DAF390B72113B2DE0098B8BF /* Badminton.entitlements */,
 				DA24E7C41BDC60B400DEC986 /* AppDelegate.swift */,
+				DAB42C0A2115E5E6007F2C52 /* VIPERModules */,
+				DA0D6B06211768E40061562C /* Sessions */,
 				DA6D28C51C5AF4F200FD7CFE /* Utilities */,
 				DAC5E8BB1BEBFD56003126CC /* View */,
 				DAC5E8BA1BEBFD4D003126CC /* Controller */,
@@ -457,7 +479,6 @@
 				DA24E7C61BDC60B400DEC986 /* TDWorkoutListVC.swift */,
 				DAC5E8B31BEBFD00003126CC /* TDGraphVC.swift */,
 				DA6D28C31C5AA94A00FD7CFE /* TDCorePlotFactory.swift */,
-				DA0D6B0121175B800061562C /* TDWatchSessionManager.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -556,6 +577,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DA24E80A1BDC60B400DEC986 /* Build configuration list for PBXNativeTarget "Badminton WatchKit Extension" */;
 			buildPhases = (
+				DF4C1DDA05CA7D858C735723 /* [CP] Check Pods Manifest.lock */,
 				DA24E7F41BDC60B400DEC986 /* Sources */,
 				DA24E7F51BDC60B400DEC986 /* Frameworks */,
 				DA24E7F61BDC60B400DEC986 /* Resources */,
@@ -822,6 +844,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		DF4C1DDA05CA7D858C735723 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Badminton WatchKit Extension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -848,6 +888,7 @@
 				DAB42C152115E680007F2C52 /* TDWorkoutListPresenter.swift in Sources */,
 				DAB42C52211605B6007F2C52 /* TDWorkoutDetailRouter.swift in Sources */,
 				DAB42C122115E680007F2C52 /* TDWorkoutListDisplayData.swift in Sources */,
+				DA0D6B082117695E0061562C /* TDHealthKitSessionManager.swift in Sources */,
 				DA0D6B0221175B800061562C /* TDWatchSessionManager.swift in Sources */,
 				DAB85D3D1BF24E04008C858A /* TDBadmintonScore.swift in Sources */,
 			);
@@ -859,6 +900,7 @@
 			files = (
 				DAB42C4D211605B6007F2C52 /* TDWorkoutDetailDisplayData.swift in Sources */,
 				DAB42C6421163307007F2C52 /* TDSpeechManager.swift in Sources */,
+				DA0D6B092117695E0061562C /* TDHealthKitSessionManager.swift in Sources */,
 				DAB42C62211632EE007F2C52 /* AppDelegate.swift in Sources */,
 				DAB42C56211605B6007F2C52 /* TDWorkoutDetailModuleApi.swift in Sources */,
 				DA0D6B0321175B800061562C /* TDWatchSessionManager.swift in Sources */,
@@ -882,6 +924,7 @@
 			files = (
 				DAB42C4E211605B6007F2C52 /* TDWorkoutDetailDisplayData.swift in Sources */,
 				DAB42C6521163308007F2C52 /* TDSpeechManager.swift in Sources */,
+				DA0D6B0A2117695E0061562C /* TDHealthKitSessionManager.swift in Sources */,
 				DAB42C63211632EE007F2C52 /* AppDelegate.swift in Sources */,
 				DAB42C57211605B6007F2C52 /* TDWorkoutDetailModuleApi.swift in Sources */,
 				DA0D6B0421175B800061562C /* TDWatchSessionManager.swift in Sources */,
@@ -1048,6 +1091,7 @@
 		};
 		DA24E80B1BDC60B400DEC986 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 972EF8C0726FD198E9C5BC27 /* Pods-Badminton WatchKit Extension.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1066,6 +1110,7 @@
 		};
 		DA24E80C1BDC60B400DEC986 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E704F36B26E379E332C2B11A /* Pods-Badminton WatchKit Extension.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";

@@ -7,7 +7,6 @@
 //
 
 import Foundation
-
 import WatchConnectivity
 
 class TDWatchSessionManager: NSObject, WCSessionDelegate {
@@ -21,6 +20,10 @@ class TDWatchSessionManager: NSObject, WCSessionDelegate {
     
     @available(watchOSApplicationExtension 2.2, *)
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        print("activationDidCompleteWith state: \(activationState.rawValue)")
+        if let err = error {
+            debugPrint(err)
+        }
     }
     
 #if os(iOS)
@@ -32,7 +35,6 @@ class TDWatchSessionManager: NSObject, WCSessionDelegate {
 #endif
 
     var validSession: WCSession? {
-        
         // paired - the user has to have their device paired to the watch
         // watchAppInstalled - the user must have your watch app installed
         
@@ -74,7 +76,7 @@ extension TDWatchSessionManager {
     // Receiver
     func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
         // handle receiving application context
-        
+        print("didReceiveApplicationContext")
         DispatchQueue.main.async {
             // make sure to put on the main queue to update UI!
         }
@@ -94,11 +96,13 @@ extension TDWatchSessionManager {
     func session(_ session: WCSession, didFinish userInfoTransfer: WCSessionUserInfoTransfer, error: Error?) {
         // implement this on the sender if you need to confirm that
         // the user info did in fact transfer
+        print("didFinish userInfoTransfer")
     }
     
     // Receiver
     func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any] = [:]) {
         // handle receiving user info
+        print("didReceiveUserInfo")
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "didReceiveUserInfo"), object: nil, userInfo: userInfo)
     }
     

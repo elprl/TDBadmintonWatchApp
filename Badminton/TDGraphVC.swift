@@ -169,7 +169,7 @@ class TDGraphVC: UIViewController, CPTScatterPlotDataSource, CPTScatterPlotDeleg
             }
             
             if let query = query {
-                appDelegate.healthStore.execute(query)
+                TDHealthKitSessionManager.sharedManager.healthStore.execute(query)
             }
         }
     }

@@ -11,6 +11,7 @@ import XCTest
 import Viperit
 import Quick
 import Nimble
+import HealthKit
 
 class TDWorkoutListMockView: UserInterface, TDWorkoutListViewApi {
     //TEST PROPERTIES
@@ -41,7 +42,9 @@ class TDWorkoutListMockView2: TDWorkoutListView {
     }
 }
 
-class TDWorkoutListSpec: QuickSpec {
+
+
+class TDWorkoutListViewSpec: QuickSpec {
     override func spec() {
         var view: TDWorkoutListMockView2!
         var presenter: TDWorkoutListPresenter!
@@ -49,7 +52,7 @@ class TDWorkoutListSpec: QuickSpec {
         beforeEach {
             var mod = AppModules.tDWorkoutList.build()
             view = TDWorkoutListMockView2()
-            presenter = mod.presenter as! TDWorkoutListPresenter
+            presenter = (mod.presenter as! TDWorkoutListPresenter)
             mod.injectMock(view: view)
         }
         
@@ -79,5 +82,67 @@ class TDWorkoutListSpec: QuickSpec {
         }
         
        
+    }
+}
+
+
+class TDWorkoutListMockPresenter: Presenter, TDWorkoutListPresenterApi {
+    var workouts: [HKSample] = [
+        HKWorkout(activityType: .badminton, start: Date(), end: Date()),
+        HKWorkout(activityType: .badminton, start: Date(), end: Date()),
+        HKWorkout(activityType: .badminton, start: Date(), end: Date())
+    ]
+    
+    func didFinishLoadingData() {
+        //
+    }
+    
+    func setWorkouts(with workouts: [HKSample]) {
+        //
+    }
+    
+    func insertNewSamples(samples: [HKSample]?) {
+        //
+    }
+    
+    func didHandledAuthorization(notification: Notification) {
+        //
+    }
+    
+    func didReceiveUserInfo(notification: Notification) {
+        //
+    }
+    
+    func didSelectRow(at indexPath: IndexPath) {
+        //
+    }
+}
+
+class TDWorkoutListPresenterSpec: QuickSpec {
+    override func spec() {
+        var view: TDWorkoutListView!
+        var presenter: TDWorkoutListMockPresenter!
+        
+        beforeEach {
+            var mod = AppModules.tDWorkoutList.build()
+            view = (mod.view as! TDWorkoutListView)
+            presenter = TDWorkoutListMockPresenter()
+            mod.injectMock(presenter: presenter)
+        }
+        
+        describe("TDWorkoutListPresenterSpec") {
+            beforeEach {
+                let _ =  view.view
+            }
+            
+            context("when the tableview is loaded") {
+                it("should have 3 rows") {
+                    expect(view.tableView.numberOfRows(inSection: 0)).to(equal(3))
+                }
+            }
+           
+        }
+        
+        
     }
 }
