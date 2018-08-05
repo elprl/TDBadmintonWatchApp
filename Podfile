@@ -37,6 +37,5 @@ end
 
 target 'Badminton WatchKit Extension' do
   platform :watchos, '4.0'
-  project 'BadmintonWakt.xcodeproj'
 
 end

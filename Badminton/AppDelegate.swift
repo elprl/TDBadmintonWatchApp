@@ -7,32 +7,25 @@
 //
 
 import UIKit
-import HealthKit
 import WatchConnectivity
 import AVFoundation
 import Viperit
 
-//MARK: - Application modules
+//MARK: - VIPER Application modules
 enum AppModules: String, ViperitModule {
     case tDWorkoutList
     case tDWorkoutDetail
 }
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    let healthStore = HKHealthStore()
-    var session: WCSession!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         
-        session = WCSession.default
-        session.delegate = self
-        
-        if WCSession.isSupported() {
-            session.activate()
-        }
+        // Set up and activate your session early here!
+        TDWatchSessionManager.sharedManager.startSession()
         
         let avSession = AVAudioSession.sharedInstance()
         do {
@@ -71,69 +64,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-    // authorization from watch
     func applicationShouldRequestHealthAuthorization(_ application: UIApplication) {
-        self.healthStore.handleAuthorizationForExtension { success, _ in
-            if success {
-//                NotificationCenter.default.post(name: NSNotification.Name("handledAuthorization"), object: nil)
-            }
-        }
-    }
-    
-    // MARK: WCSessionDelegate
-    
-    func sessionDidBecomeInactive(_ session: WCSession) {
-        
-    }
-    
-    func sessionDidDeactivate(_ session: WCSession) {
-        
-    }
-    
-    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        print("activationDidCompleteWith in AppDelegate")
-    }
-    
-    func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any] = [:]) {
-        print("didReceiveUserInfo in AppDelegate")
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "didReceiveUserInfo"), object:nil, userInfo: userInfo)
-    }
-
-    func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
-        print("didReceiveApplicationContext in AppDelegate")
-    }
-
-    func session(_ session: WCSession, didReceiveMessageData messageData: Data, replyHandler: @escaping (Data) -> Void) {
-        print("didReceiveMessage handler in AppDelegate")
-        let decoder = NSKeyedUnarchiver(forReadingWith: messageData)
-        defer {
-            decoder.finishDecoding()
-        }
-        
-        let type = decoder.decodeObject(forKey: "type") as! String
-        
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "didReceiveUserInfo"), object:nil, userInfo: nil)
-    }
-    
-    func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
-        print("didReceiveMessage in AppDelegate")
-        let decoder = NSKeyedUnarchiver(forReadingWith: messageData)
-        defer {
-            decoder.finishDecoding()
-        }
-        
-        let type = decoder.decodeObject(forKey: "type") as! String
-        
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "didReceiveUserInfo"), object:nil, userInfo: nil)
-    }
-    
-    func isAuthorized() -> Bool {
-        let status = self.healthStore.authorizationStatus(for: HKObjectType.workoutType())
-        if status == .sharingAuthorized {
-            return true
-        }
-        
-        return false
+        TDHealthKitSessionManager.sharedManager.handleAuthorizationForExtension()
     }
 }
+
+
 

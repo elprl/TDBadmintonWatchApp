@@ -7,6 +7,10 @@
 //
 
 import XCTest
+import Viperit
+@testable import Badminton
+
+
 
 class BadmintonUITests: XCTestCase {
         

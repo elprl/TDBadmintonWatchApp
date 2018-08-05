@@ -12,21 +12,26 @@ import JGProgressHUD
 import MHPrettyDate
 
 //MARK: TDWorkoutListView Class
-final class TDWorkoutListView: UserInterface {
+open class TDWorkoutListView: UserInterface {
     @IBOutlet weak var tableView: UITableView!
     var HUD: JGProgressHUD?
-
     
-   
+    // not in extension due to unit test issue
+    func displayHUD(with message: String) {
+        HUD = JGProgressHUD(style: .dark)
+        HUD?.textLabel.text = message
+        HUD?.show(in: self.view)
+        HUD?.dismiss(afterDelay: 15.0)
+    }
 }
 
 //MARK: - UITableView Methods
 extension TDWorkoutListView: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.workouts.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath)
         let workout = presenter.workouts[indexPath.row]
         let dateString = MHPrettyDate.prettyDate(from: workout.startDate, with: MHPrettyDateFormatWithTime)
@@ -45,20 +50,14 @@ extension TDWorkoutListView: UITableViewDelegate, UITableViewDataSource {
     }
     
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "showCPGraphWorkoutId", sender: indexPath.row)
-        //        performSegueWithIdentifier("showShinobiWorkoutId", sender: indexPath.row)
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        performSegue(withIdentifier: "showCPGraphWorkoutId", sender: indexPath.row)
     }
 }
 
 //MARK: - TDWorkoutListView API
 extension TDWorkoutListView: TDWorkoutListViewApi {
-    func displayHUD(with message: String) {
-        HUD = JGProgressHUD(style: .dark)
-        HUD?.textLabel.text = message
-        HUD?.show(in: self.view)
-        HUD?.dismiss(afterDelay: 15.0)
-    }
+
     
     func hideHUD() {
         self.HUD?.dismiss(animated: true)

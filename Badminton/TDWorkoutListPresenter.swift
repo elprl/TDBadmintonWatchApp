@@ -9,12 +9,12 @@
 import Foundation
 import Viperit
 import HealthKit
+import WatchConnectivity
 
 // MARK: - TDWorkoutListPresenter Class
 final class TDWorkoutListPresenter: Presenter {
     var workouts: [HKSample] = [HKSample]()
     let speaker = TDSpeechManager()
-
     
     override func viewHasLoaded() {
         super.viewHasLoaded()
@@ -22,13 +22,11 @@ final class TDWorkoutListPresenter: Presenter {
         NotificationCenter.default.addObserver(self, selector: #selector(TDWorkoutListPresenter.didReceiveUserInfo), name:NSNotification.Name(rawValue: "didReceiveUserInfo"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(TDWorkoutListPresenter.didHandledAuthorization), name:NSNotification.Name(rawValue: "handledAuthorization"), object: nil)
         
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            if appDelegate.isAuthorized() {
-                interactor.createWorkoutsQuery()
-                view.displayHUD(with: "Loading workouts...")
-            } else {
-                view.displayHUD(with: "Awaiting Authorisation...")
-            }
+        if TDHealthKitSessionManager.sharedManager.isAuthorized() {
+            interactor?.createWorkoutsQuery()
+            view?.displayHUD(with: "Loading workouts...")
+        } else {
+            view?.displayHUD(with: "Awaiting Authorisation...")
         }
     }
 }
@@ -36,9 +34,13 @@ final class TDWorkoutListPresenter: Presenter {
 // MARK: - TDWorkoutListPresenter API
 extension TDWorkoutListPresenter: TDWorkoutListPresenterApi {
     
+    func didSelectRow(at indexPath: IndexPath) {
+        //performSegue(withIdentifier: "showCPGraphWorkoutId", sender: indexPath.row)
+    }
+    
     func didFinishLoadingData() {
-        view.hideHUD()
-        view.refreshView()
+        view?.hideHUD()
+        view?.refreshView()
     }
     
     func setWorkouts(with workouts: [HKSample]) {
@@ -54,8 +56,9 @@ extension TDWorkoutListPresenter: TDWorkoutListPresenterApi {
                 }
                 self.workouts.insert(workout, at: 0)
             }
-            DispatchQueue.main.async() {
-                self.didFinishLoadingData()
+            DispatchQueue.main.async() { [weak self] in
+                guard let strongSelf = self else { return }
+                strongSelf.didFinishLoadingData()
             }
         }
     }
@@ -71,25 +74,28 @@ extension TDWorkoutListPresenter: TDWorkoutListPresenterApi {
     }
     
     @objc func didHandledAuthorization(notification: Notification) {
-        DispatchQueue.main.async() {
-            self.interactor.createWorkoutsQuery()
-            self.view.displayHUD(with: "Loading workouts...")
+        DispatchQueue.main.async() { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.interactor?.createWorkoutsQuery()
+            strongSelf.view?.displayHUD(with: "Loading workouts...")
         }
     }
     
     @objc func didReceiveUserInfo(notification: Notification) {
         if let _ = notification.userInfo?["workoutStarted"] as? Bool {
             if speaker.canSpeak() {
-                DispatchQueue.main.async() {
-                    self.speaker.speakMessage(message: "Workout started")
+                DispatchQueue.main.async() { [weak self] in
+                    guard let strongSelf = self else { return }
+                    strongSelf.speaker.speakMessage(message: "Workout started")
                 }
             }
         }
         
         if let score = notification.userInfo?["score"] as? [[Int]] {
             if speaker.canSpeak() {
-                DispatchQueue.main.async() {
-                    self.speaker.speakScore(score: score)
+                DispatchQueue.main.async() { [weak self] in
+                    guard let strongSelf = self else { return }
+                    strongSelf.speaker.speakScore(score: score)
                 }
             }
         }
@@ -100,24 +106,25 @@ extension TDWorkoutListPresenter: TDWorkoutListPresenterApi {
         
         self.workouts.insert(workout, at: 0)
         
-        DispatchQueue.main.async() {
-            if self.speaker.canSpeak() {
-                self.speaker.speakMessage(message: "Workout ended")
+        DispatchQueue.main.async() { [weak self] in
+            guard let strongSelf = self else { return }
+            if strongSelf.speaker.canSpeak() {
+                strongSelf.speaker.speakMessage(message: "Workout ended")
             }
-            self.didFinishLoadingData()
+            strongSelf.didFinishLoadingData()
         }
     }
 }
 
 // MARK: - TDWorkoutList Viper Components
 private extension TDWorkoutListPresenter {
-    var view: TDWorkoutListViewApi {
-        return _view as! TDWorkoutListViewApi
+    var view: TDWorkoutListViewApi? {
+        return _view as? TDWorkoutListViewApi
     }
-    var interactor: TDWorkoutListInteractorApi {
-        return _interactor as! TDWorkoutListInteractorApi
+    var interactor: TDWorkoutListInteractorApi? {
+        return _interactor as? TDWorkoutListInteractorApi
     }
-    var router: TDWorkoutListRouterApi {
-        return _router as! TDWorkoutListRouterApi
+    var router: TDWorkoutListRouterApi? {
+        return _router as? TDWorkoutListRouterApi
     }
 }

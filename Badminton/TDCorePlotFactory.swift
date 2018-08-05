@@ -339,7 +339,7 @@ class TDCorePlotFactory : TDCorePlotFactoryProtocol {
         //        dateFormatter.dateStyle = DateFormatterStyle.ShortStyle
         dateFormatter.dateFormat = "H:mm:ss"
         let timeFormatter = CPTTimeFormatter(dateFormatter:dateFormatter)
-        timeFormatter.referenceDate = startDate.startOfDay
+        timeFormatter.referenceDate = Calendar.current.startOfDay(for: startDate) // startDate.startOfDay
         x.labelFormatter = timeFormatter
 
         x.minorTickLength = CGFloat(2)

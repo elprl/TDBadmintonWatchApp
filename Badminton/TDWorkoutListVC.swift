@@ -36,13 +36,11 @@ class TDWorkoutListVC: UITableViewController {
         HUD?.show(in: self.view)
         HUD?.dismiss(afterDelay: 15.0)
         
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            if appDelegate.isAuthorized() {
-                createWorkoutsQuery()
-                HUD?.textLabel.text = "Loading workouts...";
-            } else {
-                HUD?.textLabel.text = "Awaiting Authorisation...";
-            }
+        if TDHealthKitSessionManager.sharedManager.isAuthorized() {
+            createWorkoutsQuery()
+            HUD?.textLabel.text = "Loading workouts...";
+        } else {
+            HUD?.textLabel.text = "Awaiting Authorisation...";
         }
     }
 
@@ -165,9 +163,7 @@ class TDWorkoutListVC: UITableViewController {
         }
         
 
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            appDelegate.healthStore.execute(workoutsQuery)
-        }
+        TDHealthKitSessionManager.sharedManager.healthStore.execute(workoutsQuery)
     }
     
     func insertNewSamples(samples: [HKSample]?) {

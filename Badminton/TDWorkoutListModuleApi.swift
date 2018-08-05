@@ -28,6 +28,7 @@ protocol TDWorkoutListPresenterApi: PresenterProtocol {
     func insertNewSamples(samples: [HKSample]?)
     func didHandledAuthorization(notification: Notification)
     func didReceiveUserInfo(notification: Notification)
+    func didSelectRow(at indexPath: IndexPath)
 }
 
 //MARK: - TDWorkoutListInteractor API

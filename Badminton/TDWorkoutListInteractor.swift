@@ -45,9 +45,7 @@ extension TDWorkoutListInteractor: TDWorkoutListInteractorApi {
             }
         }
         
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            appDelegate.healthStore.execute(workoutsQuery)
-        }
+        TDHealthKitSessionManager.sharedManager.healthStore.execute(workoutsQuery)
     }
 }
 
