@@ -9,12 +9,12 @@
 import Foundation
 import Viperit
 import HealthKit
+import WatchConnectivity
 
 // MARK: - TDWorkoutListPresenter Class
 final class TDWorkoutListPresenter: Presenter {
     var workouts: [HKSample] = [HKSample]()
     let speaker = TDSpeechManager()
-
     
     override func viewHasLoaded() {
         super.viewHasLoaded()

@@ -15,8 +15,8 @@ import MHPrettyDate
 open class TDWorkoutListView: UserInterface {
     @IBOutlet weak var tableView: UITableView!
     var HUD: JGProgressHUD?
-
     
+    // not in extension due to unit test issue
     func displayHUD(with message: String) {
         HUD = JGProgressHUD(style: .dark)
         HUD?.textLabel.text = message

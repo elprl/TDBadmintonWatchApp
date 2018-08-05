@@ -291,12 +291,10 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
         
         DispatchQueue.global().async { // do some task
             let userInfo : [String: Any] = ["score": self.overallScore]
-            let myDelegate = WKExtension.shared().delegate as! ExtensionDelegate
-            if myDelegate.session.isReachable {
-                myDelegate.session.sendMessage(userInfo, replyHandler: nil, errorHandler: { error in
-                        print(error.localizedDescription)
-                })
-            }
+            TDWatchSessionManager.sharedManager.sendMessage(message: userInfo, replyHandler: nil, errorHandler: { error in
+                print(error.localizedDescription)
+            })
+            
 //            else {
 //                self.transfer = myDelegate.session.transferUserInfo(userInfo)
 //            }
@@ -428,12 +426,9 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
         resetMenuItems()
         _userDefaults.set(startDate.timeIntervalSince1970, forKey: "workoutStartDate")
         let userInfo : [String: Any] = ["workoutStarted": true]
-        let myDelegate = WKExtension.shared().delegate as! ExtensionDelegate
-        if myDelegate.session.isReachable {
-            myDelegate.session.sendMessage(userInfo, replyHandler: nil, errorHandler: { error in
-                print(error.localizedDescription)
-            })
-        }
+        TDWatchSessionManager.sharedManager.sendMessage(message: userInfo, replyHandler: nil, errorHandler: { error in
+            print(error.localizedDescription)
+        })
     }
     
     func workoutSessionManager(workoutSessionManager: TDWorkoutSessionManager, didStopWorkoutWithDate endDate: Date) {
@@ -445,15 +440,9 @@ class InterfaceController: WKInterfaceController, TDWorkoutSessionManagerDelegat
     func workoutSessionManager(workoutSessionManager: TDWorkoutSessionManager, didSaveWorkout workout: HKWorkout) {
         DispatchQueue.main.async {
             let userInfo : [String: Any] = ["workoutStartDate": workout.startDate, "workoutEndDate": workout.endDate, "finalScore": self.overallScore]
-            let myDelegate = WKExtension.shared().delegate as! ExtensionDelegate
-            if myDelegate.session.isReachable {
-                myDelegate.session.sendMessage(userInfo, replyHandler: nil, errorHandler: { error in
-                    print(error.localizedDescription)
-                })
-            }
-//            else {
-//                self.transfer = myDelegate.session.transferUserInfo(userInfo)
-//            }
+            TDWatchSessionManager.sharedManager.sendMessage(message: userInfo, replyHandler: nil, errorHandler: { error in
+                print(error.localizedDescription)
+            })
         }
     }
     

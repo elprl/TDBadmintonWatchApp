@@ -9,16 +9,11 @@
 import WatchKit
 import WatchConnectivity
 
-class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
-
-    var session: WCSession!
+class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
     
     func applicationDidFinishLaunching() {
-
-        session = WCSession.default
-        session.delegate = self
-        session.activate()
+        TDWatchSessionManager.sharedManager.startSession()
     }
 
     func applicationDidBecomeActive() {
@@ -29,18 +24,4 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, etc.
     }
-    
-    func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any] = [:]) {
-        NSLog("didReceiveUserInfo in ExtensionDelegate")
-    }
-    
-    func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
-        NSLog("didReceiveApplicationContext in ExtensionDelegate")
-    }
-    
-    @available(watchOSApplicationExtension 2.2, *)
-    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        
-    }
-
 }
